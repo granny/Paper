@@ -5,9 +5,8 @@
      private static final Logger LOGGER = LogUtils.getLogger();
      private static final Component DISCONNECT_REASON_INVALID_DATA = Component.translatable("multiplayer.disconnect.invalid_player_data");
 -    private final GameProfile gameProfile;
--    private final Queue<ConfigurationTask> configurationTasks = new ConcurrentLinkedQueue<>();
 +    public final GameProfile gameProfile; // Paper
-+    public final Queue<ConfigurationTask> configurationTasks = new ConcurrentLinkedQueue<>(); // Paper
+     private final Queue<ConfigurationTask> configurationTasks = new ConcurrentLinkedQueue<>();
      @Nullable
      private ConfigurationTask currentTask;
 -    private ClientInformation clientInformation;
@@ -61,7 +60,7 @@
      }
  
      @Override
-@@ -139,16 +_,30 @@
+@@ -139,16 +_,36 @@
                  return;
              }
  
@@ -80,9 +79,15 @@
 +                this.disconnect(component);
 +                return;
 +            }
++            ServerPlayer playerForLogin;
++            if (this.connection.savedPlayerForLoginEventLegacy != null) {
++                playerForLogin = this.connection.savedPlayerForLoginEventLegacy;
++                // WE have to do this because the player isnt updated properly
++                playerForLogin.updateOptions(this.clientInformation);
++            } else {
++                playerForLogin = playerList.getPlayerForLogin(this.gameProfile, this.clientInformation);
++            }
 +            // Paper end
-+            ServerPlayer playerForLogin = java.util.Objects.requireNonNullElseGet(this.connection.savedPlayerForLoginEventLegacy, () -> playerList.getPlayerForLogin(this.gameProfile, this.clientInformation));  // Paper - legacy serverlogin
-+            playerForLogin.updateOptions(this.clientInformation); // Paper - update options for legacy player
              playerList.placeNewPlayer(this.connection, playerForLogin, this.createCookie(this.clientInformation));
          } catch (Exception var5) {
              LOGGER.error("Couldn't place player in world", (Throwable)var5);
