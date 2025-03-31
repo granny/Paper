@@ -66,11 +66,11 @@ public class BlockStatePropertyTest {
     public void testBridge() {
         Set<String> missingApiEquivalents = new HashSet<>();
         for (Class<? extends Comparable<?>> value : ENUM_PROPERTY_VALUES) {
-            if (!BlockStateMapping.ENUM_BRIDGE.containsKey(value)) {
+            if (!BlockStateMapping.ENUM_PROPERTY_TYPES.containsKey(value)) {
                 missingApiEquivalents.add(value.getCanonicalName());
             }
         }
 
-        Assertions.assertTrue(missingApiEquivalents.isEmpty(), () -> "Missing some api equivalent in the block state mapping enum bridge (BlockStateMapping#ENUM_BRIDGE) : " + String.join(", ", missingApiEquivalents));
+        Assertions.assertTrue(missingApiEquivalents.isEmpty(), () -> "Missing some api equivalent in the block state mapping enum bridge (BlockStateMapping#ENUM_PROPERTY_TYPES) : " + String.join(", ", missingApiEquivalents));
     }
 }

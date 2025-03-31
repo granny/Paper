@@ -80,7 +80,7 @@ public class DataPropertyWriter extends DataPropertyWriterBase {
             this.type = DataHolderType.MAP;
             this.internalIndexClass = ClassHelper.eraseType(complexType.getActualTypeArguments()[0]);
             if (this.internalIndexClass.isEnum()) {
-                this.indexClass = BlockStateMapping.ENUM_BRIDGE.getOrDefault(this.internalIndexClass, (Class<? extends Enum<?>>) this.internalIndexClass);
+                this.indexClass = BlockStateMapping.ENUM_PROPERTY_TYPES.getOrDefault(this.internalIndexClass, (Class<? extends Enum<?>>) this.internalIndexClass);
                 this.fieldType = ParameterizedTypeName.get(
                     ClassName.get(field.getType()),
                     ClassName.get(this.indexClass),
