@@ -1,14 +1,6 @@
-From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
-From: File <noreply+automated@papermc.io>
-Date: Sun, 20 Apr 1997 06:37:42 -0700
-Subject: [PATCH] paper File Patches
-
-
-diff --git a/net/minecraft/gametest/framework/GameTestMainUtil.java b/net/minecraft/gametest/framework/GameTestMainUtil.java
-index 615292650d6ab22140e0c14616846e586e0f1c6d..4f88262114497a83b556b9f67743e6a153e54f44 100644
 --- a/net/minecraft/gametest/framework/GameTestMainUtil.java
 +++ b/net/minecraft/gametest/framework/GameTestMainUtil.java
-@@ -77,7 +77,7 @@ public class GameTestMainUtil {
+@@ -78,7 +_,7 @@
                  copyPacks(string, string1);
              }
  
@@ -16,4 +8,4 @@ index 615292650d6ab22140e0c14616846e586e0f1c6d..4f88262114497a83b556b9f67743e6a1
 +            LevelStorageSource.LevelStorageAccess levelStorageAccess = LevelStorageSource.createDefault(Paths.get(string)).createAccess("gametestworld", net.minecraft.world.level.dimension.LevelStem.OVERWORLD); // Paper
              PackRepository packRepository = ServerPacksSource.createPackRepository(levelStorageAccess);
              MinecraftServer.spin(
-                 thread -> GameTestServer.create(thread, levelStorageAccess, packRepository, optionalFromOption(optionSet, tests), optionSet.has(verify))
+                 packRepository,

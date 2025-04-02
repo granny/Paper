@@ -1,0 +1,25 @@
+--- a/net/minecraft/gametest/framework/GameTestServer.java
++++ b/net/minecraft/gametest/framework/GameTestServer.java
+@@ -124,7 +_,7 @@
+     }
+ 
+     private GameTestServer(Thread thread, LevelStorageSource.LevelStorageAccess levelStorageAccess, Optional<String> optional, boolean flag) {
+-        super(thread, levelStorageAccess, Proxy.NO_PROXY, DataFixers.getDataFixer(), NO_SERVICES);
++        super(null, null, Proxy.NO_PROXY, DataFixers.getDataFixer(), NO_SERVICES); // Paper
+         this.testSelection = optional;
+         this.verify = flag;
+     }
+@@ -327,6 +_,13 @@
+     public boolean shouldInformAdmins() {
+         return false;
+     }
++
++    // Paper start
++    @Override
++    public org.bukkit.command.CommandSender getBukkitSender(final net.minecraft.commands.CommandSourceStack wrapper) {
++        throw new UnsupportedOperationException("Not supported.");
++    }
++    // Paper end
+ 
+     @Override
+     public boolean isSingleplayerOwner(GameProfile profile) {
