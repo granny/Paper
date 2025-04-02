@@ -1,14 +1,6 @@
-From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
-From: File <noreply+automated@papermc.io>
-Date: Sun, 20 Apr 1997 06:37:42 -0700
-Subject: [PATCH] paper File Patches
-
-
-diff --git a/net/minecraft/CrashReportCategory.java b/net/minecraft/CrashReportCategory.java
-index 3fac94c2121b5353bf8d2fbfee66d6951fe6e105..a089ca328bad2d23948fa868e168bfa905d6a14b 100644
 --- a/net/minecraft/CrashReportCategory.java
 +++ b/net/minecraft/CrashReportCategory.java
-@@ -138,6 +138,7 @@ public class CrashReportCategory {
+@@ -138,6 +_,7 @@
          } else {
              this.stackTrace = new StackTraceElement[stackTrace.length - 3 - size];
              System.arraycopy(stackTrace, 3 + size, this.stackTrace, 0, this.stackTrace.length);
