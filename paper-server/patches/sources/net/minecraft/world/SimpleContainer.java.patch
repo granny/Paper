@@ -1,14 +1,6 @@
-From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
-From: File <noreply+automated@papermc.io>
-Date: Sun, 20 Apr 1997 06:37:42 -0700
-Subject: [PATCH] paper File Patches
-
-
-diff --git a/net/minecraft/world/SimpleContainer.java b/net/minecraft/world/SimpleContainer.java
-index fa2bbc0f6e942540919b17d3f825048d24556b72..133e042371bcf84f1935903ec57d204e3b7abd84 100644
 --- a/net/minecraft/world/SimpleContainer.java
 +++ b/net/minecraft/world/SimpleContainer.java
-@@ -19,7 +19,90 @@ public class SimpleContainer implements Container, StackedContentsCompatible {
+@@ -19,7 +_,90 @@
      @Nullable
      private List<ContainerListener> listeners;
  

@@ -1,14 +1,6 @@
-From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
-From: File <noreply+automated@papermc.io>
-Date: Sun, 20 Apr 1997 06:37:42 -0700
-Subject: [PATCH] paper File Patches
-
-
-diff --git a/net/minecraft/world/scores/ScoreboardSaveData.java b/net/minecraft/world/scores/ScoreboardSaveData.java
-index 60f5879f1a9faa0fb21f8eab00d55a5674cd0159..cf8c8cd6e52febbb74c151ba003d0c6b6e9c8ff8 100644
 --- a/net/minecraft/world/scores/ScoreboardSaveData.java
 +++ b/net/minecraft/world/scores/ScoreboardSaveData.java
-@@ -39,7 +39,7 @@ public class ScoreboardSaveData extends SavedData {
+@@ -39,7 +_,7 @@
              this.scoreboard.getObjectives().stream().map(Objective::pack).toList(),
              this.scoreboard.packPlayerScores(),
              map,

@@ -1,14 +1,6 @@
-From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
-From: File <noreply+automated@papermc.io>
-Date: Sun, 20 Apr 1997 06:37:42 -0700
-Subject: [PATCH] paper File Patches
-
-
-diff --git a/net/minecraft/world/RandomizableContainer.java b/net/minecraft/world/RandomizableContainer.java
-index 4cb1c2d6bc64bf65a553a08d1d259e202456b2b3..c97dffd9cf9bdf70f2bb3d94cc5054ad02d038e1 100644
 --- a/net/minecraft/world/RandomizableContainer.java
 +++ b/net/minecraft/world/RandomizableContainer.java
-@@ -26,7 +26,7 @@ public interface RandomizableContainer extends Container {
+@@ -26,7 +_,7 @@
  
      void setLootTable(@Nullable ResourceKey<LootTable> lootTable);
  
@@ -17,7 +9,7 @@ index 4cb1c2d6bc64bf65a553a08d1d259e202456b2b3..c97dffd9cf9bdf70f2bb3d94cc5054ad
          this.setLootTable(lootTable);
          this.setLootTableSeed(seed);
      }
-@@ -49,8 +49,9 @@ public interface RandomizableContainer extends Container {
+@@ -49,8 +_,9 @@
      default boolean tryLoadLootTable(CompoundTag tag) {
          ResourceKey<LootTable> resourceKey = tag.read("LootTable", LootTable.KEY_CODEC).orElse(null);
          this.setLootTable(resourceKey);
@@ -28,7 +20,7 @@ index 4cb1c2d6bc64bf65a553a08d1d259e202456b2b3..c97dffd9cf9bdf70f2bb3d94cc5054ad
      }
  
      default boolean trySaveLootTable(CompoundTag tag) {
-@@ -59,26 +60,42 @@ public interface RandomizableContainer extends Container {
+@@ -59,26 +_,42 @@
              return false;
          } else {
              tag.store("LootTable", LootTable.KEY_CODEC, lootTable);
@@ -52,9 +44,9 @@ index 4cb1c2d6bc64bf65a553a08d1d259e202456b2b3..c97dffd9cf9bdf70f2bb3d94cc5054ad
          Level level = this.getLevel();
          BlockPos blockPos = this.getBlockPos();
          ResourceKey<LootTable> lootTable = this.getLootTable();
--        if (lootTable != null && level != null && level.getServer() != null) {
+-        if (lootTable != null && level instanceof ServerLevel serverLevel) {
 +        // Paper start - LootTable API
-+        lootReplenish: if (lootTable != null && level != null && level.getServer() != null) {
++        lootReplenish: if (lootTable != null && level instanceof ServerLevel serverLevel) {
 +            if (this.lootableData() != null && !this.lootableData().shouldReplenish(this, com.destroystokyo.paper.loottable.PaperLootableInventoryData.CONTAINER, player)) {
 +                if (forceClearLootTable) {
 +                    this.setLootTable(null);
@@ -62,7 +54,7 @@ index 4cb1c2d6bc64bf65a553a08d1d259e202456b2b3..c97dffd9cf9bdf70f2bb3d94cc5054ad
 +                break lootReplenish;
 +            }
 +            // Paper end - LootTable API
-             LootTable lootTable1 = level.getServer().reloadableRegistries().getLootTable(lootTable);
+             LootTable lootTable1 = serverLevel.theGame().reloadableRegistries().getLootTable(lootTable);
              if (player instanceof ServerPlayer) {
                  CriteriaTriggers.GENERATE_LOOT.trigger((ServerPlayer)player, lootTable);
              }
@@ -73,7 +65,7 @@ index 4cb1c2d6bc64bf65a553a08d1d259e202456b2b3..c97dffd9cf9bdf70f2bb3d94cc5054ad
              LootParams.Builder builder = new LootParams.Builder((ServerLevel)level).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(blockPos));
              if (player != null) {
                  builder.withLuck(player.getLuck()).withParameter(LootContextParams.THIS_ENTITY, player);
-@@ -87,4 +104,17 @@ public interface RandomizableContainer extends Container {
+@@ -87,4 +_,17 @@
              lootTable1.fill(this, builder.create(LootContextParamSets.CHEST), this.getLootTableSeed());
          }
      }

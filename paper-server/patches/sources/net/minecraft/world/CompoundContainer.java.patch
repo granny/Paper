@@ -1,14 +1,6 @@
-From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
-From: File <noreply+automated@papermc.io>
-Date: Sun, 20 Apr 1997 06:37:42 -0700
-Subject: [PATCH] paper File Patches
-
-
-diff --git a/net/minecraft/world/CompoundContainer.java b/net/minecraft/world/CompoundContainer.java
-index 2171ec22fce50c7f69619beba0a0bec7edb9692f..0e9beb7f74e527a95bff064631e6d591f5775ce5 100644
 --- a/net/minecraft/world/CompoundContainer.java
 +++ b/net/minecraft/world/CompoundContainer.java
-@@ -7,6 +7,53 @@ public class CompoundContainer implements Container {
+@@ -7,6 +_,53 @@
      public final Container container1;
      public final Container container2;
  
@@ -62,7 +54,7 @@ index 2171ec22fce50c7f69619beba0a0bec7edb9692f..0e9beb7f74e527a95bff064631e6d591
      public CompoundContainer(Container container1, Container container2) {
          this.container1 = container1;
          this.container2 = container2;
-@@ -58,7 +105,7 @@ public class CompoundContainer implements Container {
+@@ -58,7 +_,7 @@
  
      @Override
      public int getMaxStackSize() {
