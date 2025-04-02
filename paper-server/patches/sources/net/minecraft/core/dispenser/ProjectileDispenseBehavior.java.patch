@@ -1,14 +1,6 @@
-From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
-From: File <noreply+automated@papermc.io>
-Date: Sun, 20 Apr 1997 06:37:42 -0700
-Subject: [PATCH] paper File Patches
-
-
-diff --git a/net/minecraft/core/dispenser/ProjectileDispenseBehavior.java b/net/minecraft/core/dispenser/ProjectileDispenseBehavior.java
-index 389ae0c9f154b9ed75d5cdb029c47c47e5d09c02..493330d4c204dadcb23006f76c49553bd9d7a93c 100644
 --- a/net/minecraft/core/dispenser/ProjectileDispenseBehavior.java
 +++ b/net/minecraft/core/dispenser/ProjectileDispenseBehavior.java
-@@ -27,17 +27,36 @@ public class ProjectileDispenseBehavior extends DefaultDispenseItemBehavior {
+@@ -27,17 +_,36 @@
          ServerLevel serverLevel = blockSource.level();
          Direction direction = blockSource.state().getValue(DispenserBlock.FACING);
          Position dispensePosition = this.dispenseConfig.positionFunction().getDispensePosition(blockSource, direction);

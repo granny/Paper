@@ -1,14 +1,6 @@
-From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
-From: File <noreply+automated@papermc.io>
-Date: Sun, 20 Apr 1997 06:37:42 -0700
-Subject: [PATCH] paper File Patches
-
-
-diff --git a/net/minecraft/core/dispenser/ShulkerBoxDispenseBehavior.java b/net/minecraft/core/dispenser/ShulkerBoxDispenseBehavior.java
-index d0e1eaaa274681a8e761837a00f63e1d3eac6acf..cff52c048ef4ca8e80c8b2ce9ace379846d6892e 100644
 --- a/net/minecraft/core/dispenser/ShulkerBoxDispenseBehavior.java
 +++ b/net/minecraft/core/dispenser/ShulkerBoxDispenseBehavior.java
-@@ -22,10 +22,36 @@ public class ShulkerBoxDispenseBehavior extends OptionalDispenseItemBehavior {
+@@ -22,10 +_,36 @@
              BlockPos blockPos = blockSource.pos().relative(direction);
              Direction direction1 = blockSource.level().isEmptyBlock(blockPos.below()) ? direction : Direction.UP;
  

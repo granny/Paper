@@ -1,14 +1,6 @@
-From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
-From: File <noreply+automated@papermc.io>
-Date: Sun, 20 Apr 1997 06:37:42 -0700
-Subject: [PATCH] paper File Patches
-
-
-diff --git a/net/minecraft/core/dispenser/MinecartDispenseItemBehavior.java b/net/minecraft/core/dispenser/MinecartDispenseItemBehavior.java
-index 2a66d002c7fd09817098a72edab1b4297b874fb8..9be3859a39aacad6d9ac7df1660e64aa6cc562b2 100644
 --- a/net/minecraft/core/dispenser/MinecartDispenseItemBehavior.java
 +++ b/net/minecraft/core/dispenser/MinecartDispenseItemBehavior.java
-@@ -57,12 +57,35 @@ public class MinecartDispenseItemBehavior extends DefaultDispenseItemBehavior {
+@@ -57,12 +_,35 @@
          }
  
          Vec3 vec31 = new Vec3(d, d1 + d3, d2);
