@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/animal/horse/Llama.java b/net/minecraft/world/entity/animal/horse/Llama.java
+index e30938dc822f26b55acae4ad33a184fd776ead6e..6916adb865ff8fea498d3a61c2b5560472a223f4 100644
 --- a/net/minecraft/world/entity/animal/horse/Llama.java
 +++ b/net/minecraft/world/entity/animal/horse/Llama.java
-@@ -76,17 +_,23 @@
+@@ -76,17 +76,23 @@ public class Llama extends AbstractChestedHorse implements RangedAttackMob {
      @Nullable
      private Llama caravanHead;
      @Nullable
@@ -25,7 +33,7 @@
      private void setStrength(int strength) {
          this.entityData.set(DATA_STRENGTH_ID, Math.max(1, Math.min(5, strength)));
      }
-@@ -193,12 +_,12 @@
+@@ -193,12 +199,12 @@ public class Llama extends AbstractChestedHorse implements RangedAttackMob {
              f = 10.0F;
              if (this.isTamed() && this.getAge() == 0 && this.canFallInLove()) {
                  flag = true;
@@ -40,7 +48,7 @@
              flag = true;
          }
  
-@@ -312,7 +_,7 @@
+@@ -312,7 +318,7 @@ public class Llama extends AbstractChestedHorse implements RangedAttackMob {
  
      @Override
      public int getMaxTemper() {

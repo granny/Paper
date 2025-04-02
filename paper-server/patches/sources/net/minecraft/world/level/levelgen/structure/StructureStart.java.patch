@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/levelgen/structure/StructureStart.java b/net/minecraft/world/level/levelgen/structure/StructureStart.java
+index 5ea902288201a483722ec2be481d0546937b0a2d..f9a15c3769f29af1952ef880f6fcd2612119ecf0 100644
 --- a/net/minecraft/world/level/levelgen/structure/StructureStart.java
 +++ b/net/minecraft/world/level/levelgen/structure/StructureStart.java
-@@ -30,6 +_,12 @@
+@@ -30,6 +30,12 @@ public final class StructureStart {
      @Nullable
      private volatile BoundingBox cachedBoundingBox;
  
@@ -13,7 +21,7 @@
      public StructureStart(Structure structure, ChunkPos chunkPos, int references, PiecesContainer pieceContainer) {
          this.structure = structure;
          this.chunkPos = chunkPos;
-@@ -87,11 +_,23 @@
+@@ -87,11 +93,23 @@ public final class StructureStart {
              BlockPos center = boundingBox.getCenter();
              BlockPos blockPos = new BlockPos(center.getX(), boundingBox.minY(), center.getZ());
  
@@ -40,7 +48,7 @@
  
              this.structure.afterPlace(level, structureManager, generator, random, box, chunkPos, this.pieceContainer);
          }
-@@ -99,6 +_,11 @@
+@@ -99,6 +117,11 @@ public final class StructureStart {
  
      public CompoundTag createTag(StructurePieceSerializationContext context, ChunkPos chunkPos) {
          CompoundTag compoundTag = new CompoundTag();

@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/server/level/ServerEntity.java b/net/minecraft/server/level/ServerEntity.java
+index 9b13a536dc7a9d5d71eb8dbf75597ccdc4bc8f2a..3f83a589442a80e9c16b5e9cd0f50792defd12bc 100644
 --- a/net/minecraft/server/level/ServerEntity.java
 +++ b/net/minecraft/server/level/ServerEntity.java
-@@ -69,11 +_,12 @@
+@@ -69,11 +69,12 @@ public class ServerEntity {
      private Vec3 lastSentMovement;
      private int tickCount;
      private int teleportDelay;
@@ -14,7 +22,7 @@
  
      public ServerEntity(
          ServerLevel level,
-@@ -81,8 +_,12 @@
+@@ -81,8 +82,12 @@ public class ServerEntity {
          int updateInterval,
          boolean trackDelta,
          Consumer<Packet<?>> broadcast,
@@ -28,7 +36,7 @@
          this.level = level;
          this.broadcast = broadcast;
          this.entity = entity;
-@@ -106,13 +_,14 @@
+@@ -106,13 +111,14 @@ public class ServerEntity {
              this.lastPassengers = passengers;
          }
  
@@ -47,7 +55,7 @@
                          savedData.tickCarriedBy(serverPlayer, item);
                          Packet<?> updatePacket = savedData.getUpdatePacket(mapId, serverPlayer);
                          if (updatePacket != null) {
-@@ -145,7 +_,13 @@
+@@ -145,7 +151,13 @@ public class ServerEntity {
              } else {
                  this.teleportDelay++;
                  Vec3 vec3 = this.entity.trackingPosition();
@@ -62,7 +70,7 @@
                  Packet<?> packet = null;
                  boolean flag2 = flag1 || this.tickCount % 60 == 0;
                  boolean flag3 = false;
-@@ -223,6 +_,25 @@
+@@ -223,6 +235,25 @@ public class ServerEntity {
  
          this.tickCount++;
          if (this.entity.hurtMarked) {
@@ -88,7 +96,7 @@
              this.entity.hurtMarked = false;
              this.broadcastAndSend(new ClientboundSetEntityMotionPacket(this.entity));
          }
-@@ -280,7 +_,10 @@
+@@ -280,7 +311,10 @@ public class ServerEntity {
  
      public void sendPairingData(ServerPlayer player, Consumer<Packet<ClientGamePacketListener>> consumer) {
          if (this.entity.isRemoved()) {
@@ -100,7 +108,7 @@
          }
  
          Packet<ClientGamePacketListener> addEntityPacket = this.entity.getAddEntityPacket(this);
-@@ -292,6 +_,12 @@
+@@ -292,6 +326,12 @@ public class ServerEntity {
          boolean flag = this.trackDelta;
          if (this.entity instanceof LivingEntity) {
              Collection<AttributeInstance> syncableAttributes = ((LivingEntity)this.entity).getAttributes().getSyncableAttributes();
@@ -113,7 +121,7 @@
              if (!syncableAttributes.isEmpty()) {
                  consumer.accept(new ClientboundUpdateAttributesPacket(this.entity.getId(), syncableAttributes));
              }
-@@ -316,8 +_,9 @@
+@@ -316,8 +356,9 @@ public class ServerEntity {
              }
  
              if (!list.isEmpty()) {
@@ -124,7 +132,7 @@
          }
  
          if (!this.entity.getPassengers().isEmpty()) {
-@@ -364,6 +_,11 @@
+@@ -364,6 +405,11 @@ public class ServerEntity {
          if (this.entity instanceof LivingEntity) {
              Set<AttributeInstance> attributesToSync = ((LivingEntity)this.entity).getAttributes().getAttributesToSync();
              if (!attributesToSync.isEmpty()) {

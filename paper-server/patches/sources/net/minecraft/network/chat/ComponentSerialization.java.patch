@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/network/chat/ComponentSerialization.java b/net/minecraft/network/chat/ComponentSerialization.java
+index 7b015e555b90f84fe4252d478aa51ed736772ab5..20bd9319a3a51cb3652f2b7bf5befec28a39c3fa 100644
 --- a/net/minecraft/network/chat/ComponentSerialization.java
 +++ b/net/minecraft/network/chat/ComponentSerialization.java
-@@ -35,9 +_,31 @@
+@@ -35,9 +35,31 @@ import net.minecraft.util.StringRepresentable;
  
  public class ComponentSerialization {
      public static final Codec<Component> CODEC = Codec.recursive("Component", ComponentSerialization::createCodec);
@@ -34,7 +42,7 @@
      public static final StreamCodec<RegistryFriendlyByteBuf, Optional<Component>> TRUSTED_OPTIONAL_STREAM_CODEC = TRUSTED_STREAM_CODEC.apply(
          ByteBufCodecs::optional
      );
-@@ -94,7 +_,25 @@
+@@ -94,7 +116,25 @@ public class ComponentSerialization {
          return ExtraCodecs.orCompressed(mapCodec2, mapCodec1);
      }
  
@@ -60,7 +68,7 @@
          ComponentContents.Type<?>[] types = new ComponentContents.Type[]{
              PlainTextContents.TYPE, TranslatableContents.TYPE, KeybindContents.TYPE, ScoreContents.TYPE, SelectorContents.TYPE, NbtContents.TYPE
          };
-@@ -107,6 +_,34 @@
+@@ -107,6 +147,34 @@ public class ComponentSerialization {
                  )
                  .apply(instance, MutableComponent::new)
          );

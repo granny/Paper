@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/GrowingPlantHeadBlock.java b/net/minecraft/world/level/block/GrowingPlantHeadBlock.java
+index 8e7b690cfb67bb220ff9767f417b7b3a30a1f531..fe11f3ec82ebdbdf3d024d7273fb16b6823b1ece 100644
 --- a/net/minecraft/world/level/block/GrowingPlantHeadBlock.java
 +++ b/net/minecraft/world/level/block/GrowingPlantHeadBlock.java
-@@ -44,13 +_,31 @@
+@@ -44,14 +44,32 @@ public abstract class GrowingPlantHeadBlock extends GrowingPlantBlock implements
  
      @Override
      protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
@@ -25,12 +33,13 @@
              }
          }
      }
-+
+ 
 +    // Paper start - Fix Spigot growth modifiers
 +    protected BlockState getGrowIntoState(BlockState state, RandomSource random, @javax.annotation.Nullable Level level) {
 +        return this.getGrowIntoState(state, random);
 +    }
 +    // Paper end - Fix Spigot growth modifiers
- 
++
      protected BlockState getGrowIntoState(BlockState state, RandomSource random) {
          return state.cycle(AGE);
+     }

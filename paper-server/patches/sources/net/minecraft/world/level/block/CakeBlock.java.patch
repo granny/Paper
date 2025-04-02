@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/CakeBlock.java b/net/minecraft/world/level/block/CakeBlock.java
+index 0aac5c7faf62d348a417194e3e4e15de28e92ec1..72236993ebc4fbfc8b6316577caaa9c780bd447b 100644
 --- a/net/minecraft/world/level/block/CakeBlock.java
 +++ b/net/minecraft/world/level/block/CakeBlock.java
-@@ -57,6 +_,12 @@
+@@ -57,6 +57,12 @@ public class CakeBlock extends Block {
      ) {
          Item item = stack.getItem();
          if (stack.is(ItemTags.CANDLES) && state.getValue(BITES) == 0 && Block.byItem(item) instanceof CandleBlock candleBlock) {
@@ -13,7 +21,7 @@
              stack.consume(1, player);
              level.playSound(null, pos, SoundEvents.CAKE_ADD_CANDLE, SoundSource.BLOCKS, 1.0F, 1.0F);
              level.setBlockAndUpdate(pos, CandleCakeBlock.byCandle(candleBlock));
-@@ -87,9 +_,28 @@
+@@ -87,9 +93,28 @@ public class CakeBlock extends Block {
          if (!player.canEat(false)) {
              return InteractionResult.PASS;
          } else {

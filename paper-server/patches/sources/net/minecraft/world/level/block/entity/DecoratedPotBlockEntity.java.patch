@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/entity/DecoratedPotBlockEntity.java b/net/minecraft/world/level/block/entity/DecoratedPotBlockEntity.java
+index 5a160a0eaddab38d281c2a4f732619b43b6afa3e..25bf19ccbd920538dba82fa20de214f374b8c3f2 100644
 --- a/net/minecraft/world/level/block/entity/DecoratedPotBlockEntity.java
 +++ b/net/minecraft/world/level/block/entity/DecoratedPotBlockEntity.java
-@@ -24,6 +_,48 @@
+@@ -24,6 +24,48 @@ import net.minecraft.world.level.storage.loot.LootTable;
  import net.minecraft.world.ticks.ContainerSingleItem;
  
  public class DecoratedPotBlockEntity extends BlockEntity implements RandomizableContainer, ContainerSingleItem.BlockContainerSingleItem {
@@ -49,7 +57,7 @@
      public static final String TAG_SHERDS = "sherds";
      public static final String TAG_ITEM = "item";
      public static final int EVENT_POT_WOBBLES = 1;
-@@ -48,8 +_,8 @@
+@@ -48,8 +90,8 @@ public class DecoratedPotBlockEntity extends BlockEntity implements Randomizable
              tag.store("sherds", PotDecorations.CODEC, this.decorations);
          }
  
@@ -60,7 +68,7 @@
          }
      }
  
-@@ -72,7 +_,14 @@
+@@ -72,7 +114,14 @@ public class DecoratedPotBlockEntity extends BlockEntity implements Randomizable
  
      @Override
      public CompoundTag getUpdateTag(HolderLookup.Provider registries) {

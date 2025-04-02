@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/animal/armadillo/Armadillo.java b/net/minecraft/world/entity/animal/armadillo/Armadillo.java
+index 831e00a0ff0f894c26da9945612660a6f64df68e..b72e07ad954efa7f26f876a59f428086b40d9bb2 100644
 --- a/net/minecraft/world/entity/animal/armadillo/Armadillo.java
 +++ b/net/minecraft/world/entity/animal/armadillo/Armadillo.java
-@@ -142,10 +_,12 @@
+@@ -142,10 +142,12 @@ public class Armadillo extends Animal {
          ArmadilloAi.updateActivity(this);
          profilerFiller.pop();
          if (this.isAlive() && !this.isBaby() && --this.scuteTime <= 0) {
@@ -13,7 +21,7 @@
  
              this.scuteTime = this.pickNextScuteDropTime();
          }
-@@ -282,8 +_,11 @@
+@@ -282,8 +284,11 @@ public class Armadillo extends Animal {
      }
  
      @Override
@@ -27,7 +35,7 @@
          if (!this.isNoAi() && !this.isDeadOrDying()) {
              if (damageSource.getEntity() instanceof LivingEntity) {
                  this.getBrain().setMemoryWithExpiry(MemoryModuleType.DANGER_DETECTED_RECENTLY, true, 80L);
-@@ -294,6 +_,7 @@
+@@ -294,6 +299,7 @@ public class Armadillo extends Animal {
                  this.rollOut();
              }
          }
@@ -35,7 +43,7 @@
      }
  
      @Override
-@@ -312,7 +_,9 @@
+@@ -312,7 +318,9 @@ public class Armadillo extends Animal {
              return false;
          } else {
              if (this.level() instanceof ServerLevel serverLevel) {

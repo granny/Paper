@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/chunk/status/ChunkStatusTasks.java b/net/minecraft/world/level/chunk/status/ChunkStatusTasks.java
+index 78dca709b9cbae5fd8360ae2cf40eaa4d6b90c48..dc9c612b245275900ae43f7a45e7be755853207c 100644
 --- a/net/minecraft/world/level/chunk/status/ChunkStatusTasks.java
 +++ b/net/minecraft/world/level/chunk/status/ChunkStatusTasks.java
-@@ -35,7 +_,7 @@
+@@ -35,7 +35,7 @@ public class ChunkStatusTasks {
          WorldGenContext worldGenContext, ChunkStep step, StaticCache2D<GenerationChunkHolder> cache, ChunkAccess chunk
      ) {
          ServerLevel serverLevel = worldGenContext.level();
@@ -9,13 +17,11 @@
              worldGenContext.generator()
                  .createStructures(
                      serverLevel.registryAccess(),
-@@ -198,7 +_,58 @@
+@@ -198,7 +198,58 @@ public class ChunkStatusTasks {
  
      public static void postLoadProtoChunk(ServerLevel level, List<CompoundTag> entityTags) {
          if (!entityTags.isEmpty()) {
 -            level.addWorldGenChunkEntities(EntityType.loadEntitiesRecursive(entityTags, level, EntitySpawnReason.LOAD));
--        }
--    }
 +            // CraftBukkit start - these are spawned serialized (DefinedStructure) and we don't call an add event below at the moment due to ordering complexities
 +            level.addWorldGenChunkEntities(EntityType.loadEntitiesRecursive(entityTags, level, EntitySpawnReason.LOAD).filter((entity) -> {
 +                boolean needsRemoval = false;
@@ -66,8 +72,8 @@
 +                default:
 +                    break;
 +            }
-+        }
+         }
 +        return false;
-+    }
+     }
 +    // Paper end - duplicate uuid resolving
  }

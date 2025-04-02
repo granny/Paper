@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/SignBlock.java b/net/minecraft/world/level/block/SignBlock.java
+index a953931210d3f970351ce2f09996164bfc1e7d72..ca2289a0e47d90d3ca07e4678dac0d6bea416953 100644
 --- a/net/minecraft/world/level/block/SignBlock.java
 +++ b/net/minecraft/world/level/block/SignBlock.java
-@@ -133,7 +_,7 @@
+@@ -133,7 +133,7 @@ public abstract class SignBlock extends BaseEntityBlock implements SimpleWaterlo
              } else if (!this.otherPlayerIsEditingSign(player, signBlockEntity)
                  && player.mayBuild()
                  && this.hasEditableText(player, signBlockEntity, isFacingFrontText)) {
@@ -9,7 +17,7 @@
                  return InteractionResult.SUCCESS_SERVER;
              } else {
                  return InteractionResult.PASS;
-@@ -175,7 +_,34 @@
+@@ -175,7 +175,34 @@ public abstract class SignBlock extends BaseEntityBlock implements SimpleWaterlo
          return woodType;
      }
  
@@ -44,7 +52,7 @@
          signEntity.setAllowedPlayerEditor(player.getUUID());
          player.openTextEdit(signEntity, isFrontText);
      }
-@@ -188,6 +_,6 @@
+@@ -188,6 +215,6 @@ public abstract class SignBlock extends BaseEntityBlock implements SimpleWaterlo
      @Nullable
      @Override
      public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {

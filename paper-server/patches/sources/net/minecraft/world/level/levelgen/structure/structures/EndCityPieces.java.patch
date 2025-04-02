@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/levelgen/structure/structures/EndCityPieces.java b/net/minecraft/world/level/levelgen/structure/structures/EndCityPieces.java
+index 6689de7c79a2fc59f5378c58dfe3beb4b278c99c..566391372ebd56db789260c2e9f9726665364e08 100644
 --- a/net/minecraft/world/level/levelgen/structure/structures/EndCityPieces.java
 +++ b/net/minecraft/world/level/levelgen/structure/structures/EndCityPieces.java
-@@ -390,7 +_,10 @@
+@@ -390,7 +390,10 @@ public class EndCityPieces {
              if (name.startsWith("Chest")) {
                  BlockPos blockPos = pos.below();
                  if (box.isInside(blockPos)) {

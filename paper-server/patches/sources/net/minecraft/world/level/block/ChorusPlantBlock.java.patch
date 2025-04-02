@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/ChorusPlantBlock.java b/net/minecraft/world/level/block/ChorusPlantBlock.java
+index 91298f54d077d4f2d9aa764759e9e5d4db301ffa..47f3b008b252678105368dc577ed66353ff50eb3 100644
 --- a/net/minecraft/world/level/block/ChorusPlantBlock.java
 +++ b/net/minecraft/world/level/block/ChorusPlantBlock.java
-@@ -38,6 +_,7 @@
+@@ -38,6 +38,7 @@ public class ChorusPlantBlock extends PipeBlock {
  
      @Override
      public BlockState getStateForPlacement(BlockPlaceContext context) {
@@ -8,7 +16,7 @@
          return getStateWithConnections(context.getLevel(), context.getClickedPos(), this.defaultBlockState());
      }
  
-@@ -68,6 +_,7 @@
+@@ -68,6 +69,7 @@ public class ChorusPlantBlock extends PipeBlock {
          BlockState neighborState,
          RandomSource random
      ) {
@@ -16,7 +24,7 @@
          if (!state.canSurvive(level, pos)) {
              scheduledTickAccess.scheduleTick(pos, this, 1);
              return super.updateShape(state, level, scheduledTickAccess, pos, direction, neighborPos, neighborState, random);
-@@ -81,6 +_,7 @@
+@@ -81,6 +83,7 @@ public class ChorusPlantBlock extends PipeBlock {
  
      @Override
      protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
@@ -24,7 +32,7 @@
          if (!state.canSurvive(level, pos)) {
              level.destroyBlock(pos, true);
          }
-@@ -88,6 +_,7 @@
+@@ -88,6 +91,7 @@ public class ChorusPlantBlock extends PipeBlock {
  
      @Override
      protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {

@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/network/syncher/SynchedEntityData.java b/net/minecraft/network/syncher/SynchedEntityData.java
+index 48b00c508b60f55c584f28d940f684db929a983a..f1ab0e66e7d464f7f31a7a360528ed97cdda0aa0 100644
 --- a/net/minecraft/network/syncher/SynchedEntityData.java
 +++ b/net/minecraft/network/syncher/SynchedEntityData.java
-@@ -67,6 +_,13 @@
+@@ -67,6 +67,13 @@ public class SynchedEntityData {
          }
      }
  
@@ -14,11 +22,10 @@
      public boolean isDirty() {
          return this.isDirty;
      }
-@@ -169,6 +_,19 @@
-             return new SynchedEntityData(this.entity, this.itemsById);
+@@ -170,6 +177,19 @@ public class SynchedEntityData {
          }
      }
-+
+ 
 +    // Paper start
 +    // We need to pack all as we cannot rely on "non default values" or "dirty" ones.
 +    // Because these values can possibly be desynced on the client.
@@ -31,6 +38,7 @@
 +        return list;
 +    }
 +    // Paper end
- 
++
      public static class DataItem<T> {
          final EntityDataAccessor<T> accessor;
+         T value;

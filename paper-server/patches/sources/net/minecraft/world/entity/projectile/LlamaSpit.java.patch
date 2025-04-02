@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/projectile/LlamaSpit.java b/net/minecraft/world/entity/projectile/LlamaSpit.java
+index e4e79c7ce0b4efa962e8a336a0d1c8ececca20fc..f736f72b8e76dd82236badcdd2756f0d4da89aa4 100644
 --- a/net/minecraft/world/entity/projectile/LlamaSpit.java
 +++ b/net/minecraft/world/entity/projectile/LlamaSpit.java
-@@ -43,16 +_,16 @@
+@@ -43,16 +43,16 @@ public class LlamaSpit extends Projectile {
          super.tick();
          Vec3 deltaMovement = this.getDeltaMovement();
          HitResult hitResultOnMoveVector = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
@@ -20,7 +28,7 @@
          } else {
              this.setDeltaMovement(deltaMovement.scale(0.99F));
              this.applyGravity();
-@@ -76,7 +_,7 @@
+@@ -76,7 +76,7 @@ public class LlamaSpit extends Projectile {
      protected void onHitBlock(BlockHitResult result) {
          super.onHitBlock(result);
          if (!this.level().isClientSide) {

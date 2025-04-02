@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/core/dispenser/ShearsDispenseItemBehavior.java b/net/minecraft/core/dispenser/ShearsDispenseItemBehavior.java
+index 51206597d13d8c2d539268b92c076377f2d1573d..c1bd6d91cf9828ccc7275efe0f5c959c0f457c13 100644
 --- a/net/minecraft/core/dispenser/ShearsDispenseItemBehavior.java
 +++ b/net/minecraft/core/dispenser/ShearsDispenseItemBehavior.java
-@@ -20,9 +_,30 @@
+@@ -20,9 +20,30 @@ public class ShearsDispenseItemBehavior extends OptionalDispenseItemBehavior {
      @Override
      protected ItemStack execute(BlockSource blockSource, ItemStack item) {
          ServerLevel serverLevel = blockSource.level();
@@ -32,7 +40,7 @@
              if (this.isSuccess()) {
                  item.hurtAndBreak(1, serverLevel, null, item1 -> {});
              }
-@@ -50,10 +_,18 @@
+@@ -50,10 +71,18 @@ public class ShearsDispenseItemBehavior extends OptionalDispenseItemBehavior {
          return false;
      }
  

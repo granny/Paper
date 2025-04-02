@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/CoralPlantBlock.java b/net/minecraft/world/level/block/CoralPlantBlock.java
+index 4dab0a98685c75327c947f839d839346eb7064f2..20396db7afb93bc8ea5b7ae28a76ca82bd1a4535 100644
 --- a/net/minecraft/world/level/block/CoralPlantBlock.java
 +++ b/net/minecraft/world/level/block/CoralPlantBlock.java
-@@ -42,6 +_,11 @@
+@@ -42,6 +42,11 @@ public class CoralPlantBlock extends BaseCoralPlantTypeBlock {
      @Override
      protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
          if (!scanForWater(state, level, pos)) {

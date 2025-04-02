@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/inventory/BeaconMenu.java b/net/minecraft/world/inventory/BeaconMenu.java
+index 47de37e13bcc7d2fb0caab9c825a8aa178ca435d..faaf03d6979646954170d7fc2aaab3fac4769da4 100644
 --- a/net/minecraft/world/inventory/BeaconMenu.java
 +++ b/net/minecraft/world/inventory/BeaconMenu.java
-@@ -22,20 +_,14 @@
+@@ -22,20 +22,14 @@ public class BeaconMenu extends AbstractContainerMenu {
      private static final int USE_ROW_SLOT_START = 28;
      private static final int USE_ROW_SLOT_END = 37;
      private static final int NO_EFFECT = 0;
@@ -27,7 +35,7 @@
  
      public BeaconMenu(int containerId, Container container) {
          this(containerId, container, new SimpleContainerData(3), ContainerLevelAccess.NULL);
-@@ -43,6 +_,25 @@
+@@ -43,6 +37,25 @@ public class BeaconMenu extends AbstractContainerMenu {
  
      public BeaconMenu(int containerId, Container container, ContainerData beaconData, ContainerLevelAccess access) {
          super(MenuType.BEACON, containerId);
@@ -53,7 +61,7 @@
          checkContainerDataCount(beaconData, 3);
          this.beaconData = beaconData;
          this.access = access;
-@@ -65,6 +_,7 @@
+@@ -65,6 +78,7 @@ public class BeaconMenu extends AbstractContainerMenu {
  
      @Override
      public boolean stillValid(Player player) {
@@ -61,7 +69,7 @@
          return stillValid(this.access, player, Blocks.BEACON);
      }
  
-@@ -141,13 +_,30 @@
+@@ -141,13 +155,30 @@ public class BeaconMenu extends AbstractContainerMenu {
      public Holder<MobEffect> getSecondaryEffect() {
          return decodeEffect(this.beaconData.get(2));
      }
@@ -94,7 +102,7 @@
          }
      }
  
-@@ -170,4 +_,17 @@
+@@ -170,4 +201,17 @@ public class BeaconMenu extends AbstractContainerMenu {
              return 1;
          }
      }

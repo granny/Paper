@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/SpreadingSnowyDirtBlock.java b/net/minecraft/world/level/block/SpreadingSnowyDirtBlock.java
+index 4c77f5e0ba4cccff317d42d98d59d716e705e4e7..d1c112a50ca2c16e4a5c91be2cc91c302918a1c7 100644
 --- a/net/minecraft/world/level/block/SpreadingSnowyDirtBlock.java
 +++ b/net/minecraft/world/level/block/SpreadingSnowyDirtBlock.java
-@@ -39,7 +_,13 @@
+@@ -39,7 +39,13 @@ public abstract class SpreadingSnowyDirtBlock extends SnowyDirtBlock {
  
      @Override
      protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
@@ -14,7 +22,7 @@
              level.setBlockAndUpdate(pos, Blocks.DIRT.defaultBlockState());
          } else {
              if (level.getMaxLocalRawBrightness(pos.above()) >= 9) {
-@@ -48,7 +_,7 @@
+@@ -48,7 +54,7 @@ public abstract class SpreadingSnowyDirtBlock extends SnowyDirtBlock {
                  for (int i = 0; i < 4; i++) {
                      BlockPos blockPos = pos.offset(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
                      if (level.getBlockState(blockPos).is(Blocks.DIRT) && canPropagate(blockState, level, blockPos)) {

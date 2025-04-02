@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/levelgen/feature/EndPlatformFeature.java b/net/minecraft/world/level/levelgen/feature/EndPlatformFeature.java
+index cacb41fa10774558a5ba49e35a615d14645b34c0..dfe8b815987a0ee385846616e4845428a81f2782 100644
 --- a/net/minecraft/world/level/levelgen/feature/EndPlatformFeature.java
 +++ b/net/minecraft/world/level/levelgen/feature/EndPlatformFeature.java
-@@ -19,6 +_,13 @@
+@@ -19,6 +19,13 @@ public class EndPlatformFeature extends Feature<NoneFeatureConfiguration> {
      }
  
      public static void createEndPlatform(ServerLevelAccessor level, BlockPos pos, boolean dropBlocks) {
@@ -14,7 +22,7 @@
          BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
  
          for (int i = -2; i <= 2; i++) {
-@@ -26,15 +_,31 @@
+@@ -26,15 +33,31 @@ public class EndPlatformFeature extends Feature<NoneFeatureConfiguration> {
                  for (int i2 = -1; i2 < 3; i2++) {
                      BlockPos blockPos = mutableBlockPos.set(pos).move(i1, i2, i);
                      Block block = i2 == -1 ? Blocks.OBSIDIAN : Blocks.AIR;

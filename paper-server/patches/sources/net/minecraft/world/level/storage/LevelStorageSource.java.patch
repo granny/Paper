@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/storage/LevelStorageSource.java b/net/minecraft/world/level/storage/LevelStorageSource.java
+index 53746cbbbc90c7ef799f451deffa69592f48b530..8104f71c30c1fa46c83acdf0b2e58483df9d89cc 100644
 --- a/net/minecraft/world/level/storage/LevelStorageSource.java
 +++ b/net/minecraft/world/level/storage/LevelStorageSource.java
-@@ -145,6 +_,7 @@
+@@ -145,6 +145,7 @@ public class LevelStorageSource {
          PrimaryLevelData primaryLevelData = PrimaryLevelData.parse(
              dynamic, levelSettings, complete.specialWorldProperty(), worldGenSettings.options(), lifecycle
          );
@@ -8,7 +16,7 @@
          return new LevelDataAndDimensions(primaryLevelData, complete);
      }
  
-@@ -341,25 +_,39 @@
+@@ -341,25 +342,39 @@ public class LevelStorageSource {
          return this.backupDir;
      }
  
@@ -53,7 +61,7 @@
      public record LevelCandidates(List<LevelStorageSource.LevelDirectory> levels) implements Iterable<LevelStorageSource.LevelDirectory> {
          public boolean isEmpty() {
              return this.levels.isEmpty();
-@@ -410,8 +_,12 @@
+@@ -410,8 +425,12 @@ public class LevelStorageSource {
          public final LevelStorageSource.LevelDirectory levelDirectory;
          private final String levelId;
          private final Map<LevelResource, Path> resources = Maps.newHashMap();
@@ -67,7 +75,7 @@
              this.levelId = levelId;
              this.levelDirectory = new LevelStorageSource.LevelDirectory(levelDir);
              this.lock = DirectoryLock.create(levelDir);
-@@ -454,7 +_,7 @@
+@@ -454,7 +473,7 @@ public class LevelStorageSource {
          }
  
          public Path getDimensionPath(ResourceKey<Level> dimensionPath) {

@@ -1,6 +1,15 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/ca/spottedleaf/moonrise/paper/util/BaseChunkSystemHooks.java b/ca/spottedleaf/moonrise/paper/util/BaseChunkSystemHooks.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..6cfc2bc8d5816304c42d9f23396ec9e65c27bdde
 --- /dev/null
 +++ b/ca/spottedleaf/moonrise/paper/util/BaseChunkSystemHooks.java
-@@ -1,0 +_,330 @@
+@@ -0,0 +1,330 @@
 +package ca.spottedleaf.moonrise.paper.util;
 +
 +import ca.spottedleaf.concurrentutil.util.Priority;
@@ -331,3 +340,4 @@
 +
 +    }
 +}
+\ No newline at end of file

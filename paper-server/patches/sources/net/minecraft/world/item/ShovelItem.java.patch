@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/item/ShovelItem.java b/net/minecraft/world/item/ShovelItem.java
+index 422e75715495e1c4df2e93df989deb48ae0b0d36..887ac9f547ceaf76fd533ae47239a64c29a64b18 100644
 --- a/net/minecraft/world/item/ShovelItem.java
 +++ b/net/minecraft/world/item/ShovelItem.java
-@@ -45,20 +_,29 @@
+@@ -45,20 +45,29 @@ public class ShovelItem extends Item {
              Player player = context.getPlayer();
              BlockState blockState1 = FLATTENABLES.get(blockState.getBlock());
              BlockState blockState2 = null;

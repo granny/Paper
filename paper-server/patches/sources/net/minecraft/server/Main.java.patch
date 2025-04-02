@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/server/Main.java b/net/minecraft/server/Main.java
+index 5cd0ef6d6dfab24420178cf238fcf4b0b2e6c14b..58be6e1d1607a3af5e28f851718b82321f2feb25 100644
 --- a/net/minecraft/server/Main.java
 +++ b/net/minecraft/server/Main.java
-@@ -67,8 +_,10 @@
+@@ -67,8 +67,10 @@ public class Main {
          reason = "System.out needed before bootstrap"
      )
      @DontObfuscate
@@ -12,7 +20,7 @@
          OptionParser optionParser = new OptionParser();
          OptionSpec<Void> optionSpec = optionParser.accepts("nogui");
          OptionSpec<Void> optionSpec1 = optionParser.accepts("initSettings", "Initializes 'server.properties' and 'eula.txt', then quits");
-@@ -93,41 +_,94 @@
+@@ -93,41 +95,94 @@ public class Main {
                  optionParser.printHelpOn(System.err);
                  return;
              }
@@ -116,7 +124,7 @@
              Dynamic<?> dataTag;
              if (levelStorageAccess.hasWorldData()) {
                  LevelSummary summary;
-@@ -169,12 +_,33 @@
+@@ -169,12 +224,33 @@ public class Main {
              }
  
              Dynamic<?> dynamic = dataTag;
@@ -151,7 +159,7 @@
  
              WorldStem worldStem;
              try {
-@@ -183,6 +_,7 @@
+@@ -183,6 +259,7 @@ public class Main {
                          executor -> WorldLoader.load(
                              initConfig,
                              context -> {
@@ -159,7 +167,7 @@
                                  Registry<LevelStem> registry = context.datapackDimensions().lookupOrThrow(Registries.LEVEL_STEM);
                                  if (dynamic != null) {
                                      LevelDataAndDimensions levelDataAndDimensions = LevelStorageSource.getLevelDataAndDimensions(
-@@ -196,7 +_,7 @@
+@@ -196,7 +273,7 @@ public class Main {
                                      LevelSettings levelSettings;
                                      WorldOptions worldOptions;
                                      WorldDimensions worldDimensions;
@@ -168,7 +176,7 @@
                                          levelSettings = MinecraftServer.DEMO_SETTINGS;
                                          worldOptions = WorldOptions.DEMO_OPTIONS;
                                          worldDimensions = WorldPresets.createNormalWorldDimensions(context.datapackWorldgen());
-@@ -211,7 +_,7 @@
+@@ -211,7 +288,7 @@ public class Main {
                                              new GameRules(context.dataConfiguration().enabledFeatures()),
                                              context.dataConfiguration()
                                          );
@@ -177,7 +185,7 @@
                                          worldDimensions = properties.createDimensions(context.datapackWorldgen());
                                      }
  
-@@ -237,6 +_,7 @@
+@@ -237,6 +314,7 @@ public class Main {
                  return;
              }
  
@@ -185,7 +193,7 @@
              RegistryAccess.Frozen frozen = worldStem.registries().compositeAccess();
              WorldData worldData = worldStem.worldData();
              boolean hasOptionSpec1 = optionSet.has(optionSpec6);
-@@ -245,9 +_,13 @@
+@@ -245,9 +323,13 @@ public class Main {
              }
  
              levelStorageAccess.saveDataTag(frozen, worldData);
@@ -199,7 +207,7 @@
                          thread1,
                          levelStorageAccess,
                          packRepository,
-@@ -257,17 +_,34 @@
+@@ -257,17 +339,34 @@ public class Main {
                          services,
                          LoggerChunkProgressListener::createFromGameruleRadius
                      );
@@ -236,7 +244,7 @@
              Thread thread = new Thread("Server Shutdown Thread") {
                  @Override
                  public void run() {
-@@ -276,6 +_,7 @@
+@@ -276,6 +375,7 @@ public class Main {
              };
              thread.setUncaughtExceptionHandler(new DefaultUncaughtExceptionHandler(LOGGER));
              Runtime.getRuntime().addShutdownHook(thread);
@@ -244,7 +252,7 @@
          } catch (Exception var42) {
              LOGGER.error(LogUtils.FATAL_MARKER, "Failed to start the minecraft server", (Throwable)var42);
          }
-@@ -317,7 +_,7 @@
+@@ -317,7 +417,7 @@ public class Main {
          RegistryAccess registryAccess,
          boolean recreateRegionFiles
      ) {

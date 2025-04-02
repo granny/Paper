@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/com/mojang/math/OctahedralGroup.java b/com/mojang/math/OctahedralGroup.java
+index c3db996c2cb4d8a08fe115fca7a59cbfecd142ad..c2bdb4b37e8af761815a072df93ee1e241fb29e8 100644
 --- a/com/mojang/math/OctahedralGroup.java
 +++ b/com/mojang/math/OctahedralGroup.java
-@@ -123,6 +_,12 @@
+@@ -123,6 +123,12 @@ public enum OctahedralGroup implements StringRepresentable {
          }
      );
  
@@ -13,7 +21,7 @@
      private OctahedralGroup(final String name, final SymmetricGroup3 permutation, final boolean invertX, final boolean invertY, final boolean invertZ) {
          this.name = name;
          this.invertX = invertX;
-@@ -160,7 +_,7 @@
+@@ -160,7 +166,7 @@ public enum OctahedralGroup implements StringRepresentable {
          return this.name;
      }
  
@@ -22,7 +30,7 @@
          if (this.rotatedDirections == null) {
              this.rotatedDirections = Util.makeEnumMap(Direction.class, direction1 -> {
                  Direction.Axis axis = direction1.getAxis();
-@@ -171,6 +_,11 @@
+@@ -171,6 +177,11 @@ public enum OctahedralGroup implements StringRepresentable {
              });
          }
  

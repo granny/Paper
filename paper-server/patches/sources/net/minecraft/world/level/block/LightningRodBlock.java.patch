@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/LightningRodBlock.java b/net/minecraft/world/level/block/LightningRodBlock.java
+index a1e813f4ab3d229444b404f6b860390820713349..13b92472d50a41446b86c62ec31919fe0a953374 100644
 --- a/net/minecraft/world/level/block/LightningRodBlock.java
 +++ b/net/minecraft/world/level/block/LightningRodBlock.java
-@@ -82,6 +_,18 @@
+@@ -82,6 +82,18 @@ public class LightningRodBlock extends RodBlock implements SimpleWaterloggedBloc
      }
  
      public void onLightningStrike(BlockState state, Level level, BlockPos pos) {

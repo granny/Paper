@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/CrafterBlock.java b/net/minecraft/world/level/block/CrafterBlock.java
+index 2e2836ed0e14a72aef7b06bad4670aed0f97b3c2..38b03c7b02bdfc579e5e126c12de3d878e26d188 100644
 --- a/net/minecraft/world/level/block/CrafterBlock.java
 +++ b/net/minecraft/world/level/block/CrafterBlock.java
-@@ -152,6 +_,13 @@
+@@ -152,6 +152,13 @@ public class CrafterBlock extends BaseEntityBlock {
              } else {
                  RecipeHolder<CraftingRecipe> recipeHolder = potentialResults.get();
                  ItemStack itemStack = recipeHolder.value().assemble(var11, level.registryAccess());
@@ -14,7 +22,7 @@
                  if (itemStack.isEmpty()) {
                      level.levelEvent(1050, pos, 0);
                  } else {
-@@ -186,7 +_,25 @@
+@@ -186,7 +193,25 @@ public class CrafterBlock extends BaseEntityBlock {
          Container containerAt = HopperBlockEntity.getContainerAt(level, pos.relative(direction));
          ItemStack itemStack = stack.copy();
          if (containerAt != null && (containerAt instanceof CrafterBlockEntity || stack.getCount() > containerAt.getMaxStackSize(stack))) {
@@ -40,7 +48,7 @@
                  ItemStack itemStack1 = itemStack.copyWithCount(1);
                  ItemStack itemStack2 = HopperBlockEntity.addItem(crafter, containerAt, itemStack1, direction.getOpposite());
                  if (!itemStack2.isEmpty()) {
-@@ -196,7 +_,25 @@
+@@ -196,7 +221,25 @@ public class CrafterBlock extends BaseEntityBlock {
                  itemStack.shrink(1);
              }
          } else if (containerAt != null) {

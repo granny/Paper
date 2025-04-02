@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/animal/sheep/Sheep.java b/net/minecraft/world/entity/animal/sheep/Sheep.java
+index 40c7aa079e2792b64251d2080a062934cac47f72..bb51adb44cbff3e7feaa80421f5f1a01c119aa00 100644
 --- a/net/minecraft/world/entity/animal/sheep/Sheep.java
 +++ b/net/minecraft/world/entity/animal/sheep/Sheep.java
-@@ -161,7 +_,19 @@
+@@ -161,7 +161,19 @@ public class Sheep extends Animal implements Shearable {
          ItemStack itemInHand = player.getItemInHand(hand);
          if (itemInHand.is(Items.SHEARS)) {
              if (this.level() instanceof ServerLevel serverLevel && this.readyForShearing()) {
@@ -21,7 +29,7 @@
                  this.gameEvent(GameEvent.SHEAR, player);
                  itemInHand.hurtAndBreak(1, player, getSlotForHand(hand));
                  return InteractionResult.SUCCESS_SERVER;
-@@ -175,14 +_,28 @@
+@@ -175,14 +187,28 @@ public class Sheep extends Animal implements Shearable {
  
      @Override
      public void shear(ServerLevel level, SoundSource soundSource, ItemStack shears) {
@@ -57,7 +65,7 @@
                      if (itemEntity != null) {
                          itemEntity.setDeltaMovement(
                              itemEntity.getDeltaMovement()
-@@ -302,6 +_,7 @@
+@@ -302,6 +328,7 @@ public class Sheep extends Animal implements Shearable {
  
      @Override
      public void ate() {

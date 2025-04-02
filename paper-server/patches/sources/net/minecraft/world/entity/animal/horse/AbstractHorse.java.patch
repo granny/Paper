@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/animal/horse/AbstractHorse.java b/net/minecraft/world/entity/animal/horse/AbstractHorse.java
+index 6688b21327cea13f1fc756a224e22a7fe7a07b71..7c473eea481f5e055cc70512027726f41f0c6f67 100644
 --- a/net/minecraft/world/entity/animal/horse/AbstractHorse.java
 +++ b/net/minecraft/world/entity/animal/horse/AbstractHorse.java
-@@ -122,6 +_,7 @@
+@@ -122,6 +122,7 @@ public abstract class AbstractHorse extends Animal implements HasCustomInventory
      protected int gallopSoundCounter;
      @Nullable
      public EntityReference<LivingEntity> owner;
@@ -8,7 +16,7 @@
  
      protected AbstractHorse(EntityType<? extends AbstractHorse> entityType, Level level) {
          super(entityType, level);
-@@ -250,7 +_,7 @@
+@@ -250,7 +251,7 @@ public abstract class AbstractHorse extends Animal implements HasCustomInventory
      }
  
      @Override
@@ -17,7 +25,7 @@
          return !this.isVehicle();
      }
  
-@@ -301,7 +_,7 @@
+@@ -301,7 +302,7 @@ public abstract class AbstractHorse extends Animal implements HasCustomInventory
  
      public void createInventory() {
          SimpleContainer simpleContainer = this.inventory;
@@ -26,7 +34,7 @@
          if (simpleContainer != null) {
              int min = Math.min(simpleContainer.getContainerSize(), this.inventory.getContainerSize());
  
-@@ -395,7 +_,7 @@
+@@ -395,7 +396,7 @@ public abstract class AbstractHorse extends Animal implements HasCustomInventory
      }
  
      public int getMaxTemper() {
@@ -35,7 +43,7 @@
      }
  
      @Override
-@@ -450,7 +_,7 @@
+@@ -450,7 +451,7 @@ public abstract class AbstractHorse extends Animal implements HasCustomInventory
              i1 = 5;
              if (!this.level().isClientSide && this.isTamed() && this.getAge() == 0 && !this.isInLove()) {
                  flag = true;
@@ -44,7 +52,7 @@
              }
          } else if (stack.is(Items.GOLDEN_APPLE) || stack.is(Items.ENCHANTED_GOLDEN_APPLE)) {
              f = 10.0F;
-@@ -458,12 +_,12 @@
+@@ -458,12 +459,12 @@ public abstract class AbstractHorse extends Animal implements HasCustomInventory
              i1 = 10;
              if (!this.level().isClientSide && this.isTamed() && this.getAge() == 0 && !this.isInLove()) {
                  flag = true;
@@ -59,7 +67,7 @@
              flag = true;
          }
  
-@@ -534,7 +_,7 @@
+@@ -534,7 +535,7 @@ public abstract class AbstractHorse extends Animal implements HasCustomInventory
          super.aiStep();
          if (this.level() instanceof ServerLevel serverLevel && this.isAlive()) {
              if (this.random.nextInt(900) == 0 && this.deathTime == 0) {
@@ -68,7 +76,7 @@
              }
  
              if (this.canEatGrass()) {
-@@ -637,6 +_,16 @@
+@@ -637,6 +638,16 @@ public abstract class AbstractHorse extends Animal implements HasCustomInventory
          }
      }
  
@@ -85,7 +93,7 @@
      @Override
      public InteractionResult mobInteract(Player player, InteractionHand hand) {
          if (this.isVehicle() || this.isBaby()) {
-@@ -674,6 +_,12 @@
+@@ -674,6 +685,12 @@ public abstract class AbstractHorse extends Animal implements HasCustomInventory
          this.setFlag(16, eating);
      }
  
@@ -98,7 +106,7 @@
      public void setStanding(boolean standing) {
          if (standing) {
              this.setEating(false);
-@@ -785,6 +_,7 @@
+@@ -785,6 +802,7 @@ public abstract class AbstractHorse extends Animal implements HasCustomInventory
          if (this.owner != null) {
              this.owner.store(compound, "Owner");
          }
@@ -106,7 +114,7 @@
      }
  
      @Override
-@@ -795,6 +_,7 @@
+@@ -795,6 +813,7 @@ public abstract class AbstractHorse extends Animal implements HasCustomInventory
          this.setTemper(compound.getIntOr("Temper", 0));
          this.setTamed(compound.getBooleanOr("Tame", false));
          this.owner = EntityReference.readWithOldOwnerConversion(compound, "Owner", this.level());
@@ -114,7 +122,7 @@
      }
  
      @Override
-@@ -883,6 +_,17 @@
+@@ -883,6 +902,17 @@ public abstract class AbstractHorse extends Animal implements HasCustomInventory
  
      @Override
      public void handleStartJump(int jumpPower) {

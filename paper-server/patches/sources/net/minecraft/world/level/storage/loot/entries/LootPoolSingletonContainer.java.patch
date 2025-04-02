@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/storage/loot/entries/LootPoolSingletonContainer.java b/net/minecraft/world/level/storage/loot/entries/LootPoolSingletonContainer.java
+index 643f077d4c64e1fcae6c443af2aa260895641c41..9840bed470e11794f153ff258457283fd4b0cac6 100644
 --- a/net/minecraft/world/level/storage/loot/entries/LootPoolSingletonContainer.java
 +++ b/net/minecraft/world/level/storage/loot/entries/LootPoolSingletonContainer.java
-@@ -32,6 +_,10 @@
+@@ -32,6 +32,10 @@ public abstract class LootPoolSingletonContainer extends LootPoolEntryContainer
              );
          }
      };
@@ -11,7 +19,7 @@
  
      protected LootPoolSingletonContainer(int weight, int quality, List<LootItemCondition> conditions, List<LootItemFunction> functions) {
          super(conditions);
-@@ -126,7 +_,31 @@
+@@ -126,7 +130,31 @@ public abstract class LootPoolSingletonContainer extends LootPoolEntryContainer
      protected abstract class EntryBase implements LootPoolEntry {
          @Override
          public int getWeight(float luck) {

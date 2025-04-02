@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/monster/Skeleton.java b/net/minecraft/world/entity/monster/Skeleton.java
+index e9c7c5543dabef975db83f4f08f41a81c1a6b0f9..48f26ed693b43e3f65f1559ba69b3d7249664f71 100644
 --- a/net/minecraft/world/entity/monster/Skeleton.java
 +++ b/net/minecraft/world/entity/monster/Skeleton.java
-@@ -93,11 +_,17 @@
+@@ -93,11 +93,17 @@ public class Skeleton extends AbstractSkeleton {
      }
  
      protected void doFreezeConversion() {

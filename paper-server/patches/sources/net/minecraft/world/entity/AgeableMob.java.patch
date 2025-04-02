@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/AgeableMob.java b/net/minecraft/world/entity/AgeableMob.java
+index 1088bfb93fa13542ee909adc864fb170e6c2c1cd..f9cfa9dd17bd259cfbc0d96bf48a17556b365d8b 100644
 --- a/net/minecraft/world/entity/AgeableMob.java
 +++ b/net/minecraft/world/entity/AgeableMob.java
-@@ -22,6 +_,7 @@
+@@ -22,6 +22,7 @@ public abstract class AgeableMob extends PathfinderMob {
      protected int age = 0;
      protected int forcedAge = 0;
      protected int forcedAgeTimer;
@@ -8,7 +16,7 @@
  
      protected AgeableMob(EntityType<? extends AgeableMob> entityType, Level level) {
          super(entityType, level);
-@@ -68,13 +_,15 @@
+@@ -68,13 +69,15 @@ public abstract class AgeableMob extends PathfinderMob {
      }
  
      public void ageUp(int amount, boolean forced) {
@@ -25,7 +33,7 @@
          this.setAge(age);
          if (forced) {
              this.forcedAge += i1;
-@@ -106,6 +_,7 @@
+@@ -106,6 +109,7 @@ public abstract class AgeableMob extends PathfinderMob {
          super.addAdditionalSaveData(compound);
          compound.putInt("Age", this.getAge());
          compound.putInt("ForcedAge", this.forcedAge);
@@ -33,7 +41,7 @@
      }
  
      @Override
-@@ -113,6 +_,7 @@
+@@ -113,6 +117,7 @@ public abstract class AgeableMob extends PathfinderMob {
          super.readAdditionalSaveData(compound);
          this.setAge(compound.getIntOr("Age", 0));
          this.forcedAge = compound.getIntOr("ForcedAge", 0);
@@ -41,7 +49,7 @@
      }
  
      @Override
-@@ -127,7 +_,7 @@
+@@ -127,7 +132,7 @@ public abstract class AgeableMob extends PathfinderMob {
      @Override
      public void aiStep() {
          super.aiStep();

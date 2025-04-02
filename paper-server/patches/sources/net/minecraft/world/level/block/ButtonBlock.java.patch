@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/ButtonBlock.java b/net/minecraft/world/level/block/ButtonBlock.java
+index d40c55a679d5d3c3ec8b094c689e69b175034818..66c589bc633d32ebf36b1ab55ba6250ca2ddd6f6 100644
 --- a/net/minecraft/world/level/block/ButtonBlock.java
 +++ b/net/minecraft/world/level/block/ButtonBlock.java
-@@ -89,6 +_,19 @@
+@@ -89,6 +89,19 @@ public class ButtonBlock extends FaceAttachedHorizontalDirectionalBlock {
          if (state.getValue(POWERED)) {
              return InteractionResult.CONSUME;
          } else {
@@ -20,7 +28,7 @@
              this.press(state, level, pos, player);
              return InteractionResult.SUCCESS;
          }
-@@ -150,6 +_,7 @@
+@@ -150,6 +163,7 @@ public class ButtonBlock extends FaceAttachedHorizontalDirectionalBlock {
  
      @Override
      protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier) {
@@ -28,7 +36,7 @@
          if (!level.isClientSide && this.type.canButtonBeActivatedByArrows() && !state.getValue(POWERED)) {
              this.checkPressed(state, level, pos);
          }
-@@ -161,7 +_,31 @@
+@@ -161,7 +175,31 @@ public class ButtonBlock extends FaceAttachedHorizontalDirectionalBlock {
              : null;
          boolean flag = abstractArrow != null;
          boolean poweredValue = state.getValue(POWERED);

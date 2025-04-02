@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/vehicle/AbstractChestBoat.java b/net/minecraft/world/entity/vehicle/AbstractChestBoat.java
+index 870b3eb174f2a091ad6e633655b6045fbbc87f78..900c2fdd58da1ba6441f74175b6967b608248315 100644
 --- a/net/minecraft/world/entity/vehicle/AbstractChestBoat.java
 +++ b/net/minecraft/world/entity/vehicle/AbstractChestBoat.java
-@@ -65,12 +_,12 @@
+@@ -65,12 +65,12 @@ public abstract class AbstractChestBoat extends AbstractBoat implements HasCusto
      }
  
      @Override
@@ -15,7 +23,7 @@
      }
  
      @Override
-@@ -97,8 +_,8 @@
+@@ -97,8 +97,8 @@ public abstract class AbstractChestBoat extends AbstractBoat implements HasCusto
  
      @Override
      public void openCustomInventoryScreen(Player player) {
@@ -26,7 +34,7 @@
              this.gameEvent(GameEvent.CONTAINER_OPEN, player);
              PiglinAi.angerNearbyPiglins(serverLevel, player, true);
          }
-@@ -151,7 +_,7 @@
+@@ -151,7 +151,7 @@ public abstract class AbstractChestBoat extends AbstractBoat implements HasCusto
      @Nullable
      @Override
      public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
@@ -35,7 +43,7 @@
              return null;
          } else {
              this.unpackLootTable(playerInventory.player);
-@@ -198,4 +_,58 @@
+@@ -198,4 +198,58 @@ public abstract class AbstractChestBoat extends AbstractBoat implements HasCusto
      public void stopOpen(Player player) {
          this.level().gameEvent(GameEvent.CONTAINER_CLOSE, this.position(), GameEvent.Context.of(player));
      }

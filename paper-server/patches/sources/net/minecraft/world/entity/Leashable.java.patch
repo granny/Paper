@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/Leashable.java b/net/minecraft/world/entity/Leashable.java
+index d658dfeb7d1e154f0153621ff6779b6e2bb1cc4d..24b663e48a88345bb366cc4c9afbabac22c9df85 100644
 --- a/net/minecraft/world/entity/Leashable.java
 +++ b/net/minecraft/world/entity/Leashable.java
-@@ -56,6 +_,11 @@
+@@ -56,6 +56,11 @@ public interface Leashable {
      }
  
      default void writeLeashData(CompoundTag tag, @Nullable Leashable.LeashData leashData) {
@@ -12,7 +20,7 @@
          tag.storeNullable("leash", Leashable.LeashData.CODEC, leashData);
      }
  
-@@ -75,7 +_,9 @@
+@@ -75,7 +80,9 @@ public interface Leashable {
              }
  
              if (entity.tickCount > 100) {
@@ -22,7 +30,7 @@
                  entity.setLeashData(null);
              }
          }
-@@ -99,7 +_,9 @@
+@@ -99,7 +106,9 @@ public interface Leashable {
              entity.onLeashRemoved();
              if (entity.level() instanceof ServerLevel serverLevel) {
                  if (dropItem) {
@@ -32,7 +40,7 @@
                  }
  
                  if (broadcastPacket) {
-@@ -117,7 +_,15 @@
+@@ -117,7 +126,15 @@ public interface Leashable {
  
          if (leashData != null && leashData.leashHolder != null) {
              if (!entity.isAlive() || !leashData.leashHolder.isAlive()) {
@@ -49,7 +57,7 @@
                      entity.dropLeash();
                  } else {
                      entity.removeLeash();
-@@ -131,7 +_,7 @@
+@@ -131,7 +148,7 @@ public interface Leashable {
                      return;
                  }
  
@@ -58,7 +66,7 @@
                      entity.leashTooFarBehaviour();
                  } else if (f > 6.0) {
                      entity.elasticRangeLeashBehaviour(leashHolder, f);
-@@ -148,7 +_,21 @@
+@@ -148,7 +165,21 @@ public interface Leashable {
      }
  
      default void leashTooFarBehaviour() {

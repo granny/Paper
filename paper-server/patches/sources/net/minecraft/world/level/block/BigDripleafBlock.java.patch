@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/BigDripleafBlock.java b/net/minecraft/world/level/block/BigDripleafBlock.java
+index be4cfc6cde3a78c68b1f7b375a53610a8a32134f..e1193bcb666b7d38c511df7c1ebddb5897cefa8f 100644
 --- a/net/minecraft/world/level/block/BigDripleafBlock.java
 +++ b/net/minecraft/world/level/block/BigDripleafBlock.java
-@@ -129,7 +_,7 @@
+@@ -129,7 +129,7 @@ public class BigDripleafBlock extends HorizontalDirectionalBlock implements Bone
  
      @Override
      protected void onProjectileHit(Level level, BlockState state, BlockHitResult hit, Projectile projectile) {
@@ -9,7 +17,7 @@
      }
  
      @Override
-@@ -192,9 +_,23 @@
+@@ -192,9 +192,23 @@ public class BigDripleafBlock extends HorizontalDirectionalBlock implements Bone
  
      @Override
      protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier) {
@@ -34,7 +42,7 @@
              }
          }
      }
-@@ -206,9 +_,9 @@
+@@ -206,9 +220,9 @@ public class BigDripleafBlock extends HorizontalDirectionalBlock implements Bone
          } else {
              Tilt tilt = state.getValue(TILT);
              if (tilt == Tilt.UNSTABLE) {
@@ -46,7 +54,7 @@
              } else if (tilt == Tilt.FULL) {
                  resetTilt(state, level, pos);
              }
-@@ -231,8 +_,11 @@
+@@ -231,8 +245,11 @@ public class BigDripleafBlock extends HorizontalDirectionalBlock implements Bone
          return entity.onGround() && entity.position().y > pos.getY() + 0.6875F;
      }
  
@@ -60,7 +68,7 @@
          if (sound != null) {
              playTiltSound(level, pos, sound);
          }
-@@ -244,18 +_,26 @@
+@@ -244,18 +261,26 @@ public class BigDripleafBlock extends HorizontalDirectionalBlock implements Bone
      }
  
      private static void resetTilt(BlockState state, Level level, BlockPos pos) {

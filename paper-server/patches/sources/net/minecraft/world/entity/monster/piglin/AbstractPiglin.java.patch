@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/monster/piglin/AbstractPiglin.java b/net/minecraft/world/entity/monster/piglin/AbstractPiglin.java
+index f76c4c4890917ab29021f778e1ec0acbbab72e0d..2158d6207119cfe5d284cadd8d7f630895a90bb3 100644
 --- a/net/minecraft/world/entity/monster/piglin/AbstractPiglin.java
 +++ b/net/minecraft/world/entity/monster/piglin/AbstractPiglin.java
-@@ -102,9 +_,14 @@
+@@ -102,9 +102,14 @@ public abstract class AbstractPiglin extends Monster {
      }
  
      protected void finishConversion(ServerLevel serverLevel) {

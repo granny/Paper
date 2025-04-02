@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/ai/goal/target/TargetGoal.java b/net/minecraft/world/entity/ai/goal/target/TargetGoal.java
+index 8462d8748589c020564ba59b8727a49d114fca69..326ac78597813c1578aebb64a293e4a4dea3b645 100644
 --- a/net/minecraft/world/entity/ai/goal/target/TargetGoal.java
 +++ b/net/minecraft/world/entity/ai/goal/target/TargetGoal.java
-@@ -63,7 +_,7 @@
+@@ -63,7 +63,7 @@ public abstract class TargetGoal extends Goal {
                          }
                      }
  
@@ -9,7 +17,7 @@
                      return true;
                  }
              }
-@@ -83,7 +_,7 @@
+@@ -83,7 +83,7 @@ public abstract class TargetGoal extends Goal {
  
      @Override
      public void stop() {

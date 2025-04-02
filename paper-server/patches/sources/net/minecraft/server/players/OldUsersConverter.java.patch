@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/server/players/OldUsersConverter.java b/net/minecraft/server/players/OldUsersConverter.java
+index 7159bf90c684e66c9f462a5d8ba7adb8ebf1c6be..194082763f41a58dc8ee0241a2eeb6dd39dff88d 100644
 --- a/net/minecraft/server/players/OldUsersConverter.java
 +++ b/net/minecraft/server/players/OldUsersConverter.java
-@@ -49,7 +_,8 @@
+@@ -49,7 +49,8 @@ public class OldUsersConverter {
  
      private static void lookupPlayers(MinecraftServer server, Collection<String> names, ProfileLookupCallback callback) {
          String[] strings = names.stream().filter(name -> !StringUtil.isNullOrEmpty(name)).toArray(String[]::new);
@@ -10,7 +18,7 @@
              server.getProfileRepository().findProfilesByNames(strings, callback);
          } else {
              for (String string : strings) {
-@@ -65,7 +_,7 @@
+@@ -65,7 +66,7 @@ public class OldUsersConverter {
                  try {
                      userBanList.load();
                  } catch (IOException var6) {
@@ -19,7 +27,7 @@
                  }
              }
  
-@@ -120,7 +_,7 @@
+@@ -120,7 +121,7 @@ public class OldUsersConverter {
                  try {
                      ipBanList.load();
                  } catch (IOException var11) {
@@ -28,7 +36,7 @@
                  }
              }
  
-@@ -156,7 +_,7 @@
+@@ -156,7 +157,7 @@ public class OldUsersConverter {
                  try {
                      serverOpList.load();
                  } catch (IOException var6) {
@@ -37,7 +45,7 @@
                  }
              }
  
-@@ -200,7 +_,7 @@
+@@ -200,7 +201,7 @@ public class OldUsersConverter {
                  try {
                      userWhiteList.load();
                  } catch (IOException var6) {
@@ -46,7 +54,7 @@
                  }
              }
  
-@@ -313,6 +_,37 @@
+@@ -313,6 +314,37 @@ public class OldUsersConverter {
                      private void movePlayerFile(File file3, String oldFileName, String newFileName) {
                          File file4 = new File(worldPlayersDirectory, oldFileName + ".dat");
                          File file5 = new File(file3, newFileName + ".dat");

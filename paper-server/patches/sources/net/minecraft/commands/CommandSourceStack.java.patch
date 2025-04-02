@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/commands/CommandSourceStack.java b/net/minecraft/commands/CommandSourceStack.java
+index 5b51e130f440273f03396a53938e0c771cde2c75..cb63e4c264a31788cd1405428af70f7a018910e9 100644
 --- a/net/minecraft/commands/CommandSourceStack.java
 +++ b/net/minecraft/commands/CommandSourceStack.java
-@@ -45,7 +_,7 @@
+@@ -45,7 +45,7 @@ import net.minecraft.world.level.dimension.DimensionType;
  import net.minecraft.world.phys.Vec2;
  import net.minecraft.world.phys.Vec3;
  
@@ -9,7 +17,7 @@
      public static final SimpleCommandExceptionType ERROR_NOT_PLAYER = new SimpleCommandExceptionType(Component.translatable("permissions.requires.player"));
      public static final SimpleCommandExceptionType ERROR_NOT_ENTITY = new SimpleCommandExceptionType(Component.translatable("permissions.requires.entity"));
      public final CommandSource source;
-@@ -63,6 +_,8 @@
+@@ -63,6 +63,8 @@ public class CommandSourceStack implements ExecutionCommandSource<CommandSourceS
      private final Vec2 rotation;
      private final CommandSigningContext signingContext;
      private final TaskChainer chatMessageChainer;
@@ -18,7 +26,7 @@
  
      public CommandSourceStack(
          CommandSource source,
-@@ -188,6 +_,30 @@
+@@ -188,6 +190,30 @@ public class CommandSourceStack implements ExecutionCommandSource<CommandSourceS
              );
      }
  
@@ -49,7 +57,7 @@
      public CommandSourceStack withRotation(Vec2 rotation) {
          return this.rotation.equals(rotation)
              ? this
-@@ -391,9 +_,44 @@
+@@ -391,9 +417,44 @@ public class CommandSourceStack implements ExecutionCommandSource<CommandSourceS
  
      @Override
      public boolean hasPermission(int level) {
@@ -94,7 +102,7 @@
      public Vec3 getPosition() {
          return this.worldPosition;
      }
-@@ -498,20 +_,25 @@
+@@ -498,20 +559,25 @@ public class CommandSourceStack implements ExecutionCommandSource<CommandSourceS
          Component component = Component.translatable("chat.type.admin", this.getDisplayName(), message).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC);
          if (this.server.getGameRules().getBoolean(GameRules.RULE_SENDCOMMANDFEEDBACK)) {
              for (ServerPlayer serverPlayer : this.server.getPlayerList().getPlayers()) {
@@ -123,7 +131,7 @@
          }
      }
  
-@@ -522,7 +_,7 @@
+@@ -522,7 +588,7 @@ public class CommandSourceStack implements ExecutionCommandSource<CommandSourceS
  
      @Override
      public Collection<String> getOnlinePlayerNames() {
@@ -132,7 +140,7 @@
      }
  
      @Override
-@@ -597,4 +_,16 @@
+@@ -597,4 +663,16 @@ public class CommandSourceStack implements ExecutionCommandSource<CommandSourceS
      public boolean isSilent() {
          return this.silent;
      }

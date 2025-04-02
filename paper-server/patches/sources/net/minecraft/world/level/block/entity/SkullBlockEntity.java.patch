@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/entity/SkullBlockEntity.java b/net/minecraft/world/level/block/entity/SkullBlockEntity.java
+index f2f919a3a0656e5c56ed6abf7408af588aa15b90..018f6249fb1f7ab3a085809103da5e56d4a0552e 100644
 --- a/net/minecraft/world/level/block/entity/SkullBlockEntity.java
 +++ b/net/minecraft/world/level/block/entity/SkullBlockEntity.java
-@@ -40,7 +_,7 @@
+@@ -40,7 +40,7 @@ public class SkullBlockEntity extends BlockEntity {
      @Nullable
      private static LoadingCache<String, CompletableFuture<Optional<GameProfile>>> profileCacheByName;
      @Nullable
@@ -9,7 +17,7 @@
      public static final Executor CHECKED_MAIN_THREAD_EXECUTOR = runnable -> {
          Executor executor = mainThreadExecutor;
          if (executor != null) {
-@@ -75,9 +_,9 @@
+@@ -75,9 +75,9 @@ public class SkullBlockEntity extends BlockEntity {
          profileCacheById = CacheBuilder.newBuilder()
              .expireAfterAccess(Duration.ofMinutes(10L))
              .maximumSize(256L)
@@ -21,7 +29,7 @@
                      return SkullBlockEntity.fetchProfileById(id, services, booleanSupplier);
                  }
              });
-@@ -88,23 +_,29 @@
+@@ -88,23 +88,29 @@ public class SkullBlockEntity extends BlockEntity {
              .getAsync(name)
              .thenCompose(
                  optional -> {
@@ -56,7 +64,7 @@
      }
  
      public static void clear() {
-@@ -188,9 +_,11 @@
+@@ -188,9 +194,11 @@ public class SkullBlockEntity extends BlockEntity {
              : CompletableFuture.completedFuture(Optional.empty());
      }
  

@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/animal/camel/Camel.java b/net/minecraft/world/entity/animal/camel/Camel.java
+index 24862a5d45370614a350c91bd181c079c4bc2392..6336fb58f4314be2fe987d7e3de258d977369417 100644
 --- a/net/minecraft/world/entity/animal/camel/Camel.java
 +++ b/net/minecraft/world/entity/animal/camel/Camel.java
-@@ -398,12 +_,12 @@
+@@ -398,12 +398,12 @@ public class Camel extends AbstractHorse {
          } else {
              boolean flag = this.getHealth() < this.getMaxHealth();
              if (flag) {
@@ -15,7 +23,7 @@
              }
  
              boolean isBaby = this.isBaby();
-@@ -463,9 +_,13 @@
+@@ -463,9 +463,13 @@ public class Camel extends AbstractHorse {
      }
  
      @Override
@@ -31,7 +39,7 @@
      }
  
      @Override
-@@ -566,7 +_,7 @@
+@@ -566,7 +570,7 @@ public class Camel extends AbstractHorse {
      }
  
      public void sitDown() {
@@ -40,7 +48,7 @@
              this.makeSound(SoundEvents.CAMEL_SIT);
              this.setPose(Pose.SITTING);
              this.gameEvent(GameEvent.ENTITY_ACTION);
-@@ -575,7 +_,7 @@
+@@ -575,7 +579,7 @@ public class Camel extends AbstractHorse {
      }
  
      public void standUp() {
@@ -49,7 +57,7 @@
              this.makeSound(SoundEvents.CAMEL_STAND);
              this.setPose(Pose.STANDING);
              this.gameEvent(GameEvent.ENTITY_ACTION);
-@@ -584,6 +_,7 @@
+@@ -584,6 +588,7 @@ public class Camel extends AbstractHorse {
      }
  
      public void standUpInstantly() {

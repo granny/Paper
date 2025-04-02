@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/resources/RegistryDataLoader.java b/net/minecraft/resources/RegistryDataLoader.java
+index 99824081e0cecd4a23d5f3198586011e56da3d7f..f9cee97799c0be975a61f5a317cbf5f86c75132f 100644
 --- a/net/minecraft/resources/RegistryDataLoader.java
 +++ b/net/minecraft/resources/RegistryDataLoader.java
-@@ -271,13 +_,14 @@
+@@ -271,13 +271,14 @@ public class RegistryDataLoader {
          RegistryOps<JsonElement> ops,
          ResourceKey<E> resourceKey,
          Resource resource,
@@ -17,7 +25,7 @@
          }
      }
  
-@@ -291,6 +_,7 @@
+@@ -291,6 +292,7 @@ public class RegistryDataLoader {
          FileToIdConverter fileToIdConverter = FileToIdConverter.registry(registry.key());
          RegistryOps<JsonElement> registryOps = RegistryOps.create(JsonOps.INSTANCE, registryInfoLookup);
  
@@ -25,7 +33,7 @@
          for (Entry<ResourceLocation, Resource> entry : fileToIdConverter.listMatchingResources(resourceManager).entrySet()) {
              ResourceLocation resourceLocation = entry.getKey();
              ResourceKey<E> resourceKey = ResourceKey.create(registry.key(), fileToIdConverter.fileToId(resourceLocation));
-@@ -298,7 +_,7 @@
+@@ -298,7 +300,7 @@ public class RegistryDataLoader {
              RegistrationInfo registrationInfo = REGISTRATION_INFO_CACHE.apply(resource.knownPackInfo());
  
              try {
@@ -34,7 +42,7 @@
              } catch (Exception var14) {
                  loadingErrors.put(
                      resourceKey,
-@@ -307,7 +_,9 @@
+@@ -307,7 +309,9 @@ public class RegistryDataLoader {
              }
          }
  
@@ -45,7 +53,7 @@
      }
  
      static <E> void loadContentsFromNetwork(
-@@ -324,6 +_,7 @@
+@@ -324,6 +328,7 @@ public class RegistryDataLoader {
              RegistryOps<JsonElement> registryOps1 = RegistryOps.create(JsonOps.INSTANCE, registryInfoLookup);
              FileToIdConverter fileToIdConverter = FileToIdConverter.registry(registry.key());
  
@@ -53,7 +61,7 @@
              for (RegistrySynchronization.PackedRegistryEntry packedRegistryEntry : networkedRegistryData.elements) {
                  ResourceKey<E> resourceKey = ResourceKey.create(registry.key(), packedRegistryEntry.id());
                  Optional<Tag> optional = packedRegistryEntry.data();
-@@ -342,7 +_,7 @@
+@@ -342,7 +347,7 @@ public class RegistryDataLoader {
  
                      try {
                          Resource resourceOrThrow = resourceProvider.getResourceOrThrow(resourceLocation);
@@ -62,7 +70,7 @@
                      } catch (Exception var17) {
                          loadingErrors.put(resourceKey, new IllegalStateException("Failed to parse local data", var17));
                      }
-@@ -384,6 +_,7 @@
+@@ -384,6 +389,7 @@ public class RegistryDataLoader {
  
          RegistryDataLoader.Loader<T> create(Lifecycle registryLifecycle, Map<ResourceKey<?>, Exception> loadingErrors) {
              WritableRegistry<T> writableRegistry = new MappedRegistry<>(this.key, registryLifecycle);

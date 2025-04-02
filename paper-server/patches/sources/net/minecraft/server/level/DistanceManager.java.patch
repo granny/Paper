@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/server/level/DistanceManager.java b/net/minecraft/server/level/DistanceManager.java
+index 6842be0e8d96f26a978a5dbba390ca5b1f9eda0d..342fc6485a6051acf6a936f73f2340014e051257 100644
 --- a/net/minecraft/server/level/DistanceManager.java
 +++ b/net/minecraft/server/level/DistanceManager.java
-@@ -72,6 +_,12 @@
+@@ -72,6 +72,12 @@ public abstract class DistanceManager {
          }
  
          if (!this.chunksToUpdateFutures.isEmpty()) {
@@ -13,7 +21,7 @@
              for (ChunkHolder chunkHolder : this.chunksToUpdateFutures) {
                  chunkHolder.updateHighestAllowedStatus(chunkMap);
              }
-@@ -121,8 +_,10 @@
+@@ -121,8 +127,10 @@ public abstract class DistanceManager {
          ChunkPos chunkPos = sectionPos.chunk();
          long packedChunkPos = chunkPos.toLong();
          ObjectSet<ServerPlayer> set = this.playersPerChunk.get(packedChunkPos);

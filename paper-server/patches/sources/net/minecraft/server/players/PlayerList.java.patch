@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/server/players/PlayerList.java b/net/minecraft/server/players/PlayerList.java
+index aa7b0ea3f5203aafa86a8d36cd01b661cd16147c..a2a4dbcfb77d44657b3dfbe97cb629de215c29eb 100644
 --- a/net/minecraft/server/players/PlayerList.java
 +++ b/net/minecraft/server/players/PlayerList.java
-@@ -112,14 +_,16 @@
+@@ -112,14 +112,16 @@ public abstract class PlayerList {
      private static final int SEND_PLAYER_INFO_INTERVAL = 600;
      private static final SimpleDateFormat BAN_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
      private final MinecraftServer server;
@@ -20,7 +28,7 @@
      public final PlayerDataStorage playerIo;
      private boolean doWhiteList;
      private final LayeredRegistryAccess<RegistryLayer> registries;
-@@ -130,14 +_,26 @@
+@@ -130,14 +132,26 @@ public abstract class PlayerList {
      private static final boolean ALLOW_LOGOUTIVATOR = false;
      private int sendAllPlayerInfoIn;
  
@@ -47,7 +55,7 @@
          GameProfile gameProfile = player.getGameProfile();
          GameProfileCache profileCache = this.server.getProfileCache();
          String string;
-@@ -150,30 +_,94 @@
+@@ -150,30 +164,94 @@ public abstract class PlayerList {
          }
  
          Optional<CompoundTag> optional = this.load(player);
@@ -154,7 +162,7 @@
          LevelData levelData = serverLevel.getLevelData();
          player.loadGameTypes(optional.orElse(null));
          ServerGamePacketListenerImpl serverGamePacketListenerImpl = new ServerGamePacketListenerImpl(this.server, connection, player, cookie);
-@@ -191,8 +_,8 @@
+@@ -191,8 +269,8 @@ public abstract class PlayerList {
                  levelData.isHardcore(),
                  this.server.levelKeys(),
                  this.getMaxPlayers(),
@@ -165,7 +173,7 @@
                  _boolean1,
                  !_boolean,
                  _boolean2,
-@@ -200,6 +_,7 @@
+@@ -200,6 +278,7 @@ public abstract class PlayerList {
                  this.server.enforceSecureProfile()
              )
          );
@@ -173,7 +181,7 @@
          serverGamePacketListenerImpl.send(new ClientboundChangeDifficultyPacket(levelData.getDifficulty(), levelData.isDifficultyLocked()));
          serverGamePacketListenerImpl.send(new ClientboundPlayerAbilitiesPacket(player.getAbilities()));
          serverGamePacketListenerImpl.send(new ClientboundSetHeldSlotPacket(player.getInventory().getSelectedSlot()));
-@@ -219,26 +_,119 @@
+@@ -219,26 +298,119 @@ public abstract class PlayerList {
              mutableComponent = Component.translatable("multiplayer.player.joined.renamed", player.getDisplayName(), string);
          }
  
@@ -299,7 +307,7 @@
      }
  
      public void updateEntireScoreboard(ServerScoreboard scoreboard, ServerPlayer player) {
-@@ -261,30 +_,31 @@
+@@ -261,30 +433,31 @@ public abstract class PlayerList {
      }
  
      public void addWorldborderListener(ServerLevel level) {
@@ -336,7 +344,7 @@
              }
  
              @Override
-@@ -312,56 +_,156 @@
+@@ -312,56 +485,156 @@ public abstract class PlayerList {
      }
  
      protected void save(ServerPlayer player) {
@@ -440,15 +448,13 @@
              this.playersByUUID.remove(uuid);
 -            this.stats.remove(uuid);
 -            this.advancements.remove(uuid);
--        }
--
--        this.broadcastAll(new ClientboundPlayerInfoRemovePacket(List.of(player.getUUID())));
 +            // CraftBukkit start
 +            // this.stats.remove(uuid);
 +            // this.advancements.remove(uuid);
 +            // CraftBukkit end
-+        }
-+
+         }
+ 
+-        this.broadcastAll(new ClientboundPlayerInfoRemovePacket(List.of(player.getUUID())));
 +        // CraftBukkit start
 +        // this.broadcastAll(new ClientboundPlayerInfoRemovePacket(List.of(player.getUUID())));
 +        ClientboundPlayerInfoRemovePacket packet = new ClientboundPlayerInfoRemovePacket(List.of(player.getUUID()));
@@ -507,7 +513,7 @@
              MutableComponent mutableComponent = Component.translatable("multiplayer.disconnect.banned.reason", userBanListEntry.getReason());
              if (userBanListEntry.getExpires() != null) {
                  mutableComponent.append(
-@@ -369,10 +_,12 @@
+@@ -369,10 +642,12 @@ public abstract class PlayerList {
                  );
              }
  
@@ -524,7 +530,7 @@
              IpBanListEntry ipBanListEntry = this.ipBans.get(socketAddress);
              MutableComponent mutableComponent = Component.translatable("multiplayer.disconnect.banned_ip.reason", ipBanListEntry.getReason());
              if (ipBanListEntry.getExpires() != null) {
-@@ -381,69 +_,130 @@
+@@ -381,69 +656,130 @@ public abstract class PlayerList {
                  );
              }
  
@@ -535,13 +541,30 @@
 -            return this.players.size() >= this.maxPlayers && !this.canBypassPlayerLimit(gameProfile)
 -                ? Component.translatable("multiplayer.disconnect.server_full")
 -                : null;
--        }
--    }
--
++            // return this.players.size() >= this.maxPlayers && !this.canBypassPlayerLimit(gameProfile)
++            //     ? Component.translatable("multiplayer.disconnect.server_full")
++            //     : null;
++            if (this.players.size() >= this.maxPlayers && !this.canBypassPlayerLimit(gameProfile)) {
++                event.disallow(org.bukkit.event.player.PlayerLoginEvent.Result.KICK_FULL, net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacySection().deserialize(org.spigotmc.SpigotConfig.serverFullMessage)); // Spigot // Paper - Adventure
++            }
++        }
++        this.cserver.getPluginManager().callEvent(event);
++        if (event.getResult() != org.bukkit.event.player.PlayerLoginEvent.Result.ALLOWED) {
++            loginlistener.disconnect(io.papermc.paper.adventure.PaperAdventure.asVanilla(event.kickMessage())); // Paper - Adventure
++            return null;
+         }
++        return entity;
+     }
+ 
 -    public ServerPlayer getPlayerForLogin(GameProfile gameProfile, ClientInformation clientInformation) {
 -        return new ServerPlayer(this.server, this.server.overworld(), gameProfile, clientInformation);
--    }
--
++    // CraftBukkit start - added EntityPlayer
++    public ServerPlayer getPlayerForLogin(GameProfile gameProfile, ClientInformation clientInformation, ServerPlayer player) {
++        player.updateOptions(clientInformation);
++        return player;
++        // CraftBukkit end
+     }
+ 
 -    public boolean disconnectAllPlayersWithProfile(GameProfile gameProfile) {
 -        UUID id = gameProfile.getId();
 -        Set<ServerPlayer> set = Sets.newIdentityHashSet();
@@ -549,13 +572,8 @@
 -        for (ServerPlayer serverPlayer : this.players) {
 -            if (serverPlayer.getUUID().equals(id)) {
 -                set.add(serverPlayer);
-+            // return this.players.size() >= this.maxPlayers && !this.canBypassPlayerLimit(gameProfile)
-+            //     ? Component.translatable("multiplayer.disconnect.server_full")
-+            //     : null;
-+            if (this.players.size() >= this.maxPlayers && !this.canBypassPlayerLimit(gameProfile)) {
-+                event.disallow(org.bukkit.event.player.PlayerLoginEvent.Result.KICK_FULL, net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacySection().deserialize(org.spigotmc.SpigotConfig.serverFullMessage)); // Spigot // Paper - Adventure
-             }
-         }
+-            }
+-        }
 -
 -        ServerPlayer serverPlayer1 = this.playersByUUID.get(gameProfile.getId());
 -        if (serverPlayer1 != null) {
@@ -565,26 +583,6 @@
 -        for (ServerPlayer serverPlayer2 : set) {
 -            serverPlayer2.connection.disconnect(DUPLICATE_LOGIN_DISCONNECT_MESSAGE);
 -        }
--
--        return !set.isEmpty();
--    }
--
--    public ServerPlayer respawn(ServerPlayer player, boolean keepInventory, Entity.RemovalReason reason) {
-+        this.cserver.getPluginManager().callEvent(event);
-+        if (event.getResult() != org.bukkit.event.player.PlayerLoginEvent.Result.ALLOWED) {
-+            loginlistener.disconnect(io.papermc.paper.adventure.PaperAdventure.asVanilla(event.kickMessage())); // Paper - Adventure
-+            return null;
-+        }
-+        return entity;
-+    }
-+
-+    // CraftBukkit start - added EntityPlayer
-+    public ServerPlayer getPlayerForLogin(GameProfile gameProfile, ClientInformation clientInformation, ServerPlayer player) {
-+        player.updateOptions(clientInformation);
-+        return player;
-+        // CraftBukkit end
-+    }
-+
 +    public boolean disconnectAllPlayersWithProfile(GameProfile gameProfile, ServerPlayer player) { // CraftBukkit - added ServerPlayer
 +        // CraftBukkit start - Moved up
 +        // UUID id = gameProfile.getId();
@@ -609,12 +607,14 @@
 +        return player == null;
 +        // CraftBukkit end
 +    }
-+
+ 
+-        return !set.isEmpty();
 +    // CraftBukkit start
 +    public ServerPlayer respawn(ServerPlayer player, boolean keepInventory, Entity.RemovalReason reason, @Nullable org.bukkit.event.player.PlayerRespawnEvent.RespawnReason eventReason) {
 +        return this.respawn(player, keepInventory, reason, eventReason, null);
-+    }
-+
+     }
+ 
+-    public ServerPlayer respawn(ServerPlayer player, boolean keepInventory, Entity.RemovalReason reason) {
 +    public ServerPlayer respawn(ServerPlayer player, boolean keepInventory, Entity.RemovalReason reason, @Nullable org.bukkit.event.player.PlayerRespawnEvent.RespawnReason eventReason, @Nullable org.bukkit.Location location) {
 +        player.stopRiding(); // CraftBukkit
          this.players.remove(player);
@@ -696,7 +696,7 @@
          serverPlayer.connection.send(new ClientboundSetDefaultSpawnPositionPacket(level.getSharedSpawnPos(), level.getSharedSpawnAngle()));
          serverPlayer.connection.send(new ClientboundChangeDifficultyPacket(levelData.getDifficulty(), levelData.isDifficultyLocked()));
          serverPlayer.connection
-@@ -451,10 +_,13 @@
+@@ -451,10 +787,13 @@ public abstract class PlayerList {
          this.sendActivePlayerEffects(serverPlayer);
          this.sendLevelInfo(serverPlayer, level);
          this.sendPlayerPermissionLevel(serverPlayer);
@@ -714,7 +714,7 @@
          serverPlayer.setHealth(serverPlayer.getHealth());
          ServerPlayer.RespawnConfig respawnConfig = serverPlayer.getRespawnConfig();
          if (!keepInventory && respawnConfig != null) {
-@@ -477,8 +_,41 @@
+@@ -477,8 +816,41 @@ public abstract class PlayerList {
                              )
                          );
                  }
@@ -756,7 +756,7 @@
  
          return serverPlayer;
      }
-@@ -488,24 +_,60 @@
+@@ -488,24 +860,60 @@ public abstract class PlayerList {
      }
  
      public void sendActiveEffects(LivingEntity entity, ServerGamePacketListenerImpl connection) {
@@ -820,7 +820,7 @@
      public void broadcastAll(Packet<?> packet) {
          for (ServerPlayer serverPlayer : this.players) {
              serverPlayer.connection.send(packet);
-@@ -581,6 +_,12 @@
+@@ -581,6 +989,12 @@ public abstract class PlayerList {
      }
  
      private void sendPlayerPermissionLevel(ServerPlayer player, int permLevel) {
@@ -833,7 +833,7 @@
          if (player.connection != null) {
              byte b;
              if (permLevel <= 0) {
-@@ -594,11 +_,33 @@
+@@ -594,11 +1008,33 @@ public abstract class PlayerList {
              player.connection.send(new ClientboundEntityEventPacket(player, b));
          }
  
@@ -868,7 +868,7 @@
      }
  
      public boolean isOp(GameProfile profile) {
-@@ -609,21 +_,17 @@
+@@ -609,21 +1045,17 @@ public abstract class PlayerList {
  
      @Nullable
      public ServerPlayer getPlayerByName(String username) {
@@ -896,7 +896,7 @@
              if (serverPlayer != except && serverPlayer.level().dimension() == dimension) {
                  double d = x - serverPlayer.getX();
                  double d1 = y - serverPlayer.getY();
-@@ -636,9 +_,11 @@
+@@ -636,9 +1068,11 @@ public abstract class PlayerList {
      }
  
      public void saveAll() {
@@ -908,7 +908,7 @@
      }
  
      public UserWhiteList getWhiteList() {
-@@ -661,14 +_,18 @@
+@@ -661,14 +1095,18 @@ public abstract class PlayerList {
      }
  
      public void sendLevelInfo(ServerPlayer player, ServerLevel level) {
@@ -931,7 +931,7 @@
          }
  
          player.connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.LEVEL_CHUNKS_LOAD_START, 0.0F));
-@@ -677,8 +_,21 @@
+@@ -677,8 +1115,21 @@ public abstract class PlayerList {
  
      public void sendAllPlayerInfo(ServerPlayer player) {
          player.inventoryMenu.sendAllDataToRemote();
@@ -954,7 +954,7 @@
      }
  
      public int getPlayerCount() {
-@@ -694,6 +_,7 @@
+@@ -694,6 +1145,7 @@ public abstract class PlayerList {
      }
  
      public void setUsingWhiteList(boolean whitelistEnabled) {
@@ -962,14 +962,12 @@
          this.doWhiteList = whitelistEnabled;
      }
  
-@@ -731,10 +_,35 @@
+@@ -731,11 +1183,36 @@ public abstract class PlayerList {
      }
  
      public void removeAll() {
 -        for (int i = 0; i < this.players.size(); i++) {
 -            this.players.get(i).connection.disconnect(Component.translatable("multiplayer.disconnect.server_shutdown"));
--        }
--    }
 +        // Paper start - Extract method to allow for restarting flag
 +        this.removeAll(false);
 +    }
@@ -980,7 +978,7 @@
 +        for (ServerPlayer player : this.players) {
 +            if (isRestarting) player.connection.disconnect(net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacySection().deserialize(org.spigotmc.SpigotConfig.restartMessage), org.bukkit.event.player.PlayerKickEvent.Cause.UNKNOWN); else // Paper - kick event cause (cause is never used here)
 +            player.connection.disconnect(java.util.Objects.requireNonNullElseGet(this.server.server.shutdownMessage(), net.kyori.adventure.text.Component::empty)); // CraftBukkit - add custom shutdown message // Paper - Adventure
-+        }
+         }
 +        // CraftBukkit end
 +
 +        // Paper start - Configurable player collision; Remove collideRule team if it exists
@@ -990,8 +988,8 @@
 +            if (team != null) scoreboard.removePlayerTeam(team);
 +        }
 +        // Paper end - Configurable player collision
-+    }
-+
+     }
+ 
 +    // CraftBukkit start
 +    public void broadcastMessage(Component[] iChatBaseComponents) {
 +        for (Component component : iChatBaseComponents) {
@@ -999,10 +997,11 @@
 +        }
 +    }
 +    // CraftBukkit end
- 
++
      public void broadcastSystemMessage(Component message, boolean bypassHiddenChat) {
          this.broadcastSystemMessage(message, serverPlayer -> message, bypassHiddenChat);
-@@ -756,20 +_,39 @@
+     }
+@@ -756,20 +1233,39 @@ public abstract class PlayerList {
      }
  
      public void broadcastChatMessage(PlayerChatMessage message, ServerPlayer sender, ChatType.Bound boundChatType) {
@@ -1045,7 +1044,7 @@
              flag1 |= flag2 && message.isFullyFiltered();
          }
  
-@@ -782,14 +_,21 @@
+@@ -782,14 +1278,21 @@ public abstract class PlayerList {
          return message.hasSignature() && !message.hasExpiredServer(Instant.now());
      }
  
@@ -1071,7 +1070,7 @@
                  Path path = file2.toPath();
                  if (FileUtil.isPathNormalized(path) && FileUtil.isPathPortable(path) && path.startsWith(file.getPath()) && file2.isFile()) {
                      file2.renameTo(file1);
-@@ -797,7 +_,7 @@
+@@ -797,7 +1300,7 @@ public abstract class PlayerList {
              }
  
              serverStatsCounter = new ServerStatsCounter(this.server, file1);
@@ -1080,7 +1079,7 @@
          }
  
          return serverStatsCounter;
-@@ -805,11 +_,11 @@
+@@ -805,11 +1308,11 @@ public abstract class PlayerList {
  
      public PlayerAdvancements getPlayerAdvancements(ServerPlayer player) {
          UUID uuid = player.getUUID();
@@ -1094,7 +1093,7 @@
          }
  
          playerAdvancements.setPlayer(player);
-@@ -852,11 +_,34 @@
+@@ -852,11 +1355,34 @@ public abstract class PlayerList {
      }
  
      public void reloadResources() {

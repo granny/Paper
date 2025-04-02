@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/server/Services.java b/net/minecraft/server/Services.java
+index a51e15765f39a1eb06ff270fa81108ee4fb28c3d..015e3ff8d856a7722def4448d8c68792cc3a32a2 100644
 --- a/net/minecraft/server/Services.java
 +++ b/net/minecraft/server/Services.java
-@@ -11,15 +_,31 @@
+@@ -11,15 +11,31 @@ import net.minecraft.server.players.GameProfileCache;
  import net.minecraft.util.SignatureValidator;
  
  public record Services(

@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/ai/sensing/TemptingSensor.java b/net/minecraft/world/entity/ai/sensing/TemptingSensor.java
+index f402f503cc5ff21a11c3da08b08d1469adbd0037..6074c091d0df7843c9f9dc691703eba1a24a7253 100644
 --- a/net/minecraft/world/entity/ai/sensing/TemptingSensor.java
 +++ b/net/minecraft/world/entity/ai/sensing/TemptingSensor.java
-@@ -38,7 +_,19 @@
+@@ -38,7 +38,19 @@ public class TemptingSensor extends Sensor<PathfinderMob> {
              .collect(Collectors.toList());
          if (!list.isEmpty()) {
              Player player = list.get(0);

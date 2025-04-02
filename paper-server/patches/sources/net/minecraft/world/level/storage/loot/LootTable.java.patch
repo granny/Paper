@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/storage/loot/LootTable.java b/net/minecraft/world/level/storage/loot/LootTable.java
+index 07fb909badc3a50dc59b227962da785ec2633015..7a8eb1e8b07647e1124594f78652d34731e4fda6 100644
 --- a/net/minecraft/world/level/storage/loot/LootTable.java
 +++ b/net/minecraft/world/level/storage/loot/LootTable.java
-@@ -52,6 +_,7 @@
+@@ -52,6 +52,7 @@ public class LootTable {
      private final List<LootPool> pools;
      private final List<LootItemFunction> functions;
      private final BiFunction<ItemStack, LootContext, ItemStack> compositeFunction;
@@ -8,7 +16,7 @@
  
      LootTable(ContextKeySet paramSet, Optional<ResourceLocation> randomSequence, List<LootPool> pools, List<LootItemFunction> functions) {
          this.paramSet = paramSet;
-@@ -62,9 +_,10 @@
+@@ -62,9 +63,10 @@ public class LootTable {
      }
  
      public static Consumer<ItemStack> createStackSplitter(ServerLevel level, Consumer<ItemStack> output) {
@@ -20,7 +28,7 @@
                      output.accept(itemStack);
                  } else {
                      int count = itemStack.getCount();
-@@ -145,9 +_,22 @@
+@@ -145,9 +147,22 @@ public class LootTable {
      }
  
      public void fill(Container container, LootParams params, long seed) {

@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/PointedDripstoneBlock.java b/net/minecraft/world/level/block/PointedDripstoneBlock.java
+index 698d5577c95b40d8a98d62309d9181ee95c3bd72..ef164fb4f24412e506b8abce74d509e8be6c4676 100644
 --- a/net/minecraft/world/level/block/PointedDripstoneBlock.java
 +++ b/net/minecraft/world/level/block/PointedDripstoneBlock.java
-@@ -143,6 +_,11 @@
+@@ -143,6 +143,11 @@ public class PointedDripstoneBlock extends Block implements Fallable, SimpleWate
                  && projectile.mayBreak(serverLevel)
                  && projectile instanceof ThrownTrident
                  && projectile.getDeltaMovement().length() > 0.6) {
@@ -12,7 +20,7 @@
                  level.destroyBlock(blockPos, true);
              }
          }
-@@ -151,7 +_,7 @@
+@@ -151,7 +156,7 @@ public class PointedDripstoneBlock extends Block implements Fallable, SimpleWate
      @Override
      public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
          if (state.getValue(TIP_DIRECTION) == Direction.UP && state.getValue(THICKNESS) == DripstoneThickness.TIP) {
@@ -21,7 +29,7 @@
          } else {
              super.fallOn(level, state, pos, entity, fallDistance);
          }
-@@ -209,10 +_,11 @@
+@@ -209,10 +214,11 @@ public class PointedDripstoneBlock extends Block implements Fallable, SimpleWate
                          if (blockPos != null) {
                              if (fluidAboveStalactite.get().sourceState.is(Blocks.MUD) && fluid == Fluids.WATER) {
                                  BlockState blockState = Blocks.CLAY.defaultBlockState();
@@ -34,7 +42,7 @@
                              } else {
                                  BlockPos blockPos1 = findFillableCauldronBelowStalactiteTip(level, blockPos, fluid);
                                  if (blockPos1 != null) {
-@@ -364,17 +_,17 @@
+@@ -364,17 +370,17 @@ public class PointedDripstoneBlock extends Block implements Fallable, SimpleWate
          if (isUnmergedTipWithDirection(blockState, direction.getOpposite())) {
              createMergedTips(blockState, server, blockPos);
          } else if (blockState.isAir() || blockState.is(Blocks.WATER)) {
@@ -55,7 +63,7 @@
      }
  
      private static void createMergedTips(BlockState state, LevelAccessor level, BlockPos pos) {
-@@ -388,8 +_,8 @@
+@@ -388,8 +394,8 @@ public class PointedDripstoneBlock extends Block implements Fallable, SimpleWate
              blockPos = pos.below();
          }
  

@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/material/LavaFluid.java b/net/minecraft/world/level/material/LavaFluid.java
+index b54bd14dc2d7ab11666610409ccf6f1f54489b0c..033f252248b671e35135269dd2df6e7ca4585604 100644
 --- a/net/minecraft/world/level/material/LavaFluid.java
 +++ b/net/minecraft/world/level/material/LavaFluid.java
-@@ -92,6 +_,13 @@
+@@ -92,6 +92,13 @@ public abstract class LavaFluid extends FlowingFluid {
                          BlockState blockState = level.getBlockState(blockPos);
                          if (blockState.isAir()) {
                              if (this.hasFlammableNeighbours(level, blockPos)) {
@@ -14,7 +22,7 @@
                                  level.setBlockAndUpdate(blockPos, BaseFireBlock.getState(level, blockPos));
                                  return;
                              }
-@@ -107,6 +_,14 @@
+@@ -107,6 +114,14 @@ public abstract class LavaFluid extends FlowingFluid {
                          }
  
                          if (level.isEmptyBlock(blockPos1.above()) && this.isFlammable(level, blockPos1)) {
@@ -29,7 +37,7 @@
                              level.setBlockAndUpdate(blockPos1.above(), BaseFireBlock.getState(level, blockPos1));
                          }
                      }
-@@ -117,8 +_,9 @@
+@@ -117,8 +132,9 @@ public abstract class LavaFluid extends FlowingFluid {
  
      @Override
      protected void entityInside(Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier) {
@@ -40,7 +48,7 @@
      }
  
      private boolean hasFlammableNeighbours(LevelReader level, BlockPos pos) {
-@@ -206,7 +_,11 @@
+@@ -206,7 +222,11 @@ public abstract class LavaFluid extends FlowingFluid {
              FluidState fluidState1 = level.getFluidState(pos);
              if (this.is(FluidTags.LAVA) && fluidState1.is(FluidTags.WATER)) {
                  if (blockState.getBlock() instanceof LiquidBlock) {
@@ -53,7 +61,7 @@
                  }
  
                  this.fizz(level, pos);
-@@ -224,7 +_,7 @@
+@@ -224,7 +244,7 @@ public abstract class LavaFluid extends FlowingFluid {
  
      @Override
      protected float getExplosionResistance() {

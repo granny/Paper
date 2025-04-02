@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/core/dispenser/DefaultDispenseItemBehavior.java b/net/minecraft/core/dispenser/DefaultDispenseItemBehavior.java
+index e5d35607f3ae9552f2dd4c12fe9e47ad68e7810a..e1a886397f37e3ec2013fd1690a337b90f676f02 100644
 --- a/net/minecraft/core/dispenser/DefaultDispenseItemBehavior.java
 +++ b/net/minecraft/core/dispenser/DefaultDispenseItemBehavior.java
-@@ -9,24 +_,37 @@
+@@ -9,24 +9,37 @@ import net.minecraft.world.level.block.DispenserBlock;
  
  public class DefaultDispenseItemBehavior implements DispenseItemBehavior {
      private static final int DEFAULT_ACCURACY = 6;
@@ -41,7 +49,7 @@
          double d = position.x();
          double d1 = position.y();
          double d2 = position.z();
-@@ -43,7 +_,43 @@
+@@ -43,7 +56,43 @@ public class DefaultDispenseItemBehavior implements DispenseItemBehavior {
              level.random.triangle(0.2, 0.0172275 * speed),
              level.random.triangle(facing.getStepZ() * d3, 0.0172275 * speed)
          );

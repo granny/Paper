@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/ChatFormatting.java b/net/minecraft/ChatFormatting.java
+index 1a2e66d6593c98c233e8609e5b84e9f8e23ce33d..37fca4c007965f356097d70c2eaa3dfc88b25f93 100644
 --- a/net/minecraft/ChatFormatting.java
 +++ b/net/minecraft/ChatFormatting.java
-@@ -118,6 +_,19 @@
+@@ -118,6 +118,19 @@ public enum ChatFormatting implements StringRepresentable {
          return friendlyName == null ? null : FORMATTING_BY_NAME.get(cleanName(friendlyName));
      }
  

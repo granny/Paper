@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/inventory/InventoryMenu.java b/net/minecraft/world/inventory/InventoryMenu.java
+index dff7b276213f00e3bc3cd4bcaf08588f84ca8c70..d4ff4db75544dfde4db925dc3dd702560c82d2b7 100644
 --- a/net/minecraft/world/inventory/InventoryMenu.java
 +++ b/net/minecraft/world/inventory/InventoryMenu.java
-@@ -44,9 +_,13 @@
+@@ -44,9 +44,13 @@ public class InventoryMenu extends AbstractCraftingMenu {
      private static final EquipmentSlot[] SLOT_IDS = new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
      public final boolean active;
      private final Player owner;
@@ -15,7 +23,7 @@
          this.active = active;
          this.owner = owner;
          this.addResultSlot(owner, 154, 28);
-@@ -188,4 +_,17 @@
+@@ -188,4 +192,17 @@ public class InventoryMenu extends AbstractCraftingMenu {
      protected Player owner() {
          return this.owner;
      }

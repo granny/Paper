@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/ai/attributes/AttributeMap.java b/net/minecraft/world/entity/ai/attributes/AttributeMap.java
+index e53fe4bafebc92c1e8d0a1cc910678eb128dc4a4..bed9b564c493cd84bf53fc49368fda736f3fbc2b 100644
 --- a/net/minecraft/world/entity/ai/attributes/AttributeMap.java
 +++ b/net/minecraft/world/entity/ai/attributes/AttributeMap.java
-@@ -148,4 +_,12 @@
+@@ -148,4 +148,12 @@ public class AttributeMap {
                  .ifPresent(attributeInstance -> attributeInstance.load(compoundOrEmpty));
          }
      }

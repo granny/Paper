@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/inventory/ResultContainer.java b/net/minecraft/world/inventory/ResultContainer.java
+index c8824479ef16edca8cc12536af97b2af24856773..8461a4064b2146f1614c84938a292733768a3d13 100644
 --- a/net/minecraft/world/inventory/ResultContainer.java
 +++ b/net/minecraft/world/inventory/ResultContainer.java
-@@ -12,6 +_,55 @@
+@@ -12,6 +12,55 @@ public class ResultContainer implements Container, RecipeCraftingHolder {
      private final NonNullList<ItemStack> itemStacks = NonNullList.withSize(1, ItemStack.EMPTY);
      @Nullable
      private RecipeHolder<?> recipeUsed;

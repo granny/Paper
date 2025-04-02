@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/FireBlock.java b/net/minecraft/world/level/block/FireBlock.java
+index c62cf931fcc975ab30e8e7cc9ffb3bca68ade95b..e2e843c750138a2c666c5d9b402f7edaf9a239f7 100644
 --- a/net/minecraft/world/level/block/FireBlock.java
 +++ b/net/minecraft/world/level/block/FireBlock.java
-@@ -101,7 +_,22 @@
+@@ -101,7 +101,22 @@ public class FireBlock extends BaseFireBlock {
          BlockState neighborState,
          RandomSource random
      ) {
@@ -24,7 +32,7 @@
      }
  
      @Override
-@@ -141,11 +_,11 @@
+@@ -141,11 +156,11 @@ public class FireBlock extends BaseFireBlock {
  
      @Override
      protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
@@ -38,7 +46,7 @@
                  }
  
                  BlockState blockState = level.getBlockState(pos.below());
-@@ -164,26 +_,28 @@
+@@ -164,26 +179,28 @@ public class FireBlock extends BaseFireBlock {
                          if (!this.isValidFireLocation(level, pos)) {
                              BlockPos blockPos = pos.below();
                              if (!level.getBlockState(blockPos).isFaceSturdy(level, blockPos, Direction.UP) || ageValue > 3) {
@@ -75,7 +83,7 @@
                      BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
  
                      for (int i1 = -1; i1 <= 1; i1++) {
-@@ -205,7 +_,15 @@
+@@ -205,7 +222,15 @@ public class FireBlock extends BaseFireBlock {
  
                                          if (i5 > 0 && random.nextInt(i4) <= i5 && (!level.isRaining() || !this.isNearRain(level, mutableBlockPos))) {
                                              int min1 = Math.min(15, ageValue + random.nextInt(5) / 4);
@@ -92,7 +100,7 @@
                                          }
                                      }
                                  }
-@@ -237,19 +_,40 @@
+@@ -237,19 +262,40 @@ public class FireBlock extends BaseFireBlock {
              : this.igniteOdds.getInt(state.getBlock());
      }
  
@@ -135,7 +143,7 @@
                  TntBlock.prime(level, pos);
              }
          }
-@@ -291,13 +_,14 @@
+@@ -291,13 +337,14 @@ public class FireBlock extends BaseFireBlock {
      }
  
      @Override

@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/HopperBlock.java b/net/minecraft/world/level/block/HopperBlock.java
+index 6353d6ca0e9467ec351537405dcb002ea2796a4c..46a27f60ba407dacdac190b5e292ab3f1db5a078 100644
 --- a/net/minecraft/world/level/block/HopperBlock.java
 +++ b/net/minecraft/world/level/block/HopperBlock.java
-@@ -106,8 +_,7 @@
+@@ -106,8 +106,7 @@ public class HopperBlock extends BaseEntityBlock {
  
      @Override
      protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
@@ -10,7 +18,7 @@
              player.awardStat(Stats.INSPECT_HOPPER);
          }
  
-@@ -158,6 +_,7 @@
+@@ -158,6 +157,7 @@ public class HopperBlock extends BaseEntityBlock {
  
      @Override
      protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier) {

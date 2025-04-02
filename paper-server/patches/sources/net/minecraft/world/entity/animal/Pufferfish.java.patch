@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/animal/Pufferfish.java b/net/minecraft/world/entity/animal/Pufferfish.java
+index eaeab4d3b8900b76ba5e002827e769a103211916..4a7201fe9e946fc20ed04e729d00f7986a748bad 100644
 --- a/net/minecraft/world/entity/animal/Pufferfish.java
 +++ b/net/minecraft/world/entity/animal/Pufferfish.java
-@@ -96,24 +_,36 @@
+@@ -96,24 +96,36 @@ public class Pufferfish extends AbstractFish {
      public void tick() {
          if (!this.level().isClientSide && this.isAlive() && this.isEffectiveAi()) {
              if (this.inflateCounter > 0) {
@@ -37,7 +45,7 @@
                  this.deflateTimer++;
              }
          }
-@@ -137,7 +_,7 @@
+@@ -137,7 +149,7 @@ public class Pufferfish extends AbstractFish {
      private void touch(ServerLevel level, Mob mob) {
          int puffState = this.getPuffState();
          if (mob.hurtServer(level, this.damageSources().mobAttack(this), 1 + puffState)) {
@@ -46,7 +54,7 @@
              this.playSound(SoundEvents.PUFFER_FISH_STING, 1.0F, 1.0F);
          }
      }
-@@ -152,7 +_,7 @@
+@@ -152,7 +164,7 @@ public class Pufferfish extends AbstractFish {
                  serverPlayer.connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.PUFFER_FISH_STING, 0.0F));
              }
  

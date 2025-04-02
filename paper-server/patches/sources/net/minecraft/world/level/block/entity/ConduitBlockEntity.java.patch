@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/entity/ConduitBlockEntity.java b/net/minecraft/world/level/block/entity/ConduitBlockEntity.java
+index 0b5e7dd0987b9892f3cddb02930254fc559b64d0..2f07a23a6151a4dfb28ddc0ab38ec2abefcdd27c 100644
 --- a/net/minecraft/world/level/block/entity/ConduitBlockEntity.java
 +++ b/net/minecraft/world/level/block/entity/ConduitBlockEntity.java
-@@ -165,8 +_,20 @@
+@@ -165,8 +165,20 @@ public class ConduitBlockEntity extends BlockEntity {
      }
  
      private static void applyEffects(Level level, BlockPos pos, List<BlockPos> positions) {
@@ -21,7 +29,7 @@
          int x = pos.getX();
          int y = pos.getY();
          int z = pos.getZ();
-@@ -175,13 +_,19 @@
+@@ -175,13 +187,19 @@ public class ConduitBlockEntity extends BlockEntity {
          if (!entitiesOfClass.isEmpty()) {
              for (Player player : entitiesOfClass) {
                  if (pos.closerThan(player.blockPosition(), i) && player.isInWaterOrRain()) {
@@ -42,7 +50,7 @@
          LivingEntity livingEntity = blockEntity.destroyTarget;
          int size = positions.size();
          if (size < 42) {
-@@ -200,7 +_,8 @@
+@@ -200,7 +218,8 @@ public class ConduitBlockEntity extends BlockEntity {
              blockEntity.destroyTarget = null;
          }
  
@@ -52,7 +60,7 @@
              level.playSound(
                  null,
                  blockEntity.destroyTarget.getX(),
-@@ -211,7 +_,6 @@
+@@ -211,7 +230,6 @@ public class ConduitBlockEntity extends BlockEntity {
                  1.0F,
                  1.0F
              );

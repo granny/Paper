@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/projectile/ThrownSplashPotion.java b/net/minecraft/world/entity/projectile/ThrownSplashPotion.java
+index 13de6a2c8f4b04899af1687e827332c6a1874ab4..5be6707179c480cb33bf8ee9d40ec01b13d248df 100644
 --- a/net/minecraft/world/entity/projectile/ThrownSplashPotion.java
 +++ b/net/minecraft/world/entity/projectile/ThrownSplashPotion.java
-@@ -36,12 +_,13 @@
+@@ -36,12 +36,13 @@ public class ThrownSplashPotion extends AbstractThrownPotion {
      }
  
      @Override
@@ -15,7 +23,7 @@
          if (!entitiesOfClass.isEmpty()) {
              Entity effectSource = this.getEffectSource();
  
-@@ -50,12 +_,31 @@
+@@ -50,12 +51,31 @@ public class ThrownSplashPotion extends AbstractThrownPotion {
                      double d = this.distanceToSqr(livingEntity);
                      if (d < 16.0) {
                          double d1;
@@ -47,7 +55,7 @@
                          for (MobEffectInstance mobEffectInstance : allEffects) {
                              Holder<MobEffect> effect = mobEffectInstance.getEffect();
                              if (effect.value().isInstantenous()) {
-@@ -66,7 +_,7 @@
+@@ -66,7 +86,7 @@ public class ThrownSplashPotion extends AbstractThrownPotion {
                                      effect, i, mobEffectInstance.getAmplifier(), mobEffectInstance.isAmbient(), mobEffectInstance.isVisible()
                                  );
                                  if (!mobEffectInstance1.endsWithin(20)) {
@@ -56,7 +64,7 @@
                                  }
                              }
                          }
-@@ -74,5 +_,6 @@
+@@ -74,5 +94,6 @@ public class ThrownSplashPotion extends AbstractThrownPotion {
                  }
              }
          }

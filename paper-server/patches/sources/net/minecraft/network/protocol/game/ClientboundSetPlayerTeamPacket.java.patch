@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/network/protocol/game/ClientboundSetPlayerTeamPacket.java b/net/minecraft/network/protocol/game/ClientboundSetPlayerTeamPacket.java
+index 007df2f9aa1dee737ddeaee0d4be62de5334be56..b3708a84736bc28890c5dd621c5125a7cf2fd8e6 100644
 --- a/net/minecraft/network/protocol/game/ClientboundSetPlayerTeamPacket.java
 +++ b/net/minecraft/network/protocol/game/ClientboundSetPlayerTeamPacket.java
-@@ -31,6 +_,11 @@
+@@ -31,6 +31,11 @@ public class ClientboundSetPlayerTeamPacket implements Packet<ClientGamePacketLi
      private final Collection<String> players;
      private final Optional<ClientboundSetPlayerTeamPacket.Parameters> parameters;
  
@@ -12,7 +20,7 @@
      private ClientboundSetPlayerTeamPacket(String name, int method, Optional<ClientboundSetPlayerTeamPacket.Parameters> parameters, Collection<String> players) {
          this.name = name;
          this.method = method;
-@@ -199,7 +_,7 @@
+@@ -199,7 +204,7 @@ public class ClientboundSetPlayerTeamPacket implements Packet<ClientGamePacketLi
              ComponentSerialization.TRUSTED_STREAM_CODEC.encode(buffer, this.displayName);
              buffer.writeByte(this.options);
              Team.Visibility.STREAM_CODEC.encode(buffer, this.nametagVisibility);

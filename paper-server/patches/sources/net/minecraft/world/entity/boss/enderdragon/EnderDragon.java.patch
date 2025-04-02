@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java b/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java
+index 835a34db317d40f9fa36808c1e5d744d496415ca..0f3c88601357399d3b8efd2f0e3a531482bc1f3d 100644
 --- a/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java
 +++ b/net/minecraft/world/entity/boss/enderdragon/EnderDragon.java
-@@ -87,6 +_,10 @@
+@@ -87,6 +87,10 @@ public class EnderDragon extends Mob implements Enemy {
      private final Node[] nodes = new Node[24];
      private final int[] nodeAdjacency = new int[24];
      private final BinaryHeap openSet = new BinaryHeap();
@@ -11,7 +19,7 @@
  
      public EnderDragon(EntityType<? extends EnderDragon> entityType, Level level) {
          super(EntityType.ENDER_DRAGON, level);
-@@ -102,6 +_,7 @@
+@@ -102,6 +106,7 @@ public class EnderDragon extends Mob implements Enemy {
          this.setHealth(this.getMaxHealth());
          this.noPhysics = true;
          this.phaseManager = new EnderDragonPhaseManager(this);
@@ -19,7 +27,7 @@
      }
  
      public void setDragonFight(EndDragonFight dragonFight) {
-@@ -120,6 +_,19 @@
+@@ -120,6 +125,19 @@ public class EnderDragon extends Mob implements Enemy {
          return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 200.0);
      }
  
@@ -39,7 +47,7 @@
      @Override
      public boolean isFlapping() {
          float cos = Mth.cos(this.flapTime * (float) (Math.PI * 2));
-@@ -211,7 +_,7 @@
+@@ -211,7 +229,7 @@ public class EnderDragon extends Mob implements Enemy {
                      }
  
                      Vec3 flyTargetLocation = currentPhase.getFlyTargetLocation();
@@ -48,7 +56,7 @@
                          double d = flyTargetLocation.x - this.getX();
                          double d1 = flyTargetLocation.y - this.getY();
                          double d2 = flyTargetLocation.z - this.getZ();
-@@ -366,7 +_,12 @@
+@@ -366,7 +384,12 @@ public class EnderDragon extends Mob implements Enemy {
              if (this.nearestCrystal.isRemoved()) {
                  this.nearestCrystal = null;
              } else if (this.tickCount % 10 == 0 && this.getHealth() < this.getMaxHealth()) {
@@ -62,7 +70,7 @@
              }
          }
  
-@@ -396,7 +_,7 @@
+@@ -396,7 +419,7 @@ public class EnderDragon extends Mob implements Enemy {
                  double d2 = entity.getX() - d;
                  double d3 = entity.getZ() - d1;
                  double max = Math.max(d2 * d2 + d3 * d3, 0.1);
@@ -71,7 +79,7 @@
                  if (!this.phaseManager.getCurrentPhase().isSitting() && livingEntity.getLastHurtByMobTimestamp() < entity.tickCount - 2) {
                      DamageSource damageSource = this.damageSources().mobAttack(this);
                      entity.hurtServer(level, damageSource, 5.0F);
-@@ -429,6 +_,7 @@
+@@ -429,6 +452,7 @@ public class EnderDragon extends Mob implements Enemy {
          int floor5 = Mth.floor(box.maxZ);
          boolean flag = false;
          boolean flag1 = false;
@@ -79,7 +87,7 @@
  
          for (int i = floor; i <= floor3; i++) {
              for (int i1 = floor1; i1 <= floor4; i1++) {
-@@ -437,7 +_,11 @@
+@@ -437,7 +461,11 @@ public class EnderDragon extends Mob implements Enemy {
                      BlockState blockState = level.getBlockState(blockPos);
                      if (!blockState.isAir() && !blockState.is(BlockTags.DRAGON_TRANSPARENT)) {
                          if (level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !blockState.is(BlockTags.DRAGON_IMMUNE)) {
@@ -92,7 +100,7 @@
                          } else {
                              flag = true;
                          }
-@@ -446,6 +_,58 @@
+@@ -446,6 +474,58 @@ public class EnderDragon extends Mob implements Enemy {
              }
          }
  
@@ -151,7 +159,7 @@
          if (flag1) {
              BlockPos blockPos1 = new BlockPos(
                  floor + this.random.nextInt(floor3 - floor + 1),
-@@ -503,7 +_,15 @@
+@@ -503,7 +583,15 @@ public class EnderDragon extends Mob implements Enemy {
  
      @Override
      public void kill(ServerLevel level) {
@@ -168,7 +176,7 @@
          this.gameEvent(GameEvent.ENTITY_DIE);
          if (this.dragonFight != null) {
              this.dragonFight.updateDragon(this);
-@@ -525,18 +_,41 @@
+@@ -525,18 +613,41 @@ public class EnderDragon extends Mob implements Enemy {
              this.level().addParticle(ParticleTypes.EXPLOSION_EMITTER, this.getX() + f, this.getY() + 2.0 + f1, this.getZ() + f2, 0.0, 0.0, 0.0);
          }
  
@@ -213,7 +221,7 @@
              }
          }
  
-@@ -549,15 +_,15 @@
+@@ -549,15 +660,15 @@ public class EnderDragon extends Mob implements Enemy {
          }
  
          if (this.dragonDeathTime == 200 && this.level() instanceof ServerLevel serverLevel1) {
@@ -232,7 +240,7 @@
              this.gameEvent(GameEvent.ENTITY_DIE);
          }
      }
-@@ -739,6 +_,7 @@
+@@ -739,6 +850,7 @@ public class EnderDragon extends Mob implements Enemy {
          super.addAdditionalSaveData(compound);
          compound.putInt("DragonPhase", this.phaseManager.getCurrentPhase().getPhase().getId());
          compound.putInt("DragonDeathTime", this.dragonDeathTime);
@@ -240,7 +248,7 @@
      }
  
      @Override
-@@ -746,6 +_,7 @@
+@@ -746,6 +858,7 @@ public class EnderDragon extends Mob implements Enemy {
          super.readAdditionalSaveData(compound);
          compound.getInt("DragonPhase").ifPresent(integer -> this.phaseManager.setPhase(EnderDragonPhase.getById(integer)));
          this.dragonDeathTime = compound.getIntOr("DragonDeathTime", 0);
@@ -248,7 +256,7 @@
      }
  
      @Override
-@@ -786,7 +_,7 @@
+@@ -786,7 +899,7 @@ public class EnderDragon extends Mob implements Enemy {
          EnderDragonPhase<? extends DragonPhaseInstance> phase = currentPhase.getPhase();
          Vec3 viewVector;
          if (phase == EnderDragonPhase.LANDING || phase == EnderDragonPhase.TAKEOFF) {
@@ -257,7 +265,7 @@
              float max = Math.max((float)Math.sqrt(heightmapPos.distToCenterSqr(this.position())) / 4.0F, 1.0F);
              float f = 6.0F / max;
              float xRot = this.getXRot();
-@@ -874,4 +_,19 @@
+@@ -874,4 +987,19 @@ public class EnderDragon extends Mob implements Enemy {
      protected float sanitizeScale(float scale) {
          return 1.0F;
      }

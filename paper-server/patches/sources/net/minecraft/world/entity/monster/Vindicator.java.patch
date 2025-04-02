@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/monster/Vindicator.java b/net/minecraft/world/entity/monster/Vindicator.java
+index 77b5977e76abf70d42a9348ef33141d4ef3f9db2..d02b4bfc3834cdfae37983ec616ee3cbcd9f0988 100644
 --- a/net/minecraft/world/entity/monster/Vindicator.java
 +++ b/net/minecraft/world/entity/monster/Vindicator.java
-@@ -183,7 +_,7 @@
+@@ -183,7 +183,7 @@ public class Vindicator extends AbstractIllager {
  
      static class VindicatorBreakDoorGoal extends BreakDoorGoal {
          public VindicatorBreakDoorGoal(Mob mob) {

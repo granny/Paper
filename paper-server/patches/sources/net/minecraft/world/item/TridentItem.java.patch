@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/item/TridentItem.java b/net/minecraft/world/item/TridentItem.java
+index 32cffab0f2208c3c3518c83d7a417d881f472751..df629e3f2defce5e65aaf874d7c5ddff71f39c28 100644
 --- a/net/minecraft/world/item/TridentItem.java
 +++ b/net/minecraft/world/item/TridentItem.java
-@@ -79,18 +_,39 @@
+@@ -79,18 +79,39 @@ public class TridentItem extends Item implements ProjectileItem {
                          .orElse(SoundEvents.TRIDENT_THROW);
                      player.awardStat(Stats.ITEM_USED.get(this));
                      if (level instanceof ServerLevel serverLevel) {
@@ -43,7 +51,7 @@
                          }
                      }
  
-@@ -104,6 +_,7 @@
+@@ -104,6 +125,7 @@ public class TridentItem extends Item implements ProjectileItem {
                          f *= tridentSpinAttackStrength / squareRoot;
                          f1 *= tridentSpinAttackStrength / squareRoot;
                          f2 *= tridentSpinAttackStrength / squareRoot;

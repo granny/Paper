@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/item/BlockItem.java b/net/minecraft/world/item/BlockItem.java
+index 3f81cf108ad94d3ddd63d9ce7bac68ac462129b1..7ba0e75b65204e7759c1a9f1baf056da4dafe55c 100644
 --- a/net/minecraft/world/item/BlockItem.java
 +++ b/net/minecraft/world/item/BlockItem.java
-@@ -57,6 +_,14 @@
+@@ -57,6 +57,14 @@ public class BlockItem extends Item {
                  return InteractionResult.FAIL;
              } else {
                  BlockState placementState = this.getPlacementState(blockPlaceContext);
@@ -15,7 +23,7 @@
                  if (placementState == null) {
                      return InteractionResult.FAIL;
                  } else if (!this.placeBlock(blockPlaceContext, placementState)) {
-@@ -69,15 +_,40 @@
+@@ -69,15 +77,40 @@ public class BlockItem extends Item {
                      BlockState blockState = level.getBlockState(clickedPos);
                      if (blockState.is(placementState.getBlock())) {
                          blockState = this.updateBlockStateFromTag(clickedPos, level, itemInHand, blockState);
@@ -56,7 +64,7 @@
                      level.playSound(
                          player,
                          clickedPos,
-@@ -137,8 +_,19 @@
+@@ -137,8 +170,19 @@ public class BlockItem extends Item {
  
      protected boolean canPlace(BlockPlaceContext context, BlockState state) {
          Player player = context.getPlayer();
@@ -78,7 +86,7 @@
      }
  
      protected boolean mustSurvive() {
-@@ -167,7 +_,7 @@
+@@ -167,7 +211,7 @@ public class BlockItem extends Item {
                          return false;
                      }
  

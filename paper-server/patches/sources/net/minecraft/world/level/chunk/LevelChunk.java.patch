@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/chunk/LevelChunk.java b/net/minecraft/world/level/chunk/LevelChunk.java
+index db5ce13489e6069d159502a35e3cd930f96ff76d..8fa871512ad52c345f15b1f5fb1baf54bb2ec93b 100644
 --- a/net/minecraft/world/level/chunk/LevelChunk.java
 +++ b/net/minecraft/world/level/chunk/LevelChunk.java
-@@ -77,7 +_,7 @@
+@@ -77,7 +77,7 @@ public class LevelChunk extends ChunkAccess {
      };
      private final Map<BlockPos, LevelChunk.RebindableTickingBlockEntityWrapper> tickersInLevel = Maps.newHashMap();
      public boolean loaded;
@@ -9,7 +17,7 @@
      @Nullable
      private Supplier<FullChunkStatus> fullStatus;
      @Nullable
-@@ -86,6 +_,14 @@
+@@ -86,6 +86,14 @@ public class LevelChunk extends ChunkAccess {
      private final LevelChunkTicks<Block> blockTicks;
      private final LevelChunkTicks<Fluid> fluidTicks;
      private LevelChunk.UnsavedListener unsavedListener = chunkPos -> {};
@@ -24,7 +32,7 @@
  
      public LevelChunk(Level level, ChunkPos pos) {
          this(level, pos, UpgradeData.EMPTY, new LevelChunkTicks<>(), new LevelChunkTicks<>(), 0L, null, null, null);
-@@ -103,7 +_,7 @@
+@@ -103,7 +111,7 @@ public class LevelChunk extends ChunkAccess {
          @Nullable BlendingData blendingData
      ) {
          super(pos, data, level, level.registryAccess().lookupOrThrow(Registries.BIOME), inhabitedTime, sections, blendingData);
@@ -33,7 +41,7 @@
          this.gameEventListenerRegistrySections = new Int2ObjectOpenHashMap<>();
  
          for (Heightmap.Types types : Heightmap.Types.values()) {
-@@ -155,6 +_,10 @@
+@@ -155,6 +163,10 @@ public class LevelChunk extends ChunkAccess {
          this.skyLightSources = chunk.skyLightSources;
          this.setLightCorrect(chunk.isLightCorrect());
          this.markUnsaved();
@@ -44,7 +52,7 @@
      }
  
      public void setUnsavedListener(LevelChunk.UnsavedListener unsavedListener) {
-@@ -163,6 +_,12 @@
+@@ -163,6 +175,12 @@ public class LevelChunk extends ChunkAccess {
              unsavedListener.setUnsaved(this.chunkPos);
          }
      }
@@ -57,7 +65,7 @@
  
      @Override
      public void markUnsaved() {
-@@ -196,8 +_,28 @@
+@@ -196,8 +214,28 @@ public class LevelChunk extends ChunkAccess {
              : super.getListenerRegistry(sectionY);
      }
  
@@ -86,7 +94,7 @@
          int x = pos.getX();
          int y = pos.getY();
          int z = pos.getZ();
-@@ -232,28 +_,42 @@
+@@ -232,28 +270,42 @@ public class LevelChunk extends ChunkAccess {
          }
      }
  
@@ -131,7 +139,7 @@
      }
  
      @Nullable
-@@ -313,7 +_,7 @@
+@@ -313,7 +365,7 @@ public class LevelChunk extends ChunkAccess {
                  if (!section.getBlockState(i, i1, i2).is(block)) {
                      return null;
                  } else {
@@ -140,7 +148,7 @@
                          state.onPlace(this.level, pos, blockState, flag1);
                      }
  
-@@ -367,7 +_,12 @@
+@@ -367,7 +419,12 @@ public class LevelChunk extends ChunkAccess {
  
      @Nullable
      public BlockEntity getBlockEntity(BlockPos pos, LevelChunk.EntityCreationType creationType) {
@@ -154,7 +162,7 @@
          if (blockEntity == null) {
              CompoundTag compoundTag = this.pendingBlockEntities.remove(pos);
              if (compoundTag != null) {
-@@ -421,7 +_,13 @@
+@@ -421,7 +478,13 @@ public class LevelChunk extends ChunkAccess {
          BlockPos blockPos = blockEntity.getBlockPos();
          BlockState blockState = this.getBlockState(blockPos);
          if (!blockState.hasBlockEntity()) {
@@ -169,7 +177,7 @@
          } else {
              BlockState blockState1 = blockEntity.getBlockState();
              if (blockState != blockState1) {
-@@ -469,6 +_,11 @@
+@@ -469,6 +532,11 @@ public class LevelChunk extends ChunkAccess {
      public void removeBlockEntity(BlockPos pos) {
          if (this.isInLevel()) {
              BlockEntity blockEntity = this.blockEntities.remove(pos);
@@ -181,7 +189,7 @@
              if (blockEntity != null) {
                  if (this.level instanceof ServerLevel serverLevel) {
                      this.removeGameEventListener(blockEntity, serverLevel);
-@@ -511,6 +_,65 @@
+@@ -511,6 +579,65 @@ public class LevelChunk extends ChunkAccess {
          }
      }
  
@@ -247,7 +255,7 @@
      public boolean isEmpty() {
          return false;
      }
-@@ -719,23 +_,24 @@
+@@ -719,23 +846,24 @@ public class LevelChunk extends ChunkAccess {
                          if (this.blockEntity.getType().isValid(blockState)) {
                              this.ticker.tick(LevelChunk.this.level, this.blockEntity.getBlockPos(), blockState, this.blockEntity);
                              this.loggedInvalidBlockState = false;

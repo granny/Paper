@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/inventory/LoomMenu.java b/net/minecraft/world/inventory/LoomMenu.java
+index 9a34e3d532aa70579468a283f8f902514d62f233..07c60649e22b193d81ea10c79566b4df881e2280 100644
 --- a/net/minecraft/world/inventory/LoomMenu.java
 +++ b/net/minecraft/world/inventory/LoomMenu.java
-@@ -38,21 +_,23 @@
+@@ -38,21 +38,23 @@ public class LoomMenu extends AbstractContainerMenu {
      private final Slot patternSlot;
      private final Slot resultSlot;
      long lastSoundTime;
@@ -17,8 +25,6 @@
 -        public void setChanged() {
 -            super.setChanged();
 -            LoomMenu.this.slotUpdateListener.run();
--        }
--    };
 +    private final Container inputContainer; // Paper - Add missing InventoryHolders - move down
 +    private final Container outputContainer; // Paper - Add missing InventoryHolders - move down
 +    // CraftBukkit start
@@ -29,7 +35,8 @@
 +    public org.bukkit.craftbukkit.inventory.view.CraftLoomView getBukkitView() {
 +        if (this.view != null) {
 +            return this.view;
-+        }
+         }
+-    };
 +
 +        org.bukkit.craftbukkit.inventory.CraftInventoryLoom inventory = new org.bukkit.craftbukkit.inventory.CraftInventoryLoom(this.inputContainer, this.outputContainer);
 +        this.view = new org.bukkit.craftbukkit.inventory.view.CraftLoomView(this.player, inventory, this);
@@ -39,7 +46,7 @@
  
      public LoomMenu(int containerId, Inventory playerInventory) {
          this(containerId, playerInventory, ContainerLevelAccess.NULL);
-@@ -61,6 +_,28 @@
+@@ -61,6 +63,28 @@ public class LoomMenu extends AbstractContainerMenu {
      public LoomMenu(int containerId, Inventory playerInventory, final ContainerLevelAccess access) {
          super(MenuType.LOOM, containerId);
          this.access = access;
@@ -68,7 +75,7 @@
          this.bannerSlot = this.addSlot(new Slot(this.inputContainer, 0, 13, 26) {
              @Override
              public boolean mayPlace(ItemStack stack) {
-@@ -106,18 +_,44 @@
+@@ -106,18 +130,44 @@ public class LoomMenu extends AbstractContainerMenu {
          this.addStandardInventorySlots(playerInventory, 8, 84);
          this.addDataSlot(this.selectedBannerPatternIndex);
          this.patternGetter = playerInventory.player.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN);
@@ -115,7 +122,7 @@
              return true;
          } else {
              return false;
-@@ -181,7 +_,8 @@
+@@ -181,7 +231,8 @@ public class LoomMenu extends AbstractContainerMenu {
                  this.resultSlot.set(ItemStack.EMPTY);
              }
  
@@ -125,7 +132,7 @@
          } else {
              this.resultSlot.set(ItemStack.EMPTY);
              this.selectablePatterns = List.of();
-@@ -270,7 +_,14 @@
+@@ -270,7 +321,14 @@ public class LoomMenu extends AbstractContainerMenu {
              itemStack.update(
                  DataComponents.BANNER_PATTERNS,
                  BannerPatternLayers.EMPTY,

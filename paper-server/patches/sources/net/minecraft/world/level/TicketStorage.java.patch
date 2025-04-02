@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/TicketStorage.java b/net/minecraft/world/level/TicketStorage.java
+index 41be36ce2df7485ce04faa9580f689bc5b8026ed..03c6e64fc98a42475467b3d42a9af250777c853f 100644
 --- a/net/minecraft/world/level/TicketStorage.java
 +++ b/net/minecraft/world/level/TicketStorage.java
-@@ -161,7 +_,7 @@
+@@ -161,7 +161,7 @@ public class TicketStorage extends SavedData {
      }
  
      private static boolean isTicketSameTypeAndLevel(Ticket first, Ticket second) {
@@ -9,7 +17,7 @@
      }
  
      public int getTicketLevelAt(long chunkPos, boolean requireSimulation) {
-@@ -264,7 +_,7 @@
+@@ -264,7 +264,7 @@ public class TicketStorage extends SavedData {
      }
  
      public void deactivateTicketsOnClosing() {
@@ -18,7 +26,7 @@
      }
  
      public void removeTicketIf(Predicate<Ticket> predicate, @Nullable Long2ObjectOpenHashMap<List<Ticket>> tickets) {
-@@ -369,4 +_,19 @@
+@@ -369,4 +369,19 @@ public class TicketStorage extends SavedData {
      public interface ChunkUpdated {
          void update(long chunkPos, int i, boolean ticketLevel);
      }

@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/decoration/ArmorStand.java b/net/minecraft/world/entity/decoration/ArmorStand.java
+index 30e2d529bb98748fcd2caab997fd8f6bbed49e3f..75bf15ccd8a12153951f886ed87be9f3bece3133 100644
 --- a/net/minecraft/world/entity/decoration/ArmorStand.java
 +++ b/net/minecraft/world/entity/decoration/ArmorStand.java
-@@ -88,9 +_,17 @@
+@@ -88,9 +88,17 @@ public class ArmorStand extends LivingEntity {
      public Rotations rightArmPose = DEFAULT_RIGHT_ARM_POSE;
      public Rotations leftLegPose = DEFAULT_LEFT_LEG_POSE;
      public Rotations rightLegPose = DEFAULT_RIGHT_LEG_POSE;
@@ -18,7 +26,7 @@
      }
  
      public ArmorStand(Level level, double x, double y, double z) {
-@@ -102,6 +_,13 @@
+@@ -102,6 +110,13 @@ public class ArmorStand extends LivingEntity {
          return createLivingAttributes().add(Attributes.STEP_HEIGHT, 0.0);
      }
  
@@ -32,7 +40,7 @@
      @Override
      public void refreshDimensions() {
          double x = this.getX();
-@@ -137,6 +_,14 @@
+@@ -137,6 +152,14 @@ public class ArmorStand extends LivingEntity {
          return slot != EquipmentSlot.BODY && slot != EquipmentSlot.SADDLE && !this.isDisabled(slot);
      }
  
@@ -47,7 +55,7 @@
      @Override
      public void addAdditionalSaveData(CompoundTag compound) {
          super.addAdditionalSaveData(compound);
-@@ -150,6 +_,7 @@
+@@ -150,6 +173,7 @@ public class ArmorStand extends LivingEntity {
          }
  
          compound.put("Pose", this.writePose());
@@ -55,7 +63,7 @@
      }
  
      @Override
-@@ -163,6 +_,12 @@
+@@ -163,6 +187,12 @@ public class ArmorStand extends LivingEntity {
          this.setMarker(compound.getBooleanOr("Marker", false));
          this.noPhysics = !this.hasPhysics();
          this.readPose(compound.getCompoundOrEmpty("Pose"));
@@ -68,7 +76,7 @@
      }
  
      private void readPose(CompoundTag compound) {
-@@ -204,7 +_,7 @@
+@@ -204,7 +234,7 @@ public class ArmorStand extends LivingEntity {
      }
  
      @Override
@@ -77,7 +85,7 @@
          return false;
      }
  
-@@ -214,6 +_,7 @@
+@@ -214,6 +244,7 @@ public class ArmorStand extends LivingEntity {
  
      @Override
      protected void pushEntities() {
@@ -85,7 +93,7 @@
          for (Entity entity : this.level().getEntities(this, this.getBoundingBox(), RIDABLE_MINECARTS)) {
              if (this.distanceToSqr(entity) <= 0.2) {
                  entity.push(this);
-@@ -286,7 +_,25 @@
+@@ -286,7 +317,25 @@ public class ArmorStand extends LivingEntity {
              return false;
          } else if (itemBySlot.isEmpty() && (this.disabledSlots & 1 << slot.getFilterBit(16)) != 0) {
              return false;
@@ -112,7 +120,7 @@
              this.setItemSlot(slot, stack.copyWithCount(1));
              return true;
          } else if (stack.isEmpty() || stack.getCount() <= 1) {
-@@ -299,6 +_,7 @@
+@@ -299,6 +348,7 @@ public class ArmorStand extends LivingEntity {
              this.setItemSlot(slot, stack.split(1));
              return true;
          }
@@ -120,7 +128,7 @@
      }
  
      @Override
-@@ -308,15 +_,32 @@
+@@ -308,15 +358,32 @@ public class ArmorStand extends LivingEntity {
          } else if (!level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && damageSource.getEntity() instanceof Mob) {
              return false;
          } else if (damageSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
@@ -157,7 +165,7 @@
              if (this.isOnFire()) {
                  this.causeDamage(level, damageSource, 0.15F);
              } else {
-@@ -325,9 +_,19 @@
+@@ -325,9 +392,19 @@ public class ArmorStand extends LivingEntity {
  
              return false;
          } else if (damageSource.is(DamageTypeTags.BURNS_ARMOR_STANDS) && this.getHealth() > 0.5F) {
@@ -177,7 +185,7 @@
              boolean isCanBreakArmorStand = damageSource.is(DamageTypeTags.CAN_BREAK_ARMOR_STAND);
              boolean isAlwaysKillsArmorStands = damageSource.is(DamageTypeTags.ALWAYS_KILLS_ARMOR_STANDS);
              if (!isCanBreakArmorStand && !isAlwaysKillsArmorStands) {
-@@ -337,7 +_,7 @@
+@@ -337,7 +414,7 @@ public class ArmorStand extends LivingEntity {
              } else if (damageSource.isCreativePlayer()) {
                  this.playBrokenSound();
                  this.showBreakingParticles();
@@ -186,7 +194,7 @@
                  return true;
              } else {
                  long gameTime = level.getGameTime();
-@@ -346,9 +_,9 @@
+@@ -346,9 +423,9 @@ public class ArmorStand extends LivingEntity {
                      this.gameEvent(GameEvent.ENTITY_DAMAGE, damageSource.getEntity());
                      this.lastHit = gameTime;
                  } else {
@@ -198,7 +206,7 @@
                  }
  
                  return true;
-@@ -400,31 +_,34 @@
+@@ -400,31 +477,34 @@ public class ArmorStand extends LivingEntity {
          float health = this.getHealth();
          health -= damageAmount;
          if (health <= 0.5F) {
@@ -241,7 +249,7 @@
      }
  
      private void playBrokenSound() {
-@@ -458,7 +_,28 @@
+@@ -458,7 +538,28 @@ public class ArmorStand extends LivingEntity {
  
      @Override
      public void tick() {
@@ -270,7 +278,7 @@
          Rotations rotations = this.entityData.get(DATA_HEAD_POSE);
          if (!this.headPose.equals(rotations)) {
              this.setHeadPose(rotations);
-@@ -506,9 +_,32 @@
+@@ -506,9 +607,32 @@ public class ArmorStand extends LivingEntity {
          return this.isSmall();
      }
  
@@ -304,7 +312,7 @@
          this.gameEvent(GameEvent.ENTITY_DIE);
      }
  
-@@ -572,31 +_,37 @@
+@@ -572,31 +696,37 @@ public class ArmorStand extends LivingEntity {
      public void setHeadPose(Rotations headPose) {
          this.headPose = headPose;
          this.entityData.set(DATA_HEAD_POSE, headPose);
@@ -342,7 +350,7 @@
      }
  
      public Rotations getHeadPose() {
-@@ -728,4 +_,13 @@
+@@ -728,4 +858,13 @@ public class ArmorStand extends LivingEntity {
      public boolean canBeSeenByAnyone() {
          return !this.isInvisible() && !this.isMarker();
      }

@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/monster/creaking/Creaking.java b/net/minecraft/world/entity/monster/creaking/Creaking.java
+index 05382ec19be345273e28946cc4cb25980c80c723..bdefd070cfebe7f3f792c998f2f53be720cbfbcd 100644
 --- a/net/minecraft/world/entity/monster/creaking/Creaking.java
 +++ b/net/minecraft/world/entity/monster/creaking/Creaking.java
-@@ -191,9 +_,9 @@
+@@ -191,9 +191,9 @@ public class Creaking extends Monster {
      }
  
      @Override
@@ -12,7 +20,7 @@
          }
      }
  
-@@ -318,7 +_,7 @@
+@@ -318,7 +318,7 @@ public class Creaking extends Monster {
          }
  
          this.makeSound(this.getDeathSound());
@@ -21,7 +29,7 @@
      }
  
      public void creakingDeathEffects(DamageSource damageSource) {
-@@ -471,9 +_,9 @@
+@@ -471,9 +471,9 @@ public class Creaking extends Monster {
      }
  
      @Override

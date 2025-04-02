@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/EntityType.java b/net/minecraft/world/entity/EntityType.java
+index 3993b90daeff2a5a72816e9cc76dacc830d6af77..4c57990c94721dd0973477669e1dadfab5f16404 100644
 --- a/net/minecraft/world/entity/EntityType.java
 +++ b/net/minecraft/world/entity/EntityType.java
-@@ -216,7 +_,7 @@
+@@ -216,7 +216,7 @@ public class EntityType<T extends Entity> implements FeatureElement, EntityTypeT
              .fireImmune()
              .sized(6.0F, 0.5F)
              .clientTrackingRange(10)
@@ -9,7 +17,7 @@
      );
      public static final EntityType<Armadillo> ARMADILLO = register(
          "armadillo", EntityType.Builder.of(Armadillo::new, MobCategory.CREATURE).sized(0.7F, 0.65F).eyeHeight(0.26F).clientTrackingRange(10)
-@@ -1145,6 +_,22 @@
+@@ -1145,6 +1145,22 @@ public class EntityType<T extends Entity> implements FeatureElement, EntityTypeT
          boolean shouldOffsetY,
          boolean shouldOffsetYMore
      ) {
@@ -32,7 +40,7 @@
          Consumer<T> consumer;
          if (spawnedFrom != null) {
              consumer = createDefaultStackConfig(level, spawnedFrom, owner);
-@@ -1152,7 +_,7 @@
+@@ -1152,7 +1168,7 @@ public class EntityType<T extends Entity> implements FeatureElement, EntityTypeT
              consumer = entity -> {};
          }
  
@@ -41,7 +49,7 @@
      }
  
      public static <T extends Entity> Consumer<T> createDefaultStackConfig(Level level, ItemStack stack, @Nullable LivingEntity owner) {
-@@ -1169,19 +_,56 @@
+@@ -1169,19 +1185,56 @@ public class EntityType<T extends Entity> implements FeatureElement, EntityTypeT
  
      public static <T extends Entity> Consumer<T> appendCustomEntityStackConfig(Consumer<T> consumer, Level level, ItemStack stack, @Nullable LivingEntity owner) {
          CustomData customData = stack.getOrDefault(DataComponents.ENTITY_DATA, CustomData.EMPTY);
@@ -101,7 +109,7 @@
              if (entity instanceof Mob mob) {
                  mob.playAmbientSound();
              }
-@@ -1237,6 +_,15 @@
+@@ -1237,6 +1290,15 @@ public class EntityType<T extends Entity> implements FeatureElement, EntityTypeT
                  if (level.isClientSide
                      || !entity.getType().onlyOpCanSetNbt()
                      || owner instanceof Player player && server.getPlayerList().isOp(player.getGameProfile())) {
@@ -117,7 +125,7 @@
                      customData.loadInto(entity);
                  }
              }
-@@ -1308,9 +_,20 @@
+@@ -1308,9 +1370,20 @@ public class EntityType<T extends Entity> implements FeatureElement, EntityTypeT
      }
  
      public static Optional<Entity> create(CompoundTag tag, Level level, EntitySpawnReason spawnReason) {

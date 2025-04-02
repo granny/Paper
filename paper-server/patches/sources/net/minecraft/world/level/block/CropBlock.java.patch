@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/CropBlock.java b/net/minecraft/world/level/block/CropBlock.java
+index dfac558ab55ea2eb12756db2ff2992c30463081e..a38ce03a4dab6c83a0b54f47fd3c36d6da46fa24 100644
 --- a/net/minecraft/world/level/block/CropBlock.java
 +++ b/net/minecraft/world/level/block/CropBlock.java
-@@ -80,8 +_,25 @@
+@@ -80,8 +80,25 @@ public class CropBlock extends VegetationBlock implements BonemealableBlock {
              int age = this.getAge(state);
              if (age < this.getMaxAge()) {
                  float growthSpeed = getGrowthSpeed(this, level, pos);
@@ -28,7 +36,7 @@
                  }
              }
          }
-@@ -89,7 +_,7 @@
+@@ -89,7 +106,7 @@ public class CropBlock extends VegetationBlock implements BonemealableBlock {
  
      public void growCrops(Level level, BlockPos pos, BlockState state) {
          int min = Math.min(this.getMaxAge(), this.getAge(state) + this.getBonemealAgeIncrease(level));
@@ -37,7 +45,7 @@
      }
  
      protected int getBonemealAgeIncrease(Level level) {
-@@ -151,7 +_,8 @@
+@@ -151,7 +168,8 @@ public class CropBlock extends VegetationBlock implements BonemealableBlock {
  
      @Override
      protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier) {

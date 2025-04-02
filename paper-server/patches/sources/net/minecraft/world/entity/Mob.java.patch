@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/Mob.java b/net/minecraft/world/entity/Mob.java
+index 5d5d2ad050e47c52eda5aa1a772a72a77bfe1858..8f5c377540f83911c8d245fb00569f08dbc6a690 100644
 --- a/net/minecraft/world/entity/Mob.java
 +++ b/net/minecraft/world/entity/Mob.java
-@@ -83,6 +_,14 @@
+@@ -83,6 +83,14 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
  import net.minecraft.world.phys.AABB;
  import net.minecraft.world.ticks.ContainerSingleItem;
  
@@ -15,7 +23,7 @@
  public abstract class Mob extends LivingEntity implements EquipmentUser, Leashable, Targeting {
      private static final EntityDataAccessor<Byte> DATA_MOB_FLAGS_ID = SynchedEntityData.defineId(Mob.class, EntityDataSerializers.BYTE);
      private static final int MOB_FLAG_NO_AI = 1;
-@@ -112,6 +_,7 @@
+@@ -112,6 +120,7 @@ public abstract class Mob extends LivingEntity implements EquipmentUser, Leashab
      private final BodyRotationControl bodyRotationControl;
      protected PathNavigation navigation;
      public GoalSelector goalSelector;
@@ -23,7 +31,7 @@
      public GoalSelector targetSelector;
      @Nullable
      private LivingEntity target;
-@@ -126,6 +_,7 @@
+@@ -126,6 +135,7 @@ public abstract class Mob extends LivingEntity implements EquipmentUser, Leashab
      private Leashable.LeashData leashData;
      private BlockPos restrictCenter = BlockPos.ZERO;
      private float restrictRadius = -1.0F;
@@ -31,7 +39,7 @@
  
      protected Mob(EntityType<? extends Mob> entityType, Level level) {
          super(entityType, level);
-@@ -142,6 +_,12 @@
+@@ -142,6 +152,12 @@ public abstract class Mob extends LivingEntity implements EquipmentUser, Leashab
          }
      }
  
@@ -44,7 +52,7 @@
      protected void registerGoals() {
      }
  
-@@ -222,7 +_,39 @@
+@@ -222,7 +238,39 @@ public abstract class Mob extends LivingEntity implements EquipmentUser, Leashab
      }
  
      public void setTarget(@Nullable LivingEntity target) {
@@ -84,7 +92,7 @@
      }
  
      @Override
-@@ -358,13 +_,22 @@
+@@ -358,13 +406,22 @@ public abstract class Mob extends LivingEntity implements EquipmentUser, Leashab
          if (this.isNoAi()) {
              compound.putBoolean("NoAI", this.isNoAi());
          }
@@ -109,7 +117,7 @@
          RegistryOps<Tag> registryOps = this.registryAccess().createSerializationContext(NbtOps.INSTANCE);
          this.dropChances = compound.read("drop_chances", DropChances.CODEC, registryOps).orElse(DropChances.DEFAULT);
          this.readLeashData(compound);
-@@ -372,6 +_,7 @@
+@@ -372,6 +429,7 @@ public abstract class Mob extends LivingEntity implements EquipmentUser, Leashab
          this.lootTable = compound.read("DeathLootTable", LootTable.KEY_CODEC);
          this.lootTableSeed = compound.getLongOr("DeathLootTableSeed", 0L);
          this.setNoAi(compound.getBooleanOr("NoAI", false));
@@ -117,7 +125,7 @@
      }
  
      @Override
-@@ -433,6 +_,11 @@
+@@ -433,6 +491,11 @@ public abstract class Mob extends LivingEntity implements EquipmentUser, Leashab
                      && !itemEntity.getItem().isEmpty()
                      && !itemEntity.hasPickUpDelay()
                      && this.wantsToPickUp(serverLevel, itemEntity.getItem())) {
@@ -129,7 +137,7 @@
                      this.pickUpItem(serverLevel, itemEntity);
                  }
              }
-@@ -447,18 +_,24 @@
+@@ -447,18 +510,24 @@ public abstract class Mob extends LivingEntity implements EquipmentUser, Leashab
  
      protected void pickUpItem(ServerLevel level, ItemEntity entity) {
          ItemStack item = entity.getItem();
@@ -156,7 +164,7 @@
          EquipmentSlot equipmentSlotForItem = this.getEquipmentSlotForItem(stack);
          if (!this.isEquippableInSlot(stack, equipmentSlotForItem)) {
              return ItemStack.EMPTY;
-@@ -471,10 +_,18 @@
+@@ -471,10 +540,18 @@ public abstract class Mob extends LivingEntity implements EquipmentUser, Leashab
                  canReplaceCurrentItem = itemBySlot.isEmpty();
              }
  
@@ -176,7 +184,7 @@
                  }
  
                  ItemStack itemStack = equipmentSlotForItem.limit(stack);
-@@ -591,22 +_,29 @@
+@@ -591,22 +668,29 @@ public abstract class Mob extends LivingEntity implements EquipmentUser, Leashab
      @Override
      public void checkDespawn() {
          if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
@@ -192,6 +200,12 @@
 -                if (d > i && this.removeWhenFarAway(d)) {
 -                    this.discard();
 -                }
+-
+-                int noDespawnDistance = this.getType().getCategory().getNoDespawnDistance();
+-                int i1 = noDespawnDistance * noDespawnDistance;
+-                if (this.noActionTime > 600 && this.random.nextInt(800) == 0 && d > i1 && this.removeWhenFarAway(d)) {
+-                    this.discard();
+-                } else if (d < i1) {
 +                // Paper start - Configurable despawn distances
 +                final io.papermc.paper.configuration.WorldConfiguration.Entities.Spawning.DespawnRangePair despawnRangePair = this.level().paperConfig().entities.spawning.despawnRanges.get(this.getType().getCategory());
 +                final io.papermc.paper.configuration.type.DespawnRange.Shape shape = this.level().paperConfig().entities.spawning.despawnRangeShape;
@@ -204,12 +218,7 @@
 +                if (despawnRangePair.hard().shouldDespawn(shape, dxSqr, dySqr, dzSqr, dy) && this.removeWhenFarAway(distanceSquared)) {
 +                    this.discard(EntityRemoveEvent.Cause.DESPAWN); // CraftBukkit - add Bukkit remove cause
 +                 }
- 
--                int noDespawnDistance = this.getType().getCategory().getNoDespawnDistance();
--                int i1 = noDespawnDistance * noDespawnDistance;
--                if (this.noActionTime > 600 && this.random.nextInt(800) == 0 && d > i1 && this.removeWhenFarAway(d)) {
--                    this.discard();
--                } else if (d < i1) {
++
 +                if (despawnRangePair.soft().shouldDespawn(shape, dxSqr, dySqr, dzSqr, dy)) {
 +                    if (this.noActionTime > 600 && this.random.nextInt(800) == 0 && this.removeWhenFarAway(distanceSquared)) {
 +                        this.discard(EntityRemoveEvent.Cause.DESPAWN); // CraftBukkit - add Bukkit remove cause
@@ -219,7 +228,7 @@
                      this.noActionTime = 0;
                  }
              }
-@@ -618,6 +_,15 @@
+@@ -618,6 +702,15 @@ public abstract class Mob extends LivingEntity implements EquipmentUser, Leashab
      @Override
      protected final void serverAiStep() {
          this.noActionTime++;
@@ -235,7 +244,7 @@
          ProfilerFiller profilerFiller = Profiler.get();
          profilerFiller.push("sensing");
          this.sensing.tick();
-@@ -793,14 +_,69 @@
+@@ -793,14 +886,69 @@ public abstract class Mob extends LivingEntity implements EquipmentUser, Leashab
              public boolean stillValid(Player player) {
                  return player.getVehicle() == Mob.this || player.canInteractWithEntity(Mob.this, 4.0);
              }
@@ -305,7 +314,7 @@
              ItemStack itemBySlot = this.getItemBySlot(equipmentSlot);
              float f = this.dropChances.byEquipment(equipmentSlot);
              if (f != 0.0F) {
-@@ -820,7 +_,13 @@
+@@ -820,7 +968,13 @@ public abstract class Mob extends LivingEntity implements EquipmentUser, Leashab
                      }
  
                      this.spawnAtLocation(level, itemBySlot);
@@ -319,7 +328,7 @@
                  }
              }
          }
-@@ -844,7 +_,9 @@
+@@ -844,7 +998,9 @@ public abstract class Mob extends LivingEntity implements EquipmentUser, Leashab
                      set.add(equipmentSlot);
                  } else if (this.dropChances.isPreserved(equipmentSlot)) {
                      this.setItemSlot(equipmentSlot, ItemStack.EMPTY);
@@ -329,7 +338,7 @@
                  }
              }
          }
-@@ -1122,6 +_,21 @@
+@@ -1122,6 +1278,21 @@ public abstract class Mob extends LivingEntity implements EquipmentUser, Leashab
      public <T extends Mob> T convertTo(
          EntityType<T> entityType, ConversionParams conversionParams, EntitySpawnReason spawnReason, ConversionParams.AfterConversion<T> afterConversion
      ) {
@@ -351,7 +360,7 @@
          if (this.isRemoved()) {
              return null;
          } else {
-@@ -1130,13 +_,23 @@
+@@ -1130,13 +1301,23 @@ public abstract class Mob extends LivingEntity implements EquipmentUser, Leashab
                  return null;
              } else {
                  conversionParams.type().convert(this, mob, conversionParams);
@@ -378,7 +387,7 @@
                  }
  
                  return mob;
-@@ -1146,7 +_,18 @@
+@@ -1146,7 +1327,18 @@ public abstract class Mob extends LivingEntity implements EquipmentUser, Leashab
  
      @Nullable
      public <T extends Mob> T convertTo(EntityType<T> entityType, ConversionParams coversionParams, ConversionParams.AfterConversion<T> afterConversion) {
@@ -398,7 +407,7 @@
      }
  
      @Nullable
-@@ -1182,7 +_,17 @@
+@@ -1182,7 +1374,17 @@ public abstract class Mob extends LivingEntity implements EquipmentUser, Leashab
      public boolean startRiding(Entity entity, boolean force) {
          boolean flag = super.startRiding(entity, force);
          if (flag && this.isLeashed()) {
@@ -417,7 +426,7 @@
          }
  
          return flag;
-@@ -1270,7 +_,7 @@
+@@ -1270,7 +1472,7 @@ public abstract class Mob extends LivingEntity implements EquipmentUser, Leashab
              float knockback = this.getKnockback(source, damageSource);
              if (knockback > 0.0F && source instanceof LivingEntity livingEntity) {
                  livingEntity.knockback(

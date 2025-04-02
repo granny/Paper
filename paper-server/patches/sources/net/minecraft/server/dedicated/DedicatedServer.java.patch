@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/server/dedicated/DedicatedServer.java b/net/minecraft/server/dedicated/DedicatedServer.java
+index 6c49c5a88d2dcee911cd862da01a009fba4b50c9..0c861f882d3e8f8ce417ce2ace0f3f5ca2673620 100644
 --- a/net/minecraft/server/dedicated/DedicatedServer.java
 +++ b/net/minecraft/server/dedicated/DedicatedServer.java
-@@ -63,10 +_,10 @@
+@@ -63,10 +63,10 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
      static final Logger LOGGER = LogUtils.getLogger();
      private static final int CONVERSION_RETRY_DELAY_MS = 5000;
      private static final int CONVERSION_RETRIES = 2;
@@ -13,7 +21,7 @@
      @Nullable
      private RconThread rconThread;
      public DedicatedServerSettings settings;
-@@ -81,6 +_,7 @@
+@@ -81,6 +81,7 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
      public ServerLinks serverLinks;
  
      public DedicatedServer(
@@ -21,7 +29,7 @@
          Thread serverThread,
          LevelStorageSource.LevelStorageAccess storageSource,
          PackRepository packRepository,
-@@ -90,9 +_,9 @@
+@@ -90,9 +91,9 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
          Services services,
          ChunkProgressListenerFactory progressListenerFactory
      ) {
@@ -33,7 +41,7 @@
          this.serverTextFilter = ServerTextFilter.createFromConfig(settings.getProperties());
          this.serverLinks = createServerLinks(settings);
      }
-@@ -102,6 +_,10 @@
+@@ -102,6 +103,10 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
          Thread thread = new Thread("Server console handler") {
              @Override
              public void run() {
@@ -44,7 +52,7 @@
                  BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
  
                  String string1;
-@@ -111,17 +_,41 @@
+@@ -111,17 +116,41 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
                      }
                  } catch (IOException var4) {
                      DedicatedServer.LOGGER.error("Exception handling console input", (Throwable)var4);
@@ -88,7 +96,7 @@
          LOGGER.info("Loading properties");
          DedicatedServerProperties properties = this.settings.getProperties();
          if (this.isSingleplayer()) {
-@@ -132,13 +_,51 @@
+@@ -132,13 +161,51 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
              this.setLocalIp(properties.serverIp);
          }
  
@@ -141,7 +149,7 @@
          InetAddress inetAddress = null;
          if (!this.getLocalIp().isEmpty()) {
              inetAddress = InetAddress.getByName(this.getLocalIp());
-@@ -147,36 +_,61 @@
+@@ -147,36 +214,61 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
          if (this.getPort() < 0) {
              this.setPort(properties.serverPort);
          }
@@ -208,7 +216,7 @@
              this.debugSampleSubscriptionTracker = new DebugSampleSubscriptionTracker(this.getPlayerList());
              this.tickTimeLogger = new RemoteSampleLogger(
                  TpsDebugDimensions.values().length, this.debugSampleSubscriptionTracker, RemoteDebugSampleType.TICK_TIME
-@@ -185,12 +_,12 @@
+@@ -185,12 +277,12 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
              SkullBlockEntity.setup(this.services, this);
              GameProfileCache.setUsesAuthentication(this.usesAuthentication());
              LOGGER.info("Preparing level \"{}\"", this.getLevelIdName());
@@ -224,7 +232,7 @@
              }
  
              if (properties.enableQuery) {
-@@ -203,7 +_,7 @@
+@@ -203,7 +295,7 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
                  this.rconThread = RconThread.create(this);
              }
  
@@ -233,7 +241,7 @@
                  Thread thread1 = new Thread(new ServerWatchdog(this));
                  thread1.setUncaughtExceptionHandler(new DefaultUncaughtExceptionHandlerWithName(LOGGER));
                  thread1.setName("Server Watchdog");
-@@ -220,6 +_,12 @@
+@@ -220,6 +312,12 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
          }
      }
  
@@ -246,7 +254,7 @@
      @Override
      public boolean isSpawningMonsters() {
          return this.settings.getProperties().spawnMonsters && super.isSpawningMonsters();
-@@ -232,7 +_,7 @@
+@@ -232,7 +330,7 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
  
      @Override
      public void forceDifficulty() {
@@ -255,7 +263,7 @@
      }
  
      @Override
-@@ -271,12 +_,15 @@
+@@ -271,12 +369,15 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
          }
  
          if (this.rconThread != null) {
@@ -273,7 +281,7 @@
      }
  
      @Override
-@@ -291,13 +_,23 @@
+@@ -291,13 +392,23 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
      }
  
      public void handleConsoleInput(String msg, CommandSourceStack source) {
@@ -301,7 +309,7 @@
          }
      }
  
-@@ -430,7 +_,11 @@
+@@ -430,7 +541,11 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
      @Override
      public boolean enforceSecureProfile() {
          DedicatedServerProperties properties = this.getProperties();
@@ -314,7 +322,7 @@
      }
  
      @Override
-@@ -515,14 +_,54 @@
+@@ -515,14 +630,54 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
  
      @Override
      public String getPluginNames() {
@@ -373,7 +381,7 @@
      }
  
      public void storeUsingWhiteList(boolean isStoreUsingWhiteList) {
-@@ -532,7 +_,7 @@
+@@ -532,7 +687,7 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
      @Override
      public void stopServer() {
          super.stopServer();
@@ -382,7 +390,7 @@
          SkullBlockEntity.clear();
      }
  
-@@ -626,4 +_,15 @@
+@@ -626,4 +781,15 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
              }
          }
      }

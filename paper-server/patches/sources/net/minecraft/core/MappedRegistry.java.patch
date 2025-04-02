@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/core/MappedRegistry.java b/net/minecraft/core/MappedRegistry.java
+index 16e1ade24f1f66800be75b28a2cc4f7f91ae9ef0..a70fc668e1ab7c069bb6ea1500667074ef3f2f91 100644
 --- a/net/minecraft/core/MappedRegistry.java
 +++ b/net/minecraft/core/MappedRegistry.java
-@@ -32,17 +_,18 @@
+@@ -32,17 +32,18 @@ import net.minecraft.util.RandomSource;
  public class MappedRegistry<T> implements WritableRegistry<T> {
      private final ResourceKey<? extends Registry<T>> key;
      private final ObjectList<Holder.Reference<T>> byId = new ObjectArrayList<>(256);
@@ -24,7 +32,7 @@
  
      @Override
      public Stream<HolderSet.Named<T>> listTags() {
-@@ -113,6 +_,7 @@
+@@ -113,6 +114,7 @@ public class MappedRegistry<T> implements WritableRegistry<T> {
              this.toId.put(value, size);
              this.registrationInfos.put(key, registrationInfo);
              this.registryLifecycle = this.registryLifecycle.add(registrationInfo.lifecycle());
@@ -32,7 +40,7 @@
              return reference;
          }
      }
-@@ -274,6 +_,7 @@
+@@ -274,6 +276,7 @@ public class MappedRegistry<T> implements WritableRegistry<T> {
              return this;
          } else {
              this.frozen = true;
@@ -40,7 +48,7 @@
              this.byValue.forEach((object, reference) -> reference.bindValue((T)object));
              List<ResourceLocation> list = this.byKey
                  .entrySet()
-@@ -508,4 +_,13 @@
+@@ -508,4 +511,13 @@ public class MappedRegistry<T> implements WritableRegistry<T> {
  
          Stream<HolderSet.Named<T>> getTags();
      }

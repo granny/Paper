@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/VineBlock.java b/net/minecraft/world/level/block/VineBlock.java
+index c4e60da7cacea61d3ca12f3e556c8570fd6dd5aa..5aed66756201c3f0e75675705f2a67adb554d048 100644
 --- a/net/minecraft/world/level/block/VineBlock.java
 +++ b/net/minecraft/world/level/block/VineBlock.java
-@@ -166,7 +_,7 @@
+@@ -166,7 +166,7 @@ public class VineBlock extends Block {
      @Override
      protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
          if (level.getGameRules().getBoolean(GameRules.RULE_DO_VINES_SPREAD)) {
@@ -9,7 +17,7 @@
                  Direction random1 = Direction.getRandom(random);
                  BlockPos blockPos = pos.above();
                  if (random1.getAxis().isHorizontal() && !state.getValue(getPropertyForFace(random1))) {
-@@ -180,28 +_,31 @@
+@@ -180,28 +180,31 @@ public class VineBlock extends Block {
                              boolean value1 = state.getValue(getPropertyForFace(counterClockWise));
                              BlockPos blockPos2 = blockPos1.relative(clockWise);
                              BlockPos blockPos3 = blockPos1.relative(counterClockWise);
@@ -48,7 +56,7 @@
                              return;
                          }
  
-@@ -219,7 +_,7 @@
+@@ -219,7 +222,7 @@ public class VineBlock extends Block {
                              }
  
                              if (this.hasHorizontalConnection(blockState1)) {
@@ -57,7 +65,7 @@
                              }
  
                              return;
-@@ -233,7 +_,7 @@
+@@ -233,7 +236,7 @@ public class VineBlock extends Block {
                              BlockState blockState2 = blockState.isAir() ? this.defaultBlockState() : blockState;
                              BlockState blockState3 = this.copyRandomFaces(state, blockState2, random);
                              if (blockState2 != blockState3 && this.hasHorizontalConnection(blockState3)) {

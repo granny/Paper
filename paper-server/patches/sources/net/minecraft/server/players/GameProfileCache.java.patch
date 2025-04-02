@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/server/players/GameProfileCache.java b/net/minecraft/server/players/GameProfileCache.java
+index 1f1f0b1a7cf019473e03b83bac28b8252bd8cc8e..066f84df5c31242ab542932f1e243369d0e766e2 100644
 --- a/net/minecraft/server/players/GameProfileCache.java
 +++ b/net/minecraft/server/players/GameProfileCache.java
-@@ -54,6 +_,10 @@
+@@ -54,6 +54,10 @@ public class GameProfileCache {
      private final AtomicLong operationCount = new AtomicLong();
      @Nullable
      private Executor executor;
@@ -11,7 +19,7 @@
  
      public GameProfileCache(GameProfileRepository profileRepository, File file) {
          this.profileRepository = profileRepository;
-@@ -62,17 +_,21 @@
+@@ -62,17 +66,21 @@ public class GameProfileCache {
      }
  
      private void safeAdd(GameProfileCache.GameProfileInfo profile) {
@@ -34,7 +42,7 @@
              return optional.isEmpty() ? createUnknownProfile(name) : optional;
          }
      }
-@@ -86,7 +_,7 @@
+@@ -86,7 +94,7 @@ public class GameProfileCache {
      }
  
      private static boolean usesAuthentication() {
@@ -43,7 +51,7 @@
      }
  
      public void add(GameProfile gameProfile) {
-@@ -96,15 +_,29 @@
+@@ -96,15 +104,29 @@ public class GameProfileCache {
          Date time = instance.getTime();
          GameProfileCache.GameProfileInfo gameProfileInfo = new GameProfileCache.GameProfileInfo(gameProfile, time);
          this.safeAdd(gameProfileInfo);
@@ -74,7 +82,7 @@
          GameProfileCache.GameProfileInfo gameProfileInfo = this.profilesByName.get(string);
          boolean flag = false;
          if (gameProfileInfo != null && new Date().getTime() >= gameProfileInfo.expirationDate.getTime()) {
-@@ -118,19 +_,24 @@
+@@ -118,19 +140,24 @@ public class GameProfileCache {
          if (gameProfileInfo != null) {
              gameProfileInfo.setLastAccess(this.getNextOperation());
              optional = Optional.of(gameProfileInfo.getProfile());
@@ -102,7 +110,7 @@
      }
  
      public CompletableFuture<Optional<GameProfile>> getAsync(String name) {
-@@ -142,7 +_,7 @@
+@@ -142,7 +169,7 @@ public class GameProfileCache {
                  return completableFuture;
              } else {
                  CompletableFuture<Optional<GameProfile>> completableFuture1 = CompletableFuture.<Optional<GameProfile>>supplyAsync(
@@ -111,7 +119,7 @@
                      )
                      .whenCompleteAsync((gameProfile, exception) -> this.requests.remove(name), this.executor);
                  this.requests.put(name, completableFuture1);
-@@ -152,6 +_,7 @@
+@@ -152,6 +179,7 @@ public class GameProfileCache {
      }
  
      public Optional<GameProfile> get(UUID uuid) {
@@ -119,7 +127,7 @@
          GameProfileCache.GameProfileInfo gameProfileInfo = this.profilesByUUID.get(uuid);
          if (gameProfileInfo == null) {
              return Optional.empty();
-@@ -159,6 +_,7 @@
+@@ -159,6 +187,7 @@ public class GameProfileCache {
              gameProfileInfo.setLastAccess(this.getNextOperation());
              return Optional.of(gameProfileInfo.getProfile());
          }
@@ -127,7 +135,7 @@
      }
  
      public void setExecutor(Executor exectutor) {
-@@ -191,6 +_,11 @@
+@@ -191,6 +220,11 @@ public class GameProfileCache {
  
              return (List<GameProfileCache.GameProfileInfo>)var9;
          } catch (FileNotFoundException var7) {
@@ -139,7 +147,7 @@
          } catch (JsonParseException | IOException var8) {
              LOGGER.warn("Failed to load profile cache {}", this.file, var8);
          }
-@@ -198,24 +_,45 @@
+@@ -198,24 +232,45 @@ public class GameProfileCache {
          return list;
      }
  
@@ -171,7 +179,6 @@
 -            .stream()
 -            .sorted(Comparator.comparing(GameProfileCache.GameProfileInfo::getLastAccess).reversed())
 -            .limit(limit);
--    }
 +       // Paper start - Fix GameProfileCache concurrency
 +       return this.listTopMRUProfiles(limit).stream();
 +    }
@@ -187,7 +194,7 @@
 +        } finally {
 +            this.stateLock.unlock();
 +        }
-+    }
+     }
 +    // Paper end - Fix GameProfileCache concurrency
  
      private static JsonElement writeGameProfile(GameProfileCache.GameProfileInfo profileInfo, DateFormat dateFormat) {

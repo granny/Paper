@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/vehicle/MinecartTNT.java b/net/minecraft/world/entity/vehicle/MinecartTNT.java
+index 565f89a630f15780bb0b1e8291b3000a51483111..70fcb6142880d7bacddfa0856c8c919304129367 100644
 --- a/net/minecraft/world/entity/vehicle/MinecartTNT.java
 +++ b/net/minecraft/world/entity/vehicle/MinecartTNT.java
-@@ -38,6 +_,7 @@
+@@ -38,6 +38,7 @@ public class MinecartTNT extends AbstractMinecart {
      public int fuse = -1;
      public float explosionPowerBase = 4.0F;
      public float explosionSpeedFactor = 1.0F;
@@ -8,7 +16,7 @@
  
      public MinecartTNT(EntityType<? extends MinecartTNT> entityType, Level level) {
          super(entityType, level);
-@@ -52,6 +_,12 @@
+@@ -52,6 +53,12 @@ public class MinecartTNT extends AbstractMinecart {
      public void tick() {
          super.tick();
          if (this.fuse > 0) {
@@ -21,7 +29,7 @@
              this.fuse--;
              this.level().addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.5, this.getZ(), 0.0, 0.0, 0.0);
          } else if (this.fuse == 0) {
-@@ -107,6 +_,17 @@
+@@ -107,6 +114,17 @@ public class MinecartTNT extends AbstractMinecart {
          if (this.level() instanceof ServerLevel serverLevel) {
              if (serverLevel.getGameRules().getBoolean(GameRules.RULE_TNT_EXPLODES)) {
                  double min = Math.min(Math.sqrt(radiusModifier), 5.0);
@@ -39,7 +47,7 @@
                  serverLevel.explode(
                      this,
                      damageSource,
-@@ -114,13 +_,13 @@
+@@ -114,13 +132,13 @@ public class MinecartTNT extends AbstractMinecart {
                      this.getX(),
                      this.getY(),
                      this.getZ(),

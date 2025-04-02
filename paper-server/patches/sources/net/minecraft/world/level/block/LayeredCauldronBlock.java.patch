@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/LayeredCauldronBlock.java b/net/minecraft/world/level/block/LayeredCauldronBlock.java
+index 81c06eb72424cdb8c80337b531ce33fd4f17b785..23757e042347a7c9ab0021b702ee4ca0044d4d80 100644
 --- a/net/minecraft/world/level/block/LayeredCauldronBlock.java
 +++ b/net/minecraft/world/level/block/LayeredCauldronBlock.java
-@@ -62,35 +_,68 @@
+@@ -62,35 +62,68 @@ public class LayeredCauldronBlock extends AbstractCauldronBlock {
  
      @Override
      protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier) {
@@ -43,7 +51,6 @@
          BlockState blockState = i == 0 ? Blocks.CAULDRON.defaultBlockState() : state.setValue(LEVEL, i);
 -        level.setBlockAndUpdate(pos, blockState);
 -        level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(blockState));
--    }
 +        return changeLevel(level, pos, blockState, entity, reason); // Paper
 +    }
 +    // CraftBukkit start
@@ -67,7 +74,7 @@
 +        newState.place(3);
 +        if (sendGameEvent) level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(newBlock)); // Paper - Call CauldronLevelChangeEvent
 +        return true;
-+    }
+     }
 +    // CraftBukkit end
  
      @Override
@@ -80,7 +87,7 @@
          }
      }
  
-@@ -108,8 +_,11 @@
+@@ -108,8 +141,11 @@ public class LayeredCauldronBlock extends AbstractCauldronBlock {
      protected void receiveStalactiteDrip(BlockState state, Level level, BlockPos pos, Fluid fluid) {
          if (!this.isFull(state)) {
              BlockState blockState = state.setValue(LEVEL, state.getValue(LEVEL) + 1);

@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/BaseFireBlock.java b/net/minecraft/world/level/block/BaseFireBlock.java
+index 17a90d1b003069b756e15187d8e8e80c68603017..111eb3a1c584ae42e1afb784cfbaa50dc252e91f 100644
 --- a/net/minecraft/world/level/block/BaseFireBlock.java
 +++ b/net/minecraft/world/level/block/BaseFireBlock.java
-@@ -129,11 +_,12 @@
+@@ -129,11 +129,12 @@ public abstract class BaseFireBlock extends Block {
  
      @Override
      protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier) {
@@ -14,7 +22,7 @@
          if (!entity.fireImmune()) {
              if (entity.getRemainingFireTicks() < 0) {
                  entity.setRemainingFireTicks(entity.getRemainingFireTicks() + 1);
-@@ -143,30 +_,41 @@
+@@ -143,30 +144,41 @@ public abstract class BaseFireBlock extends Block {
              }
  
              if (entity.getRemainingFireTicks() >= 0) {
@@ -61,7 +69,7 @@
      }
  
      @Override
-@@ -211,4 +_,12 @@
+@@ -211,4 +223,12 @@ public abstract class BaseFireBlock extends Block {
              }
          }
      }

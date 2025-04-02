@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/TamableAnimal.java b/net/minecraft/world/entity/TamableAnimal.java
+index 925db6260a57d4a54294ef2d8d9a3c903ee04518..1cdebee93d6c7e08c1923beed426d17310208be8 100644
 --- a/net/minecraft/world/entity/TamableAnimal.java
 +++ b/net/minecraft/world/entity/TamableAnimal.java
-@@ -77,7 +_,7 @@
+@@ -77,7 +77,7 @@ public abstract class TamableAnimal extends Animal implements OwnableEntity {
          }
  
          this.orderedToSit = compound.getBooleanOr("Sitting", false);
@@ -9,7 +17,7 @@
      }
  
      @Override
-@@ -88,8 +_,16 @@
+@@ -88,8 +88,16 @@ public abstract class TamableAnimal extends Animal implements OwnableEntity {
      @Override
      public boolean handleLeashAtDistance(Entity leashHolder, float distance) {
          if (this.isInSittingPose()) {
@@ -28,7 +36,7 @@
              }
  
              return false;
-@@ -148,6 +_,13 @@
+@@ -148,6 +156,13 @@ public abstract class TamableAnimal extends Animal implements OwnableEntity {
      }
  
      public void setInSittingPose(boolean sitting) {
@@ -42,7 +50,7 @@
          byte b = this.entityData.get(DATA_FLAGS_ID);
          if (sitting) {
              this.entityData.set(DATA_FLAGS_ID, (byte)(b | 1));
-@@ -230,7 +_,12 @@
+@@ -230,7 +245,12 @@ public abstract class TamableAnimal extends Animal implements OwnableEntity {
          if (this.level() instanceof ServerLevel serverLevel
              && serverLevel.getGameRules().getBoolean(GameRules.RULE_SHOWDEATHMESSAGES)
              && this.getOwner() instanceof ServerPlayer serverPlayer) {
@@ -56,7 +64,7 @@
          }
  
          super.die(cause);
-@@ -273,7 +_,14 @@
+@@ -273,7 +293,14 @@ public abstract class TamableAnimal extends Animal implements OwnableEntity {
          if (!this.canTeleportTo(new BlockPos(x, y, z))) {
              return false;
          } else {

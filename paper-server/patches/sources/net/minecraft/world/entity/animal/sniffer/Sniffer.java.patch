@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/animal/sniffer/Sniffer.java b/net/minecraft/world/entity/animal/sniffer/Sniffer.java
+index 9364381b5a98e51ddfded2d7c6f052534de946e5..d34dcbbdeae41d23d6fb497e0e8da038580b6d01 100644
 --- a/net/minecraft/world/entity/animal/sniffer/Sniffer.java
 +++ b/net/minecraft/world/entity/animal/sniffer/Sniffer.java
-@@ -267,6 +_,13 @@
+@@ -267,6 +267,13 @@ public class Sniffer extends Animal {
              this.dropFromGiftLootTable(serverLevel, BuiltInLootTables.SNIFFER_DIGGING, (serverLevel1, itemStack) -> {
                  ItemEntity itemEntity = new ItemEntity(this.level(), headBlock.getX(), headBlock.getY(), headBlock.getZ(), itemStack);
                  itemEntity.setDefaultPickUpDelay();
@@ -14,7 +22,7 @@
                  serverLevel1.addFreshEntity(itemEntity);
              });
              this.playSound(SoundEvents.SNIFFER_DROP_SEED, 1.0F, 1.0F);
-@@ -325,12 +_,17 @@
+@@ -325,12 +332,17 @@ public class Sniffer extends Animal {
  
      @Override
      public void spawnChildFromBreeding(ServerLevel level, Animal mate) {

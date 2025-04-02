@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/ai/goal/RemoveBlockGoal.java b/net/minecraft/world/entity/ai/goal/RemoveBlockGoal.java
+index c0b258b5adbe2d1122607415d174eff1275736ed..3d40911970caf6f1de2a1ebee1df4c077703226a 100644
 --- a/net/minecraft/world/entity/ai/goal/RemoveBlockGoal.java
 +++ b/net/minecraft/world/entity/ai/goal/RemoveBlockGoal.java
-@@ -104,6 +_,11 @@
+@@ -104,6 +104,11 @@ public class RemoveBlockGoal extends MoveToBlockGoal {
              }
  
              if (this.ticksSinceReachedGoal > 60) {
@@ -12,7 +20,7 @@
                  level.removeBlock(posWithBlock, false);
                  if (!level.isClientSide) {
                      for (int i = 0; i < 20; i++) {
-@@ -124,13 +_,16 @@
+@@ -124,13 +129,16 @@ public class RemoveBlockGoal extends MoveToBlockGoal {
  
      @Nullable
      private BlockPos getPosWithBlock(BlockPos pos, BlockGetter level) {
@@ -31,7 +39,7 @@
                      return blockPos;
                  }
              }
-@@ -141,7 +_,7 @@
+@@ -141,7 +149,7 @@ public class RemoveBlockGoal extends MoveToBlockGoal {
  
      @Override
      protected boolean isValidTarget(LevelReader level, BlockPos pos) {

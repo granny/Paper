@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/raid/Raids.java b/net/minecraft/world/entity/raid/Raids.java
+index c31b0e195e9297df271702d27a2675a2c387d5ef..693eef486f1a3b4ea7e5fd5ecf2d25d85f424d97 100644
 --- a/net/minecraft/world/entity/raid/Raids.java
 +++ b/net/minecraft/world/entity/raid/Raids.java
-@@ -57,6 +_,7 @@
+@@ -57,6 +57,7 @@ public class Raids extends SavedData {
      private Raids(List<Raids.RaidWithId> raids, int nextId, int tick) {
          for (Raids.RaidWithId raidWithId : raids) {
              this.raidMap.put(raidWithId.id, raidWithId.raid);
@@ -8,7 +16,7 @@
          }
  
          this.nextId = nextId;
-@@ -141,11 +_,23 @@
+@@ -141,11 +142,23 @@ public class Raids extends SavedData {
                      }
  
                      Raid raid = this.getOrCreateRaid(serverLevel, blockPos);

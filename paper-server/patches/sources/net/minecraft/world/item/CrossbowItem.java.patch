@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/item/CrossbowItem.java b/net/minecraft/world/item/CrossbowItem.java
+index a052926a8e789f47885b50daa41105eee31d968b..a7d1e351e5fbf0e30a6cd091eb94ecd2b1c23c09 100644
 --- a/net/minecraft/world/item/CrossbowItem.java
 +++ b/net/minecraft/world/item/CrossbowItem.java
-@@ -88,8 +_,15 @@
+@@ -88,8 +88,15 @@ public class CrossbowItem extends ProjectileWeaponItem {
          return getPowerForTime(i, stack, entity) >= 1.0F && isCharged(stack);
      }
  
@@ -17,7 +25,7 @@
          if (!list.isEmpty()) {
              crossbowStack.set(DataComponents.CHARGED_PROJECTILES, ChargedProjectiles.of(list));
              return true;
-@@ -141,7 +_,11 @@
+@@ -141,7 +148,11 @@ public class CrossbowItem extends ProjectileWeaponItem {
      @Override
      protected Projectile createProjectile(Level level, LivingEntity shooter, ItemStack weapon, ItemStack ammo, boolean isCrit) {
          if (ammo.is(Items.FIREWORK_ROCKET)) {
@@ -30,7 +38,7 @@
          } else {
              Projectile projectile = super.createProjectile(level, shooter, weapon, ammo, isCrit);
              if (projectile instanceof AbstractArrow abstractArrow) {
-@@ -211,7 +_,14 @@
+@@ -211,7 +222,14 @@ public class CrossbowItem extends ProjectileWeaponItem {
                      );
              }
  

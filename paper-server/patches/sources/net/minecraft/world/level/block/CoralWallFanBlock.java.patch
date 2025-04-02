@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/CoralWallFanBlock.java b/net/minecraft/world/level/block/CoralWallFanBlock.java
+index 40a1e9ffa8b03b63d4b83aac0923f8832769867f..af0cc07404032032211ca4e377e8af681af2d7ab 100644
 --- a/net/minecraft/world/level/block/CoralWallFanBlock.java
 +++ b/net/minecraft/world/level/block/CoralWallFanBlock.java
-@@ -38,6 +_,11 @@
+@@ -38,6 +38,11 @@ public class CoralWallFanBlock extends BaseCoralWallFanBlock {
      @Override
      protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
          if (!scanForWater(state, level, pos)) {

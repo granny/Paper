@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/TntBlock.java b/net/minecraft/world/level/block/TntBlock.java
+index 4084b9857d14ac42b1ae3387488290427d7918eb..93d6e05578622b057d8e973c71f880a17036a6b5 100644
 --- a/net/minecraft/world/level/block/TntBlock.java
 +++ b/net/minecraft/world/level/block/TntBlock.java
-@@ -47,7 +_,7 @@
+@@ -47,7 +47,7 @@ public class TntBlock extends Block {
      @Override
      protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
          if (!oldState.is(state.getBlock())) {
@@ -9,7 +17,7 @@
                  level.removeBlock(pos, false);
              }
          }
-@@ -55,7 +_,7 @@
+@@ -55,7 +55,7 @@ public class TntBlock extends Block {
  
      @Override
      protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, @Nullable Orientation orientation, boolean movedByPiston) {
@@ -18,7 +26,7 @@
              level.removeBlock(pos, false);
          }
      }
-@@ -63,7 +_,7 @@
+@@ -63,7 +63,7 @@ public class TntBlock extends Block {
      @Override
      public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
          if (!level.isClientSide() && !player.getAbilities().instabuild && state.getValue(UNSTABLE)) {
@@ -27,7 +35,7 @@
          }
  
          return super.playerWillDestroy(level, pos, state, player);
-@@ -80,11 +_,16 @@
+@@ -80,11 +80,16 @@ public class TntBlock extends Block {
      }
  
      public static boolean prime(Level level, BlockPos pos) {
@@ -47,7 +55,7 @@
              PrimedTnt primedTnt = new PrimedTnt(level, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, entity);
              level.addFreshEntity(primedTnt);
              level.playSound(null, primedTnt.getX(), primedTnt.getY(), primedTnt.getZ(), SoundEvents.TNT_PRIMED, SoundSource.BLOCKS, 1.0F, 1.0F);
-@@ -102,7 +_,7 @@
+@@ -102,7 +107,7 @@ public class TntBlock extends Block {
          if (!stack.is(Items.FLINT_AND_STEEL) && !stack.is(Items.FIRE_CHARGE)) {
              return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
          } else {
@@ -56,7 +64,7 @@
                  level.setBlock(pos, Blocks.AIR.defaultBlockState(), 11);
                  Item item = stack.getItem();
                  if (stack.is(Items.FLINT_AND_STEEL)) {
-@@ -128,7 +_,7 @@
+@@ -128,7 +133,7 @@ public class TntBlock extends Block {
              Entity owner = projectile.getOwner();
              if (projectile.isOnFire()
                  && projectile.mayInteract(serverLevel, blockPos)

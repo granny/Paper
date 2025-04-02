@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/inventory/CartographyTableMenu.java b/net/minecraft/world/inventory/CartographyTableMenu.java
+index b99e114945bfb66a42fbedc05f71f152e9264f1d..cd8fde703729768dc4cf50484763fafafc5360f3 100644
 --- a/net/minecraft/world/inventory/CartographyTableMenu.java
 +++ b/net/minecraft/world/inventory/CartographyTableMenu.java
-@@ -15,6 +_,21 @@
+@@ -15,6 +15,21 @@ import net.minecraft.world.level.block.Blocks;
  import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
  
  public class CartographyTableMenu extends AbstractContainerMenu {
@@ -22,7 +30,7 @@
      public static final int MAP_SLOT = 0;
      public static final int ADDITIONAL_SLOT = 1;
      public static final int RESULT_SLOT = 2;
-@@ -24,20 +_,8 @@
+@@ -24,20 +39,8 @@ public class CartographyTableMenu extends AbstractContainerMenu {
      private static final int USE_ROW_SLOT_END = 39;
      private final ContainerLevelAccess access;
      long lastSoundTime;
@@ -45,7 +53,7 @@
  
      public CartographyTableMenu(int containerId, Inventory playerInventory) {
          this(containerId, playerInventory, ContainerLevelAccess.NULL);
-@@ -45,6 +_,34 @@
+@@ -45,6 +48,34 @@ public class CartographyTableMenu extends AbstractContainerMenu {
  
      public CartographyTableMenu(int containerId, Inventory playerInventory, final ContainerLevelAccess access) {
          super(MenuType.CARTOGRAPHY_TABLE, containerId);
@@ -80,7 +88,7 @@
          this.access = access;
          this.addSlot(new Slot(this.container, 0, 15, 15) {
              @Override
-@@ -80,10 +_,12 @@
+@@ -80,10 +111,12 @@ public class CartographyTableMenu extends AbstractContainerMenu {
              }
          });
          this.addStandardInventorySlots(playerInventory, 8, 84);
@@ -93,7 +101,7 @@
          return stillValid(this.access, player, Blocks.CARTOGRAPHY_TABLE);
      }
  
-@@ -99,6 +_,7 @@
+@@ -99,6 +132,7 @@ public class CartographyTableMenu extends AbstractContainerMenu {
          } else {
              this.resultContainer.removeItemNoUpdate(2);
          }

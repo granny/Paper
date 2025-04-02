@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/core/component/DataComponents.java b/net/minecraft/core/component/DataComponents.java
+index 321736213466fad8b3e2daa43ee9f77a7d535885..3c97531a7bbcd84b80d4704aaa27b913652f4019 100644
 --- a/net/minecraft/core/component/DataComponents.java
 +++ b/net/minecraft/core/component/DataComponents.java
-@@ -203,10 +_,10 @@
+@@ -203,10 +203,10 @@ public class DataComponents {
          "map_post_processing", builder -> builder.networkSynchronized(MapPostProcessing.STREAM_CODEC)
      );
      public static final DataComponentType<ChargedProjectiles> CHARGED_PROJECTILES = register(
@@ -13,7 +21,7 @@
      );
      public static final DataComponentType<PotionContents> POTION_CONTENTS = register(
          "potion_contents", builder -> builder.persistent(PotionContents.CODEC).networkSynchronized(PotionContents.STREAM_CODEC).cacheEncoding()
-@@ -286,7 +_,7 @@
+@@ -286,7 +286,7 @@ public class DataComponents {
          "pot_decorations", builder -> builder.persistent(PotDecorations.CODEC).networkSynchronized(PotDecorations.STREAM_CODEC).cacheEncoding()
      );
      public static final DataComponentType<ItemContainerContents> CONTAINER = register(

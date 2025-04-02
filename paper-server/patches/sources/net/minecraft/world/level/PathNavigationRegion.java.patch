@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/PathNavigationRegion.java b/net/minecraft/world/level/PathNavigationRegion.java
+index e98c19610268c4eef42364a790d34728405fc599..21dee87c792dcba52d9dff637e4729a2ec377ac0 100644
 --- a/net/minecraft/world/level/PathNavigationRegion.java
 +++ b/net/minecraft/world/level/PathNavigationRegion.java
-@@ -66,13 +_,41 @@
+@@ -66,7 +66,7 @@ public class PathNavigationRegion implements CollisionGetter {
      private ChunkAccess getChunk(int x, int z) {
          int i = x - this.centerX;
          int i1 = z - this.centerZ;
@@ -9,10 +17,10 @@
              ChunkAccess chunkAccess = this.chunks[i][i1];
              return (ChunkAccess)(chunkAccess != null ? chunkAccess : new EmptyLevelChunk(this.level, new ChunkPos(x, z), this.plains.get()));
          } else {
-             return new EmptyLevelChunk(this.level, new ChunkPos(x, z), this.plains.get());
+@@ -74,6 +74,34 @@ public class PathNavigationRegion implements CollisionGetter {
          }
      }
-+
+ 
 +    // Paper start - if loaded util
 +    @Nullable
 +    private ChunkAccess getChunkIfLoaded(int x, int z) {
@@ -40,6 +48,7 @@
 +        return chunk == null ? null : chunk.getBlockState(pos);
 +    }
 +    // Paper end
- 
++
      @Override
      public WorldBorder getWorldBorder() {
+         return this.level.getWorldBorder();

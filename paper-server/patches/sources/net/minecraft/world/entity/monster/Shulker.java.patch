@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/monster/Shulker.java b/net/minecraft/world/entity/monster/Shulker.java
+index b39120cc261b6c6562105cae5ecb5e9e26370c8e..f85671102f489993428616d2304ec466c48a38a8 100644
 --- a/net/minecraft/world/entity/monster/Shulker.java
 +++ b/net/minecraft/world/entity/monster/Shulker.java
-@@ -277,7 +_,13 @@
+@@ -277,7 +277,13 @@ public class Shulker extends AbstractGolem implements Enemy {
  
      @Override
      public void stopRiding() {
@@ -15,7 +23,7 @@
          if (this.level().isClientSide) {
              this.clientOldAttachPosition = this.blockPosition();
          }
-@@ -390,6 +_,14 @@
+@@ -390,6 +396,14 @@ public class Shulker extends AbstractGolem implements Enemy {
                      && this.level().getWorldBorder().isWithinBounds(blockPos1)
                      && this.level().noCollision(this, new AABB(blockPos1).deflate(1.0E-6))) {
                      Direction direction = this.findAttachableSurface(blockPos1);
@@ -30,7 +38,7 @@
                      if (direction != null) {
                          this.unRide();
                          this.setAttachFace(direction);
-@@ -454,7 +_,12 @@
+@@ -454,7 +468,12 @@ public class Shulker extends AbstractGolem implements Enemy {
                  if (shulker != null) {
                      shulker.setVariant(this.getVariant());
                      shulker.snapTo(vec3);

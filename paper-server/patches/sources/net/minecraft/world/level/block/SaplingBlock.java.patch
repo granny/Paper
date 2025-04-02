@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/SaplingBlock.java b/net/minecraft/world/level/block/SaplingBlock.java
+index bfd69215f51ef4a514449dee09add3c7d1b1db4e..f47e4b2bf5a4f8b0a10d618826e872a6a530e61a 100644
 --- a/net/minecraft/world/level/block/SaplingBlock.java
 +++ b/net/minecraft/world/level/block/SaplingBlock.java
-@@ -25,6 +_,7 @@
+@@ -25,6 +25,7 @@ public class SaplingBlock extends VegetationBlock implements BonemealableBlock {
      public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
      private static final VoxelShape SHAPE = Block.column(12.0, 0.0, 12.0);
      protected final TreeGrower treeGrower;
@@ -8,7 +16,7 @@
  
      @Override
      public MapCodec<? extends SaplingBlock> codec() {
-@@ -44,7 +_,7 @@
+@@ -44,7 +45,7 @@ public class SaplingBlock extends VegetationBlock implements BonemealableBlock {
  
      @Override
      protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
@@ -17,7 +25,7 @@
              this.advanceTree(level, pos, state, random);
          }
      }
-@@ -53,7 +_,34 @@
+@@ -53,7 +54,34 @@ public class SaplingBlock extends VegetationBlock implements BonemealableBlock {
          if (state.getValue(STAGE) == 0) {
              level.setBlock(pos, state.cycle(STAGE), 260);
          } else {

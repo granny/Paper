@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/MushroomBlock.java b/net/minecraft/world/level/block/MushroomBlock.java
+index b0525ab5a06ab2698f6d37a5e9bc9cafeb496766..d306f5f524dc64618df94c9783c2168dc561a5e3 100644
 --- a/net/minecraft/world/level/block/MushroomBlock.java
 +++ b/net/minecraft/world/level/block/MushroomBlock.java
-@@ -46,7 +_,7 @@
+@@ -46,7 +46,7 @@ public class MushroomBlock extends VegetationBlock implements BonemealableBlock
  
      @Override
      protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
@@ -9,7 +17,7 @@
              int i = 5;
              int i1 = 4;
  
-@@ -59,6 +_,7 @@
+@@ -59,6 +59,7 @@ public class MushroomBlock extends VegetationBlock implements BonemealableBlock
              }
  
              BlockPos blockPos1 = pos.offset(random.nextInt(3) - 1, random.nextInt(2) - random.nextInt(2), random.nextInt(3) - 1);
@@ -17,7 +25,7 @@
  
              for (int i2 = 0; i2 < 4; i2++) {
                  if (level.isEmptyBlock(blockPos1) && state.canSurvive(level, blockPos1)) {
-@@ -69,7 +_,7 @@
+@@ -69,7 +70,7 @@ public class MushroomBlock extends VegetationBlock implements BonemealableBlock
              }
  
              if (level.isEmptyBlock(blockPos1) && state.canSurvive(level, blockPos1)) {
@@ -26,7 +34,7 @@
              }
          }
      }
-@@ -92,6 +_,7 @@
+@@ -92,6 +93,7 @@ public class MushroomBlock extends VegetationBlock implements BonemealableBlock
              return false;
          } else {
              level.removeBlock(pos, false);

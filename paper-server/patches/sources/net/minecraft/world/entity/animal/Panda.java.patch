@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/animal/Panda.java b/net/minecraft/world/entity/animal/Panda.java
+index b035b4aebd31a3b0acb1e59896754fd53c24045e..ecd85f3e33f80084b9ee06c9ff1f57b73399be50 100644
 --- a/net/minecraft/world/entity/animal/Panda.java
 +++ b/net/minecraft/world/entity/animal/Panda.java
-@@ -128,6 +_,7 @@
+@@ -128,6 +128,7 @@ public class Panda extends Animal {
      }
  
      public void sit(boolean sitting) {
@@ -8,7 +16,7 @@
          this.setFlag(8, sitting);
      }
  
-@@ -517,24 +_,28 @@
+@@ -517,24 +518,28 @@ public class Panda extends Animal {
  
          for (Panda panda : level.getEntitiesOfClass(Panda.class, this.getBoundingBox().inflate(10.0))) {
              if (!panda.isBaby() && panda.onGround() && !panda.isInWater() && panda.canPerformAction()) {
@@ -39,7 +47,7 @@
          }
      }
  
-@@ -625,8 +_,9 @@
+@@ -625,8 +630,9 @@ public class Panda extends Animal {
                  this.usePlayerItem(player, hand, itemInHand);
                  this.ageUp((int)(-this.getAge() / 20 * 0.1F), true);
              } else if (!this.level().isClientSide && this.getAge() == 0 && this.canFallInLove()) {
@@ -50,7 +58,7 @@
              } else {
                  if (!(this.level() instanceof ServerLevel serverLevel) || this.isSitting() || this.isInWater()) {
                      return InteractionResult.PASS;
-@@ -636,7 +_,9 @@
+@@ -636,7 +642,9 @@ public class Panda extends Animal {
                  this.eat(true);
                  ItemStack itemBySlot = this.getItemBySlot(EquipmentSlot.MAINHAND);
                  if (!itemBySlot.isEmpty() && !player.hasInfiniteMaterials()) {
@@ -60,7 +68,7 @@
                  }
  
                  this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(itemInHand.getItem(), 1));
-@@ -858,7 +_,7 @@
+@@ -858,7 +866,7 @@ public class Panda extends Animal {
          @Override
          protected void alertOther(Mob mob, LivingEntity target) {
              if (mob instanceof Panda && mob.isAggressive()) {
@@ -69,7 +77,7 @@
              }
          }
      }
-@@ -1087,7 +_,9 @@
+@@ -1087,7 +1095,9 @@ public class Panda extends Animal {
          public void stop() {
              ItemStack itemBySlot = Panda.this.getItemBySlot(EquipmentSlot.MAINHAND);
              if (!itemBySlot.isEmpty()) {

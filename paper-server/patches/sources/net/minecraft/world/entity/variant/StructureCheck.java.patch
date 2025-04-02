@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/variant/StructureCheck.java b/net/minecraft/world/entity/variant/StructureCheck.java
+index 1ebd3d65a54da2655ccd91ece6492a8dd91a86f1..0f6866c7fb26a2be8314f55d601533545a3d3610 100644
 --- a/net/minecraft/world/entity/variant/StructureCheck.java
 +++ b/net/minecraft/world/entity/variant/StructureCheck.java
-@@ -15,7 +_,7 @@
+@@ -15,7 +15,7 @@ public record StructureCheck(HolderSet<Structure> requiredStructures) implements
  
      @Override
      public boolean test(SpawnContext context) {

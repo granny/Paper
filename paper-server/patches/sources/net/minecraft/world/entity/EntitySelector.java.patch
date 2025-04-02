@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/EntitySelector.java b/net/minecraft/world/entity/EntitySelector.java
+index 68da3831bb0a7aac59607e913e3a3e8ec9c3c64f..bfd58eb04eee606ac0a8071de9bf75f46c35decb 100644
 --- a/net/minecraft/world/entity/EntitySelector.java
 +++ b/net/minecraft/world/entity/EntitySelector.java
-@@ -17,6 +_,22 @@
+@@ -17,6 +17,22 @@ public final class EntitySelector {
      public static final Predicate<Entity> NO_SPECTATORS = entity -> !entity.isSpectator();
      public static final Predicate<Entity> CAN_BE_COLLIDED_WITH = NO_SPECTATORS.and(Entity::canBeCollidedWith);
      public static final Predicate<Entity> CAN_BE_PICKED = NO_SPECTATORS.and(Entity::isPickable);
@@ -23,7 +31,7 @@
  
      private EntitySelector() {
      }
-@@ -27,18 +_,24 @@
+@@ -27,18 +43,24 @@ public final class EntitySelector {
      }
  
      public static Predicate<Entity> pushableBy(Entity entity) {

@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/projectile/WitherSkull.java b/net/minecraft/world/entity/projectile/WitherSkull.java
+index eaa5b4db698f12073a7776618999ceb49bdd5d09..a2fdc87bedd1a63064cb8c7a7615978483268fdc 100644
 --- a/net/minecraft/world/entity/projectile/WitherSkull.java
 +++ b/net/minecraft/world/entity/projectile/WitherSkull.java
-@@ -66,11 +_,11 @@
+@@ -66,11 +66,11 @@ public class WitherSkull extends AbstractHurtingProjectile {
                      if (var8.isAlive()) {
                          EnchantmentHelper.doPostAttackEffects(serverLevel, var8, damageSource);
                      } else {
@@ -14,7 +22,7 @@
              }
  
              if (flag && var8 instanceof LivingEntity livingEntityx) {
-@@ -82,7 +_,7 @@
+@@ -82,7 +82,7 @@ public class WitherSkull extends AbstractHurtingProjectile {
                  }
  
                  if (i > 0) {
@@ -23,7 +31,7 @@
                  }
              }
          }
-@@ -92,8 +_,13 @@
+@@ -92,8 +92,13 @@ public class WitherSkull extends AbstractHurtingProjectile {
      protected void onHit(HitResult result) {
          super.onHit(result);
          if (!this.level().isClientSide) {

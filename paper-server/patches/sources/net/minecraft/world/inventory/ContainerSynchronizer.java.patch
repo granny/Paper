@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/inventory/ContainerSynchronizer.java b/net/minecraft/world/inventory/ContainerSynchronizer.java
+index ed5c7b495c79cb5ecb23b2fb274ec6e11b6c32b3..d6cb8af0c576b630d4a58b256fafddf3b4f1011d 100644
 --- a/net/minecraft/world/inventory/ContainerSynchronizer.java
 +++ b/net/minecraft/world/inventory/ContainerSynchronizer.java
-@@ -13,4 +_,12 @@
+@@ -13,4 +13,12 @@ public interface ContainerSynchronizer {
      void sendDataChange(AbstractContainerMenu container, int id, int value);
  
      RemoteSlot createSlot();

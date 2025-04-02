@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/WitherSkullBlock.java b/net/minecraft/world/level/block/WitherSkullBlock.java
+index 81ae1115691eb610895a989fc29e07e9a14fceba..0b6debe0e55e404e6f34b3bc437fe7c7a30cec7c 100644
 --- a/net/minecraft/world/level/block/WitherSkullBlock.java
 +++ b/net/minecraft/world/level/block/WitherSkullBlock.java
-@@ -51,6 +_,7 @@
+@@ -51,6 +51,7 @@ public class WitherSkullBlock extends SkullBlock {
      }
  
      public static void checkSpawn(Level level, BlockPos pos, SkullBlockEntity blockEntity) {
@@ -8,7 +16,7 @@
          if (!level.isClientSide) {
              BlockState blockState = blockEntity.getBlockState();
              boolean flag = blockState.is(Blocks.WITHER_SKELETON_SKULL) || blockState.is(Blocks.WITHER_SKELETON_WALL_SKULL);
-@@ -59,7 +_,7 @@
+@@ -59,7 +60,7 @@ public class WitherSkullBlock extends SkullBlock {
                  if (blockPatternMatch != null) {
                      WitherBoss witherBoss = EntityType.WITHER.create(level, EntitySpawnReason.TRIGGERED);
                      if (witherBoss != null) {
@@ -17,7 +25,7 @@
                          BlockPos pos1 = blockPatternMatch.getBlock(1, 2, 0).getPos();
                          witherBoss.snapTo(
                              pos1.getX() + 0.5,
-@@ -70,12 +_,18 @@
+@@ -70,12 +71,18 @@ public class WitherSkullBlock extends SkullBlock {
                          );
                          witherBoss.yBodyRot = blockPatternMatch.getForwards().getAxis() == Direction.Axis.X ? 0.0F : 90.0F;
                          witherBoss.makeInvulnerable();

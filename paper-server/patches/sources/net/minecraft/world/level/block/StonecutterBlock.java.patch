@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/StonecutterBlock.java b/net/minecraft/world/level/block/StonecutterBlock.java
+index 5c1b66dc95f1f5672244b292a6350caeafde1ec8..6d1ab251e7d09ada7edcde7f52ca49ae5efe16b6 100644
 --- a/net/minecraft/world/level/block/StonecutterBlock.java
 +++ b/net/minecraft/world/level/block/StonecutterBlock.java
-@@ -48,8 +_,9 @@
+@@ -48,8 +48,9 @@ public class StonecutterBlock extends Block {
      @Override
      protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
          if (!level.isClientSide) {

@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/DispenserBlock.java b/net/minecraft/world/level/block/DispenserBlock.java
+index 39d1f428f571af4981165893d12eb090ad7786a0..7ff6255fcd50344cd6ac7f8a67d61fd59c85e413 100644
 --- a/net/minecraft/world/level/block/DispenserBlock.java
 +++ b/net/minecraft/world/level/block/DispenserBlock.java
-@@ -71,8 +_,7 @@
+@@ -71,8 +71,7 @@ public class DispenserBlock extends BaseEntityBlock {
  
      @Override
      protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
@@ -10,7 +18,7 @@
              player.awardStat(dispenserBlockEntity instanceof DropperBlockEntity ? Stats.INSPECT_DROPPER : Stats.INSPECT_DISPENSER);
          }
  
-@@ -87,17 +_,26 @@
+@@ -87,18 +86,27 @@ public class DispenserBlock extends BaseEntityBlock {
              BlockSource blockSource = new BlockSource(level, pos, state, dispenserBlockEntity);
              int randomSlot = dispenserBlockEntity.getRandomSlot(level.random);
              if (randomSlot < 0) {
@@ -28,12 +36,13 @@
              }
          }
      }
-+
+ 
 +    // Paper start - Fix NPE with equippable and items without behavior
 +    public static DispenseItemBehavior getDispenseBehavior(BlockSource pointer, ItemStack stack) {
 +        return ((DispenserBlock) pointer.state().getBlock()).getDispenseMethod(pointer.level(), stack);
 +    }
 +    // Paper end - Fix NPE with equippable and items without behavior
- 
++
      protected DispenseItemBehavior getDispenseMethod(Level level, ItemStack item) {
          if (!item.isItemEnabled(level.enabledFeatures())) {
+             return DEFAULT_BEHAVIOR;

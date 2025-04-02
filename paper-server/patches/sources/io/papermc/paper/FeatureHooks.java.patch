@@ -1,6 +1,15 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/io/papermc/paper/FeatureHooks.java b/io/papermc/paper/FeatureHooks.java
+new file mode 100644
+index 0000000000000000000000000000000000000000..b9a838d638571bca1d00a620cedf169a3fa87e9d
 --- /dev/null
 +++ b/io/papermc/paper/FeatureHooks.java
-@@ -1,0 +_,238 @@
+@@ -0,0 +1,238 @@
 +package io.papermc.paper;
 +
 +import io.papermc.paper.command.PaperSubcommand;
@@ -239,3 +248,4 @@
 +    }
 +
 +}
+\ No newline at end of file

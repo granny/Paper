@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/levelgen/feature/SpikeFeature.java b/net/minecraft/world/level/levelgen/feature/SpikeFeature.java
+index 6527f52efe959006b7c9dfb6bce5039b9a23628b..b301f9c9811c60cb9342347382a17251bcd6db31 100644
 --- a/net/minecraft/world/level/levelgen/feature/SpikeFeature.java
 +++ b/net/minecraft/world/level/levelgen/feature/SpikeFeature.java
-@@ -113,6 +_,7 @@
+@@ -113,6 +113,7 @@ public class SpikeFeature extends Feature<SpikeConfiguration> {
              endCrystal.setBeamTarget(config.getCrystalBeamTarget());
              endCrystal.setInvulnerable(config.isCrystalInvulnerable());
              endCrystal.snapTo(spike.getCenterX() + 0.5, spike.getHeight() + 1, spike.getCenterZ() + 0.5, random.nextFloat() * 360.0F, 0.0F);

@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/raid/Raider.java b/net/minecraft/world/entity/raid/Raider.java
+index bfb8b01f4f743b6baa84645a8504ef9e684408da..e81ae747fe95c22321fc69791a6509d601826fd6 100644
 --- a/net/minecraft/world/entity/raid/Raider.java
 +++ b/net/minecraft/world/entity/raid/Raider.java
-@@ -213,17 +_,24 @@
+@@ -213,17 +213,24 @@ public abstract class Raider extends PatrollingMonster {
          if (this.hasActiveRaid()
              && !flag
              && ItemStack.matches(item, Raid.getOminousBannerInstance(this.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN)))) {
@@ -26,7 +34,7 @@
              this.getCurrentRaid().setLeader(this.getWave(), this);
              this.setPatrolLeader(true);
          } else {
-@@ -297,7 +_,7 @@
+@@ -297,7 +304,7 @@ public abstract class Raider extends PatrollingMonster {
  
              for (Raider raider : getServerLevel(this.mob)
                  .getNearbyEntities(Raider.class, this.shoutTargeting, this.mob, this.mob.getBoundingBox().inflate(8.0, 8.0, 8.0))) {
@@ -35,7 +43,7 @@
              }
          }
  
-@@ -308,7 +_,7 @@
+@@ -308,7 +315,7 @@ public abstract class Raider extends PatrollingMonster {
              if (target != null) {
                  for (Raider raider : getServerLevel(this.mob)
                      .getNearbyEntities(Raider.class, this.shoutTargeting, this.mob, this.mob.getBoundingBox().inflate(8.0, 8.0, 8.0))) {
@@ -44,7 +52,7 @@
                      raider.setAggressive(true);
                  }
  
-@@ -393,6 +_,7 @@
+@@ -393,6 +400,7 @@ public abstract class Raider extends PatrollingMonster {
          }
  
          private boolean cannotPickUpBanner() {

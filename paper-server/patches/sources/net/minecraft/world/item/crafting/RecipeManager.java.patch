@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/item/crafting/RecipeManager.java b/net/minecraft/world/item/crafting/RecipeManager.java
+index 84c4322168fda64109d421e2daf6e80c39f8876d..b857e811b4b7a25eaec6dceaae5528d2ec0a1c45 100644
 --- a/net/minecraft/world/item/crafting/RecipeManager.java
 +++ b/net/minecraft/world/item/crafting/RecipeManager.java
-@@ -87,7 +_,26 @@
+@@ -87,7 +87,26 @@ public class RecipeManager extends SimplePreparableReloadListener<RecipeMap> imp
          LOGGER.info("Loaded {} recipes", object.values().size());
      }
  
@@ -27,7 +35,7 @@
          List<SelectableRecipe.SingleInputEntry<StonecutterRecipe>> list = new ArrayList<>();
          List<RecipeManager.IngredientCollector> list1 = RECIPE_PROPERTY_SETS.entrySet()
              .stream()
-@@ -147,7 +_,10 @@
+@@ -147,7 +166,10 @@ public class RecipeManager extends SimplePreparableReloadListener<RecipeMap> imp
      }
  
      public <I extends RecipeInput, T extends Recipe<I>> Optional<RecipeHolder<T>> getRecipeFor(RecipeType<T> recipeType, I input, Level level) {
@@ -39,7 +47,7 @@
      }
  
      public Optional<RecipeHolder<?>> byKey(ResourceKey<Recipe<?>> key) {
-@@ -184,6 +_,7 @@
+@@ -184,6 +206,7 @@ public class RecipeManager extends SimplePreparableReloadListener<RecipeMap> imp
  
      @Nullable
      public RecipeManager.ServerDisplayInfo getRecipeFromDisplay(RecipeDisplayId display) {
@@ -47,11 +55,10 @@
          return this.allDisplays.get(display.index());
      }
  
-@@ -199,6 +_,22 @@
-         Recipe<?> recipe1 = Recipe.CODEC.parse(registries.createSerializationContext(JsonOps.INSTANCE), json).getOrThrow(JsonParseException::new);
+@@ -200,6 +223,22 @@ public class RecipeManager extends SimplePreparableReloadListener<RecipeMap> imp
          return new RecipeHolder<>(recipe, recipe1);
      }
-+
+ 
 +    // CraftBukkit start
 +    public boolean removeRecipe(ResourceKey<Recipe<?>> mcKey) {
 +        boolean removed = this.recipes.removeRecipe((ResourceKey<Recipe<RecipeInput>>) (ResourceKey) mcKey); // Paper - generic fix
@@ -67,6 +74,7 @@
 +        this.finalizeRecipeLoading();
 +    }
 +    // CraftBukkit end
- 
++
      public static <I extends RecipeInput, T extends Recipe<I>> RecipeManager.CachedCheck<I, T> createCheck(final RecipeType<T> recipeType) {
          return new RecipeManager.CachedCheck<I, T>() {
+             @Nullable

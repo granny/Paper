@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/monster/ZombieVillager.java b/net/minecraft/world/entity/monster/ZombieVillager.java
+index 39ea7415cb280ae22465e3eb7ab3983e182ebaa7..a8cd7103e636b57be1270d0f3549c709330b5536 100644
 --- a/net/minecraft/world/entity/monster/ZombieVillager.java
 +++ b/net/minecraft/world/entity/monster/ZombieVillager.java
-@@ -160,12 +_,20 @@
+@@ -160,12 +160,20 @@ public class ZombieVillager extends Zombie implements VillagerDataHolder {
      }
  
      public void startConverting(@Nullable UUID conversionStarter, int villagerConversionTime) {
@@ -24,7 +32,7 @@
      }
  
      @Override
-@@ -190,7 +_,7 @@
+@@ -190,7 +198,7 @@ public class ZombieVillager extends Zombie implements VillagerDataHolder {
      }
  
      private void finishConversion(ServerLevel level) {
@@ -33,7 +41,7 @@
              EntityType.VILLAGER,
              ConversionParams.single(this, false, false),
              villager -> {
-@@ -214,19 +_,24 @@
+@@ -214,19 +222,24 @@ public class ZombieVillager extends Zombie implements VillagerDataHolder {
                  villager.finalizeSpawn(level, level.getCurrentDifficultyAt(villager.blockPosition()), EntitySpawnReason.CONVERSION, null);
                  villager.refreshBrain(level);
                  if (this.conversionStarter != null) {

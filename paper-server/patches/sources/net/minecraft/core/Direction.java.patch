@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/core/Direction.java b/net/minecraft/core/Direction.java
+index 9749e712ad56d56224b6c43878421f4cdf6498ba..2028c2a1613b36629dab2c8e36689af329596f09 100644
 --- a/net/minecraft/core/Direction.java
 +++ b/net/minecraft/core/Direction.java
-@@ -62,6 +_,12 @@
+@@ -62,6 +62,12 @@ public enum Direction implements StringRepresentable {
          .sorted(Comparator.comparingInt(direction -> direction.data2d))
          .toArray(Direction[]::new);
  
@@ -13,7 +21,7 @@
      private Direction(
          final int data3d,
          final int oppositeIndex,
-@@ -80,6 +_,11 @@
+@@ -80,6 +86,11 @@ public enum Direction implements StringRepresentable {
          this.normal = normal;
          this.normalVec3 = Vec3.atLowerCornerOf(normal);
          this.normalVec3f = new Vector3f(normal.getX(), normal.getY(), normal.getZ());
@@ -25,7 +33,7 @@
      }
  
      public static Direction[] orderedByNearest(Entity entity) {
-@@ -252,15 +_,15 @@
+@@ -252,15 +263,15 @@ public enum Direction implements StringRepresentable {
      }
  
      public int getStepX() {

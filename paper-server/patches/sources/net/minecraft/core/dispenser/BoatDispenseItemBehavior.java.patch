@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/core/dispenser/BoatDispenseItemBehavior.java b/net/minecraft/core/dispenser/BoatDispenseItemBehavior.java
+index 37828e2069e84fd574a75f309980af9ba6adcbd3..702ca443a746d733ef14e927b7377aa3d31ae61d 100644
 --- a/net/minecraft/core/dispenser/BoatDispenseItemBehavior.java
 +++ b/net/minecraft/core/dispenser/BoatDispenseItemBehavior.java
-@@ -40,13 +_,36 @@
+@@ -40,13 +40,36 @@ public class BoatDispenseItemBehavior extends DefaultDispenseItemBehavior {
              d4 = 0.0;
          }
  

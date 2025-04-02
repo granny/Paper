@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/entity/SculkShriekerBlockEntity.java b/net/minecraft/world/level/block/entity/SculkShriekerBlockEntity.java
+index 68d121aabff18233e986a818eb0ce89960809108..e689e93802d734ed2c1101708000e3148f2b074b 100644
 --- a/net/minecraft/world/level/block/entity/SculkShriekerBlockEntity.java
 +++ b/net/minecraft/world/level/block/entity/SculkShriekerBlockEntity.java
-@@ -91,6 +_,13 @@
+@@ -91,6 +91,13 @@ public class SculkShriekerBlockEntity extends BlockEntity implements GameEventLi
  
      @Nullable
      public static ServerPlayer tryGetPlayer(@Nullable Entity entity) {
@@ -14,7 +22,7 @@
          if (entity instanceof ServerPlayer serverPlayer) {
              return serverPlayer;
          } else if (entity != null && entity.getControllingPassenger() instanceof ServerPlayer serverPlayer) {
-@@ -166,7 +_,7 @@
+@@ -166,7 +173,7 @@ public class SculkShriekerBlockEntity extends BlockEntity implements GameEventLi
      private boolean trySummonWarden(ServerLevel level) {
          return this.warningLevel >= 4
              && SpawnUtil.trySpawnMob(

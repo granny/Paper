@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/monster/Endermite.java b/net/minecraft/world/entity/monster/Endermite.java
+index e2d86013f9adc17dd95e9b07e33ea29e647524ca..7fad96756972308e71fd38033f06148467a7aecd 100644
 --- a/net/minecraft/world/entity/monster/Endermite.java
 +++ b/net/minecraft/world/entity/monster/Endermite.java
-@@ -122,7 +_,7 @@
+@@ -122,7 +122,7 @@ public class Endermite extends Monster {
              }
  
              if (this.life >= 2400) {

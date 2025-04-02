@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/entity/SignBlockEntity.java b/net/minecraft/world/level/block/entity/SignBlockEntity.java
+index 7ccf4c771872c852ad548d7995757671737ba423..9ee90acd51a7eadce14e1a8b299406a3e5bd6d36 100644
 --- a/net/minecraft/world/level/block/entity/SignBlockEntity.java
 +++ b/net/minecraft/world/level/block/entity/SignBlockEntity.java
-@@ -58,10 +_,15 @@
+@@ -58,10 +58,15 @@ public class SignBlockEntity extends BlockEntity {
      }
  
      public boolean isFacingFrontText(Player player) {
@@ -18,7 +26,7 @@
              float yRotationDegrees = signBlock.getYRotationDegrees(this.getBlockState());
              float f = (float)(Mth.atan2(d1, d) * 180.0F / (float)Math.PI) - 90.0F;
              return Mth.degreesDifferenceAbs(yRotationDegrees, f) <= 90.0F;
-@@ -131,11 +_,13 @@
+@@ -131,11 +136,13 @@ public class SignBlockEntity extends BlockEntity {
  
      public void updateSignText(Player player, boolean isFrontText, List<FilteredText> filteredText) {
          if (!this.isWaxed() && player.getUUID().equals(this.getPlayerWhoMayEdit()) && this.level != null) {
@@ -33,7 +41,7 @@
          }
      }
  
-@@ -144,18 +_,40 @@
+@@ -144,19 +151,41 @@ public class SignBlockEntity extends BlockEntity {
          return this.setText(updater.apply(text), isFrontText);
      }
  
@@ -53,7 +61,7 @@
                  );
              }
          }
-+
+ 
 +        // CraftBukkit start
 +        org.bukkit.entity.Player apiPlayer = ((net.minecraft.server.level.ServerPlayer) player).getBukkitEntity();
 +        List<net.kyori.adventure.text.Component> lines = new java.util.ArrayList<>(); // Paper - adventure
@@ -74,10 +82,11 @@
 +            }
 +        }
 +        // CraftBukkit end
- 
++
          return text;
      }
-@@ -193,8 +_,24 @@
+ 
+@@ -193,8 +222,24 @@ public class SignBlockEntity extends BlockEntity {
  
          for (Component component : this.getText(frontText).getMessages(player.isTextFilteringEnabled())) {
              Style style = component.getStyle();
@@ -104,7 +113,7 @@
                  flag = true;
              }
          }
-@@ -202,10 +_,55 @@
+@@ -202,10 +247,55 @@ public class SignBlockEntity extends BlockEntity {
          return flag;
      }
  
@@ -162,7 +171,7 @@
      }
  
      @Override
-@@ -224,12 +_,17 @@
+@@ -224,12 +314,17 @@ public class SignBlockEntity extends BlockEntity {
  
      @Nullable
      public UUID getPlayerWhoMayEdit() {

@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/npc/WanderingTraderSpawner.java b/net/minecraft/world/entity/npc/WanderingTraderSpawner.java
+index e0e45d2739ef1e892a2cf7e55b3ef6e60059209d..9d9ec2bf16027b479bbc4339ad4e9dcfc2077d40 100644
 --- a/net/minecraft/world/entity/npc/WanderingTraderSpawner.java
 +++ b/net/minecraft/world/entity/npc/WanderingTraderSpawner.java
-@@ -38,38 +_,47 @@
+@@ -38,38 +38,47 @@ public class WanderingTraderSpawner implements CustomSpawner {
  
      public WanderingTraderSpawner(ServerLevelData serverLevelData) {
          this.serverLevelData = serverLevelData;
@@ -66,7 +74,7 @@
          }
      }
  
-@@ -91,14 +_,14 @@
+@@ -91,14 +100,14 @@ public class WanderingTraderSpawner implements CustomSpawner {
                      return false;
                  }
  
@@ -83,7 +91,7 @@
                      wanderingTrader.setWanderTarget(blockPos1);
                      wanderingTrader.restrictTo(blockPos1, 16);
                      return true;
-@@ -112,7 +_,7 @@
+@@ -112,7 +121,7 @@ public class WanderingTraderSpawner implements CustomSpawner {
      private void tryToSpawnLlamaFor(ServerLevel serverLevel, WanderingTrader trader, int maxDistance) {
          BlockPos blockPos = this.findSpawnPositionNear(serverLevel, trader.blockPosition(), maxDistance);
          if (blockPos != null) {

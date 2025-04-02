@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/DaylightDetectorBlock.java b/net/minecraft/world/level/block/DaylightDetectorBlock.java
+index 68428169d4c51fe64d7cd8abe10a3072926e0c18..a51f40f6f53d43c65837d60f5639b14f35e40b67 100644
 --- a/net/minecraft/world/level/block/DaylightDetectorBlock.java
 +++ b/net/minecraft/world/level/block/DaylightDetectorBlock.java
-@@ -70,6 +_,7 @@
+@@ -70,6 +70,7 @@ public class DaylightDetectorBlock extends BaseEntityBlock {
  
          i = Mth.clamp(i, 0, 15);
          if (state.getValue(POWER) != i) {

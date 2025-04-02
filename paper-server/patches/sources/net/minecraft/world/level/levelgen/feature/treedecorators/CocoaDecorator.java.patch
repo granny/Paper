@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/levelgen/feature/treedecorators/CocoaDecorator.java b/net/minecraft/world/level/levelgen/feature/treedecorators/CocoaDecorator.java
+index b275f79e2f0bff4a4e59273b7db01f22dfca9cf1..203e3899be4a86fdeeb4ad4c021a7411b6173c45 100644
 --- a/net/minecraft/world/level/levelgen/feature/treedecorators/CocoaDecorator.java
 +++ b/net/minecraft/world/level/levelgen/feature/treedecorators/CocoaDecorator.java
-@@ -26,6 +_,7 @@
+@@ -26,6 +26,7 @@ public class CocoaDecorator extends TreeDecorator {
  
      @Override
      public void place(TreeDecorator.Context context) {

@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/item/ItemEntity.java b/net/minecraft/world/entity/item/ItemEntity.java
+index dd6d590d5cb0e63e1bb8e135c79d2747635c61e7..ea3afc27600cde05a17197b071f14972d2c832e6 100644
 --- a/net/minecraft/world/entity/item/ItemEntity.java
 +++ b/net/minecraft/world/entity/item/ItemEntity.java
-@@ -56,6 +_,9 @@
+@@ -56,6 +56,9 @@ public class ItemEntity extends Entity implements TraceableEntity {
      @Nullable
      public UUID target;
      public final float bobOffs;
@@ -10,7 +18,7 @@
  
      public ItemEntity(EntityType<? extends ItemEntity> entityType, Level level) {
          super(entityType, level);
-@@ -64,7 +_,12 @@
+@@ -64,7 +67,12 @@ public class ItemEntity extends Entity implements TraceableEntity {
      }
  
      public ItemEntity(Level level, double posX, double posY, double posZ, ItemStack itemStack) {
@@ -24,7 +32,7 @@
      }
  
      public ItemEntity(Level level, double posX, double posY, double posZ, ItemStack itemStack, double deltaX, double deltaY, double deltaZ) {
-@@ -126,7 +_,7 @@
+@@ -126,7 +134,7 @@ public class ItemEntity extends Entity implements TraceableEntity {
      @Override
      public void tick() {
          if (this.getItem().isEmpty()) {
@@ -33,7 +41,7 @@
          } else {
              super.tick();
              if (this.pickupDelay > 0 && this.pickupDelay != 32767) {
-@@ -154,11 +_,15 @@
+@@ -154,11 +162,15 @@ public class ItemEntity extends Entity implements TraceableEntity {
                  }
              }
  
@@ -51,7 +59,7 @@
                      f = this.level().getBlockState(this.getBlockPosBelowThatAffectsMyMovement()).getBlock().getFriction() * 0.98F;
                  }
  
-@@ -191,8 +_,14 @@
+@@ -191,8 +203,14 @@ public class ItemEntity extends Entity implements TraceableEntity {
                  }
              }
  
@@ -68,7 +76,7 @@
              }
          }
      }
-@@ -217,9 +_,18 @@
+@@ -217,9 +235,18 @@ public class ItemEntity extends Entity implements TraceableEntity {
  
      private void mergeWithNeighbours() {
          if (this.isMergable()) {
@@ -88,7 +96,7 @@
                      this.tryToMerge(itemEntity);
                      if (this.isRemoved()) {
                          break;
-@@ -231,7 +_,7 @@
+@@ -231,7 +258,7 @@ public class ItemEntity extends Entity implements TraceableEntity {
  
      private boolean isMergable() {
          ItemStack item = this.getItem();
@@ -97,7 +105,7 @@
      }
  
      private void tryToMerge(ItemEntity itemEntity) {
-@@ -264,11 +_,16 @@
+@@ -264,11 +291,16 @@ public class ItemEntity extends Entity implements TraceableEntity {
      }
  
      private static void merge(ItemEntity destinationEntity, ItemStack destinationStack, ItemEntity originEntity, ItemStack originStack) {
@@ -115,7 +123,7 @@
          }
      }
  
-@@ -296,12 +_,17 @@
+@@ -296,12 +328,17 @@ public class ItemEntity extends Entity implements TraceableEntity {
          } else if (!this.getItem().canBeHurtBy(damageSource)) {
              return false;
          } else {
@@ -134,7 +142,7 @@
              }
  
              return true;
-@@ -324,6 +_,11 @@
+@@ -324,6 +361,11 @@ public class ItemEntity extends Entity implements TraceableEntity {
              RegistryOps<Tag> registryOps = this.registryAccess().createSerializationContext(NbtOps.INSTANCE);
              compound.store("Item", ItemStack.CODEC, registryOps, this.getItem());
          }
@@ -146,7 +154,7 @@
      }
  
      @Override
-@@ -336,8 +_,19 @@
+@@ -336,8 +378,19 @@ public class ItemEntity extends Entity implements TraceableEntity {
          this.cachedThrower = null;
          RegistryOps<Tag> registryOps = this.registryAccess().createSerializationContext(NbtOps.INSTANCE);
          this.setItem(compound.read("Item", ItemStack.CODEC, registryOps).orElse(ItemStack.EMPTY));
@@ -167,7 +175,7 @@
          }
      }
  
-@@ -347,10 +_,73 @@
+@@ -347,10 +400,73 @@ public class ItemEntity extends Entity implements TraceableEntity {
              ItemStack item = this.getItem();
              Item item1 = item.getItem();
              int count = item.getCount();
@@ -242,7 +250,7 @@
                      item.setCount(count);
                  }
  
-@@ -388,6 +_,7 @@
+@@ -388,6 +504,7 @@ public class ItemEntity extends Entity implements TraceableEntity {
  
      public void setItem(ItemStack stack) {
          this.getEntityData().set(DATA_ITEM, stack);
@@ -250,7 +258,7 @@
      }
  
      @Override
-@@ -441,7 +_,7 @@
+@@ -441,7 +558,7 @@ public class ItemEntity extends Entity implements TraceableEntity {
  
      public void makeFakeItem() {
          this.setNeverPickUp();

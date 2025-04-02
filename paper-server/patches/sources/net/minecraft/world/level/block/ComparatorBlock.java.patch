@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/ComparatorBlock.java b/net/minecraft/world/level/block/ComparatorBlock.java
+index 190e70a1cf843328d960a1029e10d44015982cdc..afecf6bb6152b4d9dfee4cd8c5b1d798cbf723b3 100644
 --- a/net/minecraft/world/level/block/ComparatorBlock.java
 +++ b/net/minecraft/world/level/block/ComparatorBlock.java
-@@ -168,8 +_,18 @@
+@@ -168,8 +168,18 @@ public class ComparatorBlock extends DiodeBlock implements EntityBlock {
              boolean shouldTurnOn = this.shouldTurnOn(level, pos, state);
              boolean poweredValue = state.getValue(POWERED);
              if (poweredValue && !shouldTurnOn) {

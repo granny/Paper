@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplate.java b/net/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplate.java
+index b7965fd610b90f5674aae3571ab9a35e29d3d4f5..5e55892187d159e2da07379c058f5df8cb54e554 100644
 --- a/net/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplate.java
 +++ b/net/minecraft/world/level/levelgen/structure/templatesystem/StructureTemplate.java
-@@ -73,6 +_,10 @@
+@@ -73,6 +73,10 @@ public class StructureTemplate {
      public final List<StructureTemplate.StructureEntityInfo> entityInfoList = Lists.newArrayList();
      private Vec3i size = Vec3i.ZERO;
      private String author = "?";
@@ -11,7 +19,7 @@
  
      public Vec3i getSize() {
          return this.size;
-@@ -247,6 +_,19 @@
+@@ -247,6 +251,19 @@ public class StructureTemplate {
          if (this.palettes.isEmpty()) {
              return false;
          } else {
@@ -31,7 +39,7 @@
              List<StructureTemplate.StructureBlockInfo> list = settings.getRandomPalette(this.palettes, offset).blocks();
              if ((!list.isEmpty() || !settings.isIgnoreEntities() && !this.entityInfoList.isEmpty())
                  && this.size.getX() >= 1
-@@ -272,6 +_,21 @@
+@@ -272,6 +289,21 @@ public class StructureTemplate {
                              serverLevel.setBlock(blockPos, Blocks.BARRIER.defaultBlockState(), 820);
                          }
  
@@ -53,7 +61,7 @@
                          if (serverLevel.setBlock(blockPos, blockState, flags)) {
                              i = Math.min(i, blockPos.getX());
                              i1 = Math.min(i1, blockPos.getY());
-@@ -283,7 +_,7 @@
+@@ -283,7 +315,7 @@ public class StructureTemplate {
                              if (structureBlockInfo.nbt != null) {
                                  BlockEntity blockEntity = serverLevel.getBlockEntity(blockPos);
                                  if (blockEntity != null) {
@@ -62,7 +70,7 @@
                                          structureBlockInfo.nbt.putLong("LootTableSeed", random.nextLong());
                                      }
  
-@@ -366,7 +_,11 @@
+@@ -366,7 +398,11 @@ public class StructureTemplate {
                          if (pair1.getSecond() != null) {
                              BlockEntity blockEntity = serverLevel.getBlockEntity(blockPos4);
                              if (blockEntity != null) {
@@ -75,7 +83,7 @@
                              }
                          }
                      }
-@@ -374,7 +_,7 @@
+@@ -374,7 +410,7 @@ public class StructureTemplate {
  
                  if (!settings.isIgnoreEntities()) {
                      this.placeEntities(
@@ -84,7 +92,7 @@
                          offset,
                          settings.getMirror(),
                          settings.getRotation(),
-@@ -488,14 +_,17 @@
+@@ -488,14 +524,17 @@ public class StructureTemplate {
                      );
              }
          }
@@ -107,7 +115,7 @@
      }
  
      public Vec3i getSize(Rotation rotation) {
-@@ -688,6 +_,11 @@
+@@ -688,6 +727,11 @@ public class StructureTemplate {
  
          tag.put("entities", listTag3);
          tag.put("size", this.newIntegerList(this.size.getX(), this.size.getY(), this.size.getZ()));
@@ -119,7 +127,7 @@
          return NbtUtils.addCurrentDataVersion(tag);
      }
  
-@@ -718,6 +_,11 @@
+@@ -718,6 +762,11 @@ public class StructureTemplate {
                          .ifPresent(compoundTag1 -> this.entityInfoList.add(new StructureTemplate.StructureEntityInfo(vec3, blockPos, compoundTag1)));
                  }
              );
@@ -131,7 +139,7 @@
      }
  
      private void loadPalette(HolderGetter<Block> blockGetter, ListTag paletteTag, ListTag blocksTag) {
-@@ -817,7 +_,7 @@
+@@ -817,7 +866,7 @@ public class StructureTemplate {
  
      public static final class Palette {
          private final List<StructureTemplate.StructureBlockInfo> blocks;

@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/GameRules.java b/net/minecraft/world/level/GameRules.java
+index 54569945b8ed06897e03834b35dc1b293b503dd0..ea9ac158fcb98b90dfda997e3a1dfa34455f34a1 100644
 --- a/net/minecraft/world/level/GameRules.java
 +++ b/net/minecraft/world/level/GameRules.java
-@@ -34,6 +_,14 @@
+@@ -34,6 +34,14 @@ import net.minecraft.world.flag.FeatureFlags;
  import org.slf4j.Logger;
  
  public class GameRules {
@@ -15,7 +23,7 @@
      public static final int DEFAULT_RANDOM_TICK_SPEED = 3;
      static final Logger LOGGER = LogUtils.getLogger();
      private static final Map<GameRules.Key<?>, GameRules.Type<?>> GAME_RULE_TYPES = Maps.newTreeMap(Comparator.comparing(entry -> entry.id));
-@@ -86,10 +_,10 @@
+@@ -86,10 +94,10 @@ public class GameRules {
          "sendCommandFeedback", GameRules.Category.CHAT, GameRules.BooleanValue.create(true)
      );
      public static final GameRules.Key<GameRules.BooleanValue> RULE_REDUCEDDEBUGINFO = register(
@@ -28,7 +36,7 @@
                  serverPlayer.connection.send(new ClientboundEntityEventPacket(serverPlayer, b));
              }
          })
-@@ -113,8 +_,8 @@
+@@ -113,8 +121,8 @@ public class GameRules {
          "doWeatherCycle", GameRules.Category.UPDATES, GameRules.BooleanValue.create(true)
      );
      public static final GameRules.Key<GameRules.BooleanValue> RULE_LIMITED_CRAFTING = register(
@@ -39,7 +47,7 @@
                  serverPlayer.connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.LIMITED_CRAFTING, value.get() ? 1.0F : 0.0F));
              }
          })
-@@ -138,8 +_,8 @@
+@@ -138,8 +146,8 @@ public class GameRules {
          "doInsomnia", GameRules.Category.SPAWNING, GameRules.BooleanValue.create(true)
      );
      public static final GameRules.Key<GameRules.BooleanValue> RULE_DO_IMMEDIATE_RESPAWN = register(
@@ -50,7 +58,7 @@
                  serverPlayer.connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.IMMEDIATE_RESPAWN, value.get() ? 1.0F : 0.0F));
              }
          })
-@@ -210,11 +_,11 @@
+@@ -210,11 +218,11 @@ public class GameRules {
      public static final GameRules.Key<GameRules.IntegerValue> RULE_MINECART_MAX_SPEED = register(
          "minecartMaxSpeed",
          GameRules.Category.MISC,
@@ -65,7 +73,7 @@
              serverLevel.setDefaultSpawnPos(serverLevel.getSharedSpawnPos(), serverLevel.getSharedSpawnAngle());
          })
      );
-@@ -223,6 +_,7 @@
+@@ -223,6 +231,7 @@ public class GameRules {
      );
      private final Map<GameRules.Key<?>, GameRules.Value<?>> rules;
      private final FeatureFlagSet enabledFeatures;
@@ -73,7 +81,7 @@
  
      public static <T extends GameRules.Value<T>> GameRules.Type<T> getType(GameRules.Key<T> key) {
          return (GameRules.Type<T>)GAME_RULE_TYPES.get(key);
-@@ -270,10 +_,21 @@
+@@ -270,10 +279,21 @@ public class GameRules {
      private GameRules(Map<GameRules.Key<?>, GameRules.Value<?>> rules, FeatureFlagSet enabledFeatures) {
          this.rules = rules;
          this.enabledFeatures = enabledFeatures;
@@ -96,7 +104,7 @@
          if (value == null) {
              throw new IllegalArgumentException("Tried to access invalid game rule");
          } else {
-@@ -314,13 +_,13 @@
+@@ -314,13 +334,13 @@ public class GameRules {
          }
      }
  
@@ -114,7 +122,7 @@
      }
  
      public boolean getBoolean(GameRules.Key<GameRules.BooleanValue> key) {
-@@ -334,7 +_,7 @@
+@@ -334,7 +354,7 @@ public class GameRules {
      public static class BooleanValue extends GameRules.Value<GameRules.BooleanValue> {
          private boolean value;
  
@@ -123,7 +131,7 @@
              return new GameRules.Type<>(
                  BoolArgumentType::bool,
                  type -> new GameRules.BooleanValue(type, defaultValue),
-@@ -355,17 +_,21 @@
+@@ -355,17 +375,21 @@ public class GameRules {
          }
  
          @Override
@@ -149,7 +157,7 @@
          }
  
          @Override
-@@ -394,9 +_,9 @@
+@@ -394,9 +418,9 @@ public class GameRules {
          }
  
          @Override
@@ -161,7 +169,7 @@
          }
      }
  
-@@ -434,7 +_,7 @@
+@@ -434,7 +458,7 @@ public class GameRules {
      public static class IntegerValue extends GameRules.Value<GameRules.IntegerValue> {
          private int value;
  
@@ -170,7 +178,7 @@
              return new GameRules.Type<>(
                  IntegerArgumentType::integer,
                  type -> new GameRules.IntegerValue(type, defaultValue),
-@@ -446,7 +_,7 @@
+@@ -446,7 +470,7 @@ public class GameRules {
          }
  
          static GameRules.Type<GameRules.IntegerValue> create(
@@ -179,7 +187,7 @@
          ) {
              return new GameRules.Type<>(
                  () -> IntegerArgumentType.integer(min, max),
-@@ -468,17 +_,21 @@
+@@ -468,17 +492,21 @@ public class GameRules {
          }
  
          @Override
@@ -205,7 +213,7 @@
          }
  
          @Override
-@@ -529,13 +_,17 @@
+@@ -529,13 +557,17 @@ public class GameRules {
          }
  
          @Override
@@ -225,7 +233,7 @@
          final String id;
          private final GameRules.Category category;
  
-@@ -575,7 +_,7 @@
+@@ -575,7 +607,7 @@ public class GameRules {
      public static class Type<T extends GameRules.Value<T>> {
          final Supplier<ArgumentType<?>> argument;
          private final Function<GameRules.Type<T>, T> constructor;
@@ -234,7 +242,7 @@
          private final GameRules.VisitorCaller<T> visitorCaller;
          final Class<T> valueClass;
          final FeatureFlagSet requiredFeatures;
-@@ -583,7 +_,7 @@
+@@ -583,7 +615,7 @@ public class GameRules {
          Type(
              Supplier<ArgumentType<?>> argument,
              Function<GameRules.Type<T>, T> constructor,
@@ -243,7 +251,7 @@
              GameRules.VisitorCaller<T> visitorCaller,
              Class<T> valueClass,
              FeatureFlagSet requiredFeatures
-@@ -620,16 +_,16 @@
+@@ -620,16 +652,16 @@ public class GameRules {
              this.type = type;
          }
  
@@ -267,7 +275,7 @@
              }
          }
  
-@@ -648,7 +_,7 @@
+@@ -648,7 +680,7 @@ public class GameRules {
  
          protected abstract T copy();
  

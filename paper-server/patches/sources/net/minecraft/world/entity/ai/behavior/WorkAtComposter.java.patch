@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/ai/behavior/WorkAtComposter.java b/net/minecraft/world/entity/ai/behavior/WorkAtComposter.java
+index 9d82dde190201982bb5bcaf291f17dc31811b113..83ea42defa7d2fcaab8ed11c3cc49e35e133cd71 100644
 --- a/net/minecraft/world/entity/ai/behavior/WorkAtComposter.java
 +++ b/net/minecraft/world/entity/ai/behavior/WorkAtComposter.java
-@@ -86,7 +_,9 @@
+@@ -86,7 +86,9 @@ public class WorkAtComposter extends WorkAtPoi {
                  inventory.removeItemType(Items.WHEAT, i3);
                  ItemStack itemStack = inventory.addItem(new ItemStack(Items.BREAD, min));
                  if (!itemStack.isEmpty()) {

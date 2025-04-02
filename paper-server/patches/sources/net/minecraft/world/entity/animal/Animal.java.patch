@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/animal/Animal.java b/net/minecraft/world/entity/animal/Animal.java
+index 9e699961d7937e4f52b22f54af9809445692c32e..b851f94d63a049292a3657009d68bc1641222104 100644
 --- a/net/minecraft/world/entity/animal/Animal.java
 +++ b/net/minecraft/world/entity/animal/Animal.java
-@@ -41,6 +_,7 @@
+@@ -41,6 +41,7 @@ public abstract class Animal extends AgeableMob {
      public int inLove = 0;
      @Nullable
      public UUID loveCause;
@@ -8,7 +16,7 @@
  
      protected Animal(EntityType<? extends Animal> entityType, Level level) {
          super(entityType, level);
-@@ -80,9 +_,13 @@
+@@ -80,9 +81,13 @@ public abstract class Animal extends AgeableMob {
      }
  
      @Override
@@ -24,7 +32,7 @@
      }
  
      @Override
-@@ -138,8 +_,9 @@
+@@ -138,8 +143,9 @@ public abstract class Animal extends AgeableMob {
          if (this.isFood(itemInHand)) {
              int age = this.getAge();
              if (!this.level().isClientSide && age == 0 && this.canFallInLove()) {
@@ -35,7 +43,7 @@
                  this.playEatingSound();
                  return InteractionResult.SUCCESS_SERVER;
              }
-@@ -176,8 +_,23 @@
+@@ -176,8 +182,23 @@ public abstract class Animal extends AgeableMob {
          return this.inLove <= 0;
      }
  
@@ -60,7 +68,7 @@
          if (player != null) {
              this.loveCause = player.getUUID();
          }
-@@ -220,23 +_,45 @@
+@@ -220,23 +241,45 @@ public abstract class Animal extends AgeableMob {
          if (breedOffspring != null) {
              breedOffspring.setBaby(true);
              breedOffspring.snapTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);

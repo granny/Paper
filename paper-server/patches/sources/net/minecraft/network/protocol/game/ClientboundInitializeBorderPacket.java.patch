@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/network/protocol/game/ClientboundInitializeBorderPacket.java b/net/minecraft/network/protocol/game/ClientboundInitializeBorderPacket.java
+index 419ef83d609ae2d5346d2a76fffb268ef03d083c..9bdd5f276ca78b623c11eb6773bc3c8085bd9c6c 100644
 --- a/net/minecraft/network/protocol/game/ClientboundInitializeBorderPacket.java
 +++ b/net/minecraft/network/protocol/game/ClientboundInitializeBorderPacket.java
-@@ -31,8 +_,10 @@
+@@ -31,8 +31,10 @@ public class ClientboundInitializeBorderPacket implements Packet<ClientGamePacke
      }
  
      public ClientboundInitializeBorderPacket(WorldBorder worldBorder) {

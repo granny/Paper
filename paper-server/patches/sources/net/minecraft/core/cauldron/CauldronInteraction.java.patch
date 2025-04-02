@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/core/cauldron/CauldronInteraction.java b/net/minecraft/core/cauldron/CauldronInteraction.java
+index dd9aaced09812322748812d4d54d85a06493b2fb..a1ce1548bb008f1854baa4c5d6cd963c3a3f7a36 100644
 --- a/net/minecraft/core/cauldron/CauldronInteraction.java
 +++ b/net/minecraft/core/cauldron/CauldronInteraction.java
-@@ -42,26 +_,31 @@
+@@ -42,26 +42,31 @@ public interface CauldronInteraction {
  
      static CauldronInteraction.InteractionMap newInteractionMap(String name) {
          Object2ObjectOpenHashMap<Item, CauldronInteraction> map = new Object2ObjectOpenHashMap<>();
@@ -36,7 +44,7 @@
                      level.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                      level.gameEvent(null, GameEvent.FLUID_PLACE, pos);
                  }
-@@ -75,7 +_,7 @@
+@@ -75,7 +80,7 @@ public interface CauldronInteraction {
          addDefaultInteractions(map1);
          map1.put(
              Items.BUCKET,
@@ -45,7 +53,7 @@
                  state,
                  level,
                  pos,
-@@ -84,33 +_,43 @@
+@@ -84,33 +89,43 @@ public interface CauldronInteraction {
                  stack,
                  new ItemStack(Items.WATER_BUCKET),
                  blockState -> blockState.getValue(LayeredCauldronBlock.LEVEL) == 3,
@@ -94,7 +102,7 @@
                          level.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                          level.gameEvent(null, GameEvent.FLUID_PLACE, pos);
                      }
-@@ -162,15 +_,15 @@
+@@ -162,15 +177,15 @@ public interface CauldronInteraction {
          Map<Item, CauldronInteraction> map2 = LAVA.map();
          map2.put(
              Items.BUCKET,
@@ -113,7 +121,7 @@
                  state,
                  level,
                  pos,
-@@ -179,7 +_,7 @@
+@@ -179,7 +194,7 @@ public interface CauldronInteraction {
                  stack,
                  new ItemStack(Items.POWDER_SNOW_BUCKET),
                  blockState -> blockState.getValue(LayeredCauldronBlock.LEVEL) == 3,
@@ -122,7 +130,7 @@
              )
          );
          addDefaultInteractions(map3);
-@@ -202,15 +_,35 @@
+@@ -202,15 +217,35 @@ public interface CauldronInteraction {
          Predicate<BlockState> statePredicate,
          SoundEvent fillSound
      ) {
@@ -159,7 +167,7 @@
                  level.playSound(null, pos, fillSound, SoundSource.BLOCKS, 1.0F, 1.0F);
                  level.gameEvent(null, GameEvent.FLUID_PICKUP, pos);
              }
-@@ -222,12 +_,33 @@
+@@ -222,12 +257,33 @@ public interface CauldronInteraction {
      static InteractionResult emptyBucket(
          Level level, BlockPos pos, Player player, InteractionHand hand, ItemStack filledStackl, BlockState state, SoundEvent emptySound
      ) {
@@ -195,7 +203,7 @@
              level.playSound(null, pos, emptySound, SoundSource.BLOCKS, 1.0F, 1.0F);
              level.gameEvent(null, GameEvent.FLUID_PLACE, pos);
          }
-@@ -236,23 +_,23 @@
+@@ -236,23 +292,23 @@ public interface CauldronInteraction {
      }
  
      private static InteractionResult fillWaterInteraction(
@@ -224,7 +232,7 @@
      ) {
          return (InteractionResult)(isUnderWater(level, pos)
              ? InteractionResult.CONSUME
-@@ -263,53 +_,68 @@
+@@ -263,53 +319,68 @@ public interface CauldronInteraction {
                  hand,
                  filledStack,
                  Blocks.POWDER_SNOW_CAULDRON.defaultBlockState().setValue(LayeredCauldronBlock.LEVEL, 3),

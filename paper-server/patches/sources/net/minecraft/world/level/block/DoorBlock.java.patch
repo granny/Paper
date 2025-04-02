@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/DoorBlock.java b/net/minecraft/world/level/block/DoorBlock.java
+index 29bfee2eeee89fd26cd6c7ad0e1794ca01ef1d95..7f40ccfe379ab284424d730213b343e17239dc0c 100644
 --- a/net/minecraft/world/level/block/DoorBlock.java
 +++ b/net/minecraft/world/level/block/DoorBlock.java
-@@ -222,9 +_,22 @@
+@@ -222,9 +222,22 @@ public class DoorBlock extends Block {
  
      @Override
      protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, @Nullable Orientation orientation, boolean movedByPiston) {

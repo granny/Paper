@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/vehicle/ContainerEntity.java b/net/minecraft/world/entity/vehicle/ContainerEntity.java
+index 498e188a4b5fa22378fe146bba689fff595575af..feebd1610ebd3c26a337259c14f5c774dc72b937 100644
 --- a/net/minecraft/world/entity/vehicle/ContainerEntity.java
 +++ b/net/minecraft/world/entity/vehicle/ContainerEntity.java
-@@ -60,12 +_,12 @@
+@@ -60,12 +60,12 @@ public interface ContainerEntity extends Container, MenuProvider {
      default void addChestVehicleSaveData(CompoundTag tag, HolderLookup.Provider levelRegistry) {
          if (this.getContainerLootTable() != null) {
              tag.putString("LootTable", this.getContainerLootTable().location().toString());
@@ -15,7 +23,7 @@
      }
  
      default void readChestVehicleSaveData(CompoundTag tag, HolderLookup.Provider levelRegistry) {
-@@ -73,7 +_,12 @@
+@@ -73,7 +73,12 @@ public interface ContainerEntity extends Container, MenuProvider {
          ResourceKey<LootTable> resourceKey = tag.read("LootTable", LootTable.KEY_CODEC).orElse(null);
          this.setContainerLootTable(resourceKey);
          this.setContainerLootTableSeed(tag.getLongOr("LootTableSeed", 0L));
@@ -29,7 +37,7 @@
              ContainerHelper.loadAllItems(tag, this.getItemStacks(), levelRegistry);
          }
      }
-@@ -89,19 +_,27 @@
+@@ -89,19 +94,27 @@ public interface ContainerEntity extends Container, MenuProvider {
      }
  
      default InteractionResult interactWithContainerVehicle(Player player) {
@@ -60,7 +68,7 @@
              LootParams.Builder builder = new LootParams.Builder((ServerLevel)this.level()).withParameter(LootContextParams.ORIGIN, this.position());
              if (player != null) {
                  builder.withLuck(player.getLuck()).withParameter(LootContextParams.THIS_ENTITY, player);
-@@ -171,4 +_,14 @@
+@@ -171,4 +184,14 @@ public interface ContainerEntity extends Container, MenuProvider {
      default boolean isChestVehicleStillValid(Player player) {
          return !this.isRemoved() && player.canInteractWithEntity(this.getBoundingBox(), 4.0);
      }

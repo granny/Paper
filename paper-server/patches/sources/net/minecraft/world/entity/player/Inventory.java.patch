@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/player/Inventory.java b/net/minecraft/world/entity/player/Inventory.java
+index 79bfc39c91f9b817c82e9b7602f36ff5ee312a9c..24d32c0163d27a7886bd4048d508591b89f714a4 100644
 --- a/net/minecraft/world/entity/player/Inventory.java
 +++ b/net/minecraft/world/entity/player/Inventory.java
-@@ -49,6 +_,66 @@
+@@ -49,6 +49,66 @@ public class Inventory implements Container, Nameable {
      public final Player player;
      public final EntityEquipment equipment;
      private int timesChanged;
@@ -67,14 +75,13 @@
  
      public Inventory(Player player, EntityEquipment equipment) {
          this.player = player;
-@@ -85,10 +_,39 @@
+@@ -85,10 +145,39 @@ public class Inventory implements Container, Nameable {
  
      private boolean hasRemainingSpaceForItem(ItemStack destination, ItemStack origin) {
          return !destination.isEmpty()
 -            && ItemStack.isSameItemSameComponents(destination, origin)
              && destination.isStackable()
 -            && destination.getCount() < this.getMaxStackSize(destination);
--    }
 +            && destination.getCount() < this.getMaxStackSize(destination)
 +            && ItemStack.isSameItemSameComponents(destination, origin); // Paper - check if itemstack is stackable first
 +    }
@@ -105,12 +112,12 @@
 +        }
 +
 +        return itemStack.getCount() - remains;
-+    }
+     }
 +    // CraftBukkit end
  
      public int getFreeSlot() {
          for (int i = 0; i < this.items.size(); i++) {
-@@ -100,8 +_,10 @@
+@@ -100,8 +189,10 @@ public class Inventory implements Container, Nameable {
          return -1;
      }
  
@@ -123,7 +130,7 @@
          if (!this.items.get(this.selected).isEmpty()) {
              int freeSlot = this.getFreeSlot();
              if (freeSlot != -1) {
-@@ -112,8 +_,10 @@
+@@ -112,8 +203,10 @@ public class Inventory implements Container, Nameable {
          this.items.set(this.selected, stack);
      }
  

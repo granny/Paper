@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/projectile/windcharge/BreezeWindCharge.java b/net/minecraft/world/entity/projectile/windcharge/BreezeWindCharge.java
+index f6dc0f8a52d597d8fe0e50f53a0a76bf6f96c36b..ea90fe3057b66b76d3dd0a155f2cdcd7bcd7e5bb 100644
 --- a/net/minecraft/world/entity/projectile/windcharge/BreezeWindCharge.java
 +++ b/net/minecraft/world/entity/projectile/windcharge/BreezeWindCharge.java
-@@ -20,6 +_,12 @@
+@@ -20,6 +20,12 @@ public class BreezeWindCharge extends AbstractWindCharge {
  
      @Override
      public void explode(Vec3 pos) {
@@ -13,7 +21,7 @@
          this.level()
              .explode(
                  this,
-@@ -28,8 +_,8 @@
+@@ -28,8 +34,8 @@ public class BreezeWindCharge extends AbstractWindCharge {
                  pos.x(),
                  pos.y(),
                  pos.z(),

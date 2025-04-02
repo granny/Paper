@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/network/chat/ComponentUtils.java b/net/minecraft/network/chat/ComponentUtils.java
+index a5de917ec460da685fdf91488ef92208a75e2963..34a37b50911936f9346f69716e73b15a5d0c7b69 100644
 --- a/net/minecraft/network/chat/ComponentUtils.java
 +++ b/net/minecraft/network/chat/ComponentUtils.java
-@@ -33,6 +_,7 @@
+@@ -33,6 +33,7 @@ public class ComponentUtils {
          }
      }
  
@@ -8,7 +16,7 @@
      public static Optional<MutableComponent> updateForEntity(
          @Nullable CommandSourceStack commandSourceStack, Optional<Component> optionalComponent, @Nullable Entity entity, int recursionDepth
      ) throws CommandSyntaxException {
-@@ -41,12 +_,40 @@
+@@ -41,12 +42,40 @@ public class ComponentUtils {
              : Optional.empty();
      }
  

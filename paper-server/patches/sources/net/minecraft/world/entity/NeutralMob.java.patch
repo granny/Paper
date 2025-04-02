@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/NeutralMob.java b/net/minecraft/world/entity/NeutralMob.java
+index 3b5a3ccda1bea11a3d3cffab1464e5f275d46cb7..1d8518afe6e649dce43b8af0d5bc0fb648482341 100644
 --- a/net/minecraft/world/entity/NeutralMob.java
 +++ b/net/minecraft/world/entity/NeutralMob.java
-@@ -35,9 +_,11 @@
+@@ -35,9 +35,11 @@ public interface NeutralMob {
          if (level instanceof ServerLevel serverLevel) {
              UUID uuid = tag.read("AngryAt", UUIDUtil.CODEC).orElse(null);
              this.setPersistentAngerTarget(uuid);
@@ -15,7 +23,7 @@
          }
      }
  
-@@ -90,7 +_,7 @@
+@@ -90,7 +92,7 @@ public interface NeutralMob {
      default void stopBeingAngry() {
          this.setLastHurtByMob(null);
          this.setPersistentAngerTarget(null);
@@ -24,7 +32,7 @@
          this.setRemainingPersistentAngerTime(0);
      }
  
-@@ -101,8 +_,24 @@
+@@ -101,8 +103,24 @@ public interface NeutralMob {
  
      void setTarget(@Nullable LivingEntity livingEntity);
  

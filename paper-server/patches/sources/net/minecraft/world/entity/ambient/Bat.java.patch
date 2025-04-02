@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/ambient/Bat.java b/net/minecraft/world/entity/ambient/Bat.java
+index 76a010c8b98ab54845317777185e7405f5fcda21..eb9fb57440f498079182030a46034008d3f6b5e8 100644
 --- a/net/minecraft/world/entity/ambient/Bat.java
 +++ b/net/minecraft/world/entity/ambient/Bat.java
-@@ -86,7 +_,7 @@
+@@ -86,7 +86,7 @@ public class Bat extends AmbientCreature {
      }
  
      @Override
@@ -9,7 +17,7 @@
          return false;
      }
  
-@@ -140,13 +_,13 @@
+@@ -140,13 +140,13 @@ public class Bat extends AmbientCreature {
                      this.yHeadRot = this.random.nextInt(360);
                  }
  
@@ -25,7 +33,7 @@
                  this.setResting(false);
                  if (!isSilent) {
                      level.levelEvent(null, 1025, blockPos, 0);
-@@ -179,7 +_,7 @@
+@@ -179,7 +179,7 @@ public class Bat extends AmbientCreature {
              float f1 = Mth.wrapDegrees(f - this.getYRot());
              this.zza = 0.5F;
              this.setYRot(this.getYRot() + f1);
@@ -34,7 +42,7 @@
                  this.setResting(true);
              }
          }
-@@ -204,7 +_,7 @@
+@@ -204,7 +204,7 @@ public class Bat extends AmbientCreature {
          if (this.isInvulnerableTo(level, damageSource)) {
              return false;
          } else {

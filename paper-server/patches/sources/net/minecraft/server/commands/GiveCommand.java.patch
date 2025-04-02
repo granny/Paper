@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/server/commands/GiveCommand.java b/net/minecraft/server/commands/GiveCommand.java
+index 895a67a6fd8765ab23c67aae0e88aae310521d57..b81f98738ef166336e4cc3092b6ba63f385b68e3 100644
 --- a/net/minecraft/server/commands/GiveCommand.java
 +++ b/net/minecraft/server/commands/GiveCommand.java
-@@ -51,6 +_,7 @@
+@@ -51,6 +51,7 @@ public class GiveCommand {
  
      private static int giveItem(CommandSourceStack source, ItemInput item, Collection<ServerPlayer> targets, int count) throws CommandSyntaxException {
          ItemStack itemStack = item.createItemStack(1, false);
@@ -8,7 +16,7 @@
          int maxStackSize = itemStack.getMaxStackSize();
          int i = maxStackSize * 100;
          if (count > i) {
-@@ -95,11 +_,11 @@
+@@ -95,11 +96,11 @@ public class GiveCommand {
  
              if (targets.size() == 1) {
                  source.sendSuccess(

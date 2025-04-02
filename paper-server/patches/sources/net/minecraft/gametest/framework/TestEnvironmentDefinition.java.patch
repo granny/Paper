@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/gametest/framework/TestEnvironmentDefinition.java b/net/minecraft/gametest/framework/TestEnvironmentDefinition.java
+index a2c8c5ac53780615fbedae3d99637ddd43648422..f83366bf9e9421904a3b1dfbdf4868ad44e8ca3c 100644
 --- a/net/minecraft/gametest/framework/TestEnvironmentDefinition.java
 +++ b/net/minecraft/gametest/framework/TestEnvironmentDefinition.java
-@@ -132,11 +_,11 @@
+@@ -132,11 +132,11 @@ public interface TestEnvironmentDefinition {
              MinecraftServer server = level.getServer();
  
              for (TestEnvironmentDefinition.SetGameRules.Entry<Boolean, GameRules.BooleanValue> entry : this.boolRules) {
@@ -14,7 +22,7 @@
              }
          }
  
-@@ -146,11 +_,11 @@
+@@ -146,11 +146,11 @@ public interface TestEnvironmentDefinition {
              MinecraftServer server = level.getServer();
  
              for (TestEnvironmentDefinition.SetGameRules.Entry<Boolean, GameRules.BooleanValue> entry : this.boolRules) {

@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/decoration/ItemFrame.java b/net/minecraft/world/entity/decoration/ItemFrame.java
+index 749e53fa06ee7ed57204e21092ba7cda3d416921..f9a97000b75db7999b1cbe1f72d680d4d7b803b7 100644
 --- a/net/minecraft/world/entity/decoration/ItemFrame.java
 +++ b/net/minecraft/world/entity/decoration/ItemFrame.java
-@@ -56,6 +_,7 @@
+@@ -56,6 +56,7 @@ public class ItemFrame extends HangingEntity {
      private static final boolean DEFAULT_FIXED = false;
      public float dropChance = 1.0F;
      public boolean fixed = false;
@@ -8,7 +16,7 @@
  
      public ItemFrame(EntityType<? extends ItemFrame> entityType, Level level) {
          super(entityType, level);
-@@ -97,6 +_,12 @@
+@@ -97,6 +98,12 @@ public class ItemFrame extends HangingEntity {
  
      @Override
      protected AABB calculateBoundingBox(BlockPos pos, Direction direction) {
@@ -21,7 +29,7 @@
          float f = 0.46875F;
          Vec3 vec3 = Vec3.atCenterOf(pos).relative(direction, -0.46875);
          Direction.Axis axis = direction.getAxis();
-@@ -127,9 +_,9 @@
+@@ -127,9 +134,9 @@ public class ItemFrame extends HangingEntity {
      }
  
      @Override
@@ -33,7 +41,7 @@
          }
      }
  
-@@ -158,6 +_,18 @@
+@@ -158,6 +165,18 @@ public class ItemFrame extends HangingEntity {
              if (this.isInvulnerableToBase(damageSource)) {
                  return false;
              } else if (this.shouldDamageDropItem(damageSource)) {
@@ -52,7 +60,7 @@
                  this.dropItem(level, damageSource.getEntity(), false);
                  this.gameEvent(GameEvent.BLOCK_CHANGE, damageSource.getEntity());
                  this.playSound(this.getRemoveItemSound(), 1.0F, 1.0F);
-@@ -243,6 +_,14 @@
+@@ -243,6 +262,14 @@ public class ItemFrame extends HangingEntity {
          return this.getEntityData().get(DATA_ITEM);
      }
  
@@ -67,7 +75,7 @@
      @Nullable
      public MapId getFramedMapId(ItemStack stack) {
          return stack.get(DataComponents.MAP_ID);
-@@ -257,13 +_,19 @@
+@@ -257,13 +284,19 @@ public class ItemFrame extends HangingEntity {
      }
  
      public void setItem(ItemStack stack, boolean updateNeighbours) {
@@ -88,7 +96,7 @@
              this.playSound(this.getAddItemSound(), 1.0F, 1.0F);
          }
  
-@@ -289,6 +_,7 @@
+@@ -289,6 +322,7 @@ public class ItemFrame extends HangingEntity {
      }
  
      private void onItemChanged(ItemStack item) {
@@ -96,7 +104,7 @@
          if (!item.isEmpty() && item.getFrame() != this) {
              item.setEntityRepresentation(this);
          }
-@@ -359,7 +_,13 @@
+@@ -359,7 +393,13 @@ public class ItemFrame extends HangingEntity {
                      if (savedData != null && savedData.isTrackedCountOverLimit(256)) {
                          return InteractionResult.FAIL;
                      } else {
@@ -111,7 +119,7 @@
                          this.gameEvent(GameEvent.BLOCK_CHANGE, player);
                          itemInHand.consume(1, player);
                          return InteractionResult.SUCCESS;
-@@ -368,6 +_,13 @@
+@@ -368,6 +408,13 @@ public class ItemFrame extends HangingEntity {
                      return InteractionResult.PASS;
                  }
              } else {

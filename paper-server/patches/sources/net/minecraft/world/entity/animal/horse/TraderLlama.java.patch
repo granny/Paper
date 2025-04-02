@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/animal/horse/TraderLlama.java b/net/minecraft/world/entity/animal/horse/TraderLlama.java
+index eef5cdffc99e4bab6bfb1c1c530379df12e7bd31..38a5554d6e28ab73c225625531c94592a46d50a8 100644
 --- a/net/minecraft/world/entity/animal/horse/TraderLlama.java
 +++ b/net/minecraft/world/entity/animal/horse/TraderLlama.java
-@@ -88,7 +_,7 @@
+@@ -88,7 +88,7 @@ public class TraderLlama extends Llama {
              this.despawnDelay = this.isLeashedToWanderingTrader() ? ((WanderingTrader)this.getLeashHolder()).getDespawnDelay() - 1 : this.despawnDelay - 1;
              if (this.despawnDelay <= 0) {
                  this.removeLeash();
@@ -9,7 +17,7 @@
              }
          }
      }
-@@ -147,7 +_,7 @@
+@@ -147,7 +147,7 @@ public class TraderLlama extends Llama {
  
          @Override
          public void start() {

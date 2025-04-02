@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/levelgen/structure/StructurePiece.java b/net/minecraft/world/level/levelgen/structure/StructurePiece.java
+index ba86e6954278d6032824a5753eb9552f12cc8dea..5dcc589f35965c4543de0f6e99ccb94dad427216 100644
 --- a/net/minecraft/world/level/levelgen/structure/StructurePiece.java
 +++ b/net/minecraft/world/level/levelgen/structure/StructurePiece.java
-@@ -181,6 +_,11 @@
+@@ -181,6 +181,11 @@ public abstract class StructurePiece {
                  }
  
                  level.setBlock(worldPos, blockstate, 2);
@@ -12,7 +20,7 @@
                  FluidState fluidState = level.getFluidState(worldPos);
                  if (!fluidState.isEmpty()) {
                      level.scheduleTick(worldPos, fluidState.getType(), 0);
-@@ -193,6 +_,39 @@
+@@ -193,6 +198,39 @@ public abstract class StructurePiece {
          }
      }
  
@@ -52,7 +60,7 @@
      protected boolean canBeReplaced(LevelReader level, int x, int y, int z, BoundingBox box) {
          return true;
      }
-@@ -421,11 +_,17 @@
+@@ -421,11 +459,17 @@ public abstract class StructurePiece {
                  state = reorient(level, pos, Blocks.CHEST.defaultBlockState());
              }
  
@@ -75,7 +83,7 @@
  
              return true;
          } else {
-@@ -438,11 +_,28 @@
+@@ -438,11 +482,28 @@ public abstract class StructurePiece {
      ) {
          BlockPos worldPos = this.getWorldPos(x, y, z);
          if (box.isInside(worldPos) && !level.getBlockState(worldPos).is(Blocks.DISPENSER)) {
@@ -83,7 +91,6 @@
 -            BlockEntity blockEntity = level.getBlockEntity(worldPos);
 -            if (blockEntity instanceof DispenserBlockEntity) {
 -                ((DispenserBlockEntity)blockEntity).setLootTable(lootTable, random.nextLong());
--            }
 +            // CraftBukkit start
 +            // this.placeBlock(level, Blocks.DISPENSER.defaultBlockState().setValue(DispenserBlock.FACING, facing), x, y, z, box);
 +            // BlockEntity blockEntity = level.getBlockEntity(worldPos);
@@ -96,7 +103,7 @@
 +            BlockState dispenserBlockState = Blocks.DISPENSER.defaultBlockState().setValue(DispenserBlock.FACING, facing);
 +            if (this.mirror != Mirror.NONE) {
 +                dispenserBlockState = dispenserBlockState.mirror(this.mirror);
-+            }
+             }
 +            if (this.rotation != Rotation.NONE) {
 +                dispenserBlockState = dispenserBlockState.rotate(this.rotation);
 +            }

@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/ai/behavior/HarvestFarmland.java b/net/minecraft/world/entity/ai/behavior/HarvestFarmland.java
+index 309710980c41125a1e5627445274d00904bbced5..de89e45ecd4ac4c6db8b74bbe3dd6b4a7cf21671 100644
 --- a/net/minecraft/world/entity/ai/behavior/HarvestFarmland.java
 +++ b/net/minecraft/world/entity/ai/behavior/HarvestFarmland.java
-@@ -110,7 +_,9 @@
+@@ -110,7 +110,9 @@ public class HarvestFarmland extends Behavior<Villager> {
                  Block block = blockState.getBlock();
                  Block block1 = level.getBlockState(this.aboveFarmlandPos.below()).getBlock();
                  if (block instanceof CropBlock && ((CropBlock)block).isMaxAge(blockState)) {
@@ -10,7 +18,7 @@
                  }
  
                  if (blockState.isAir() && block1 instanceof FarmBlock && owner.hasFarmSeeds()) {
-@@ -121,9 +_,11 @@
+@@ -121,9 +123,11 @@ public class HarvestFarmland extends Behavior<Villager> {
                          boolean flag = false;
                          if (!item.isEmpty() && item.is(ItemTags.VILLAGER_PLANTABLE_SEEDS) && item.getItem() instanceof BlockItem blockItem) {
                              BlockState blockState1 = blockItem.getBlock().defaultBlockState();

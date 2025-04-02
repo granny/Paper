@@ -1,6 +1,14 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/PressurePlateBlock.java b/net/minecraft/world/level/block/PressurePlateBlock.java
+index d8687b8ea183202f4747779f6432fb30c0fc0dc2..de67e4e387245f7ad6cf80298435064186d08c6a 100644
 --- a/net/minecraft/world/level/block/PressurePlateBlock.java
 +++ b/net/minecraft/world/level/block/PressurePlateBlock.java
-@@ -46,7 +_,29 @@
+@@ -46,7 +46,29 @@ public class PressurePlateBlock extends BasePressurePlateBlock {
              case EVERYTHING -> Entity.class;
              case MOBS -> LivingEntity.class;
          };
