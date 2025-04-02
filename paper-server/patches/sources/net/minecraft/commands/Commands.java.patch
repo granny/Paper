@@ -1,14 +1,6 @@
-From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
-From: File <noreply+automated@papermc.io>
-Date: Sun, 20 Apr 1997 06:37:42 -0700
-Subject: [PATCH] paper File Patches
-
-
-diff --git a/net/minecraft/commands/Commands.java b/net/minecraft/commands/Commands.java
-index fe4da263cd7c62805239fff40fd2b51655f829d5..9dd86cf63dd93620adb539a7a80a8d01c7ac08a2 100644
 --- a/net/minecraft/commands/Commands.java
 +++ b/net/minecraft/commands/Commands.java
-@@ -150,6 +150,11 @@ public class Commands {
+@@ -154,6 +_,11 @@
      private final CommandDispatcher<CommandSourceStack> dispatcher = new CommandDispatcher<>();
  
      public Commands(Commands.CommandSelection selection, CommandBuildContext context) {
@@ -20,7 +12,7 @@ index fe4da263cd7c62805239fff40fd2b51655f829d5..9dd86cf63dd93620adb539a7a80a8d01
          AdvancementCommands.register(this.dispatcher);
          AttributeCommand.register(this.dispatcher, context);
          ExecuteCommand.register(this.dispatcher, context);
-@@ -251,6 +256,40 @@ public class Commands {
+@@ -257,6 +_,40 @@
              PublishCommand.register(this.dispatcher);
          }
  
@@ -61,7 +53,7 @@ index fe4da263cd7c62805239fff40fd2b51655f829d5..9dd86cf63dd93620adb539a7a80a8d01
          this.dispatcher.setConsumer(ExecutionCommandSource.resultConsumer());
      }
  
-@@ -260,15 +299,58 @@ public class Commands {
+@@ -266,15 +_,58 @@
          return new ParseResults<>(commandContextBuilder, parseResults.getReader(), parseResults.getExceptions());
      }
  
@@ -122,7 +114,7 @@ index fe4da263cd7c62805239fff40fd2b51655f829d5..9dd86cf63dd93620adb539a7a80a8d01
  
          try {
              if (contextChain != null) {
-@@ -280,9 +362,10 @@ public class Commands {
+@@ -286,9 +_,10 @@
                  );
              }
          } catch (Exception var12) {
@@ -135,7 +127,7 @@ index fe4da263cd7c62805239fff40fd2b51655f829d5..9dd86cf63dd93620adb539a7a80a8d01
                  StackTraceElement[] stackTrace = var12.getStackTrace();
  
                  for (int i = 0; i < Math.min(stackTrace.length, 3); i++) {
-@@ -308,18 +391,22 @@ public class Commands {
+@@ -314,18 +_,22 @@
      }
  
      @Nullable
@@ -161,7 +153,7 @@ index fe4da263cd7c62805239fff40fd2b51655f829d5..9dd86cf63dd93620adb539a7a80a8d01
                  if (min > 10) {
                      mutableComponent.append(CommonComponents.ELLIPSIS);
                  }
-@@ -331,7 +418,17 @@ public class Commands {
+@@ -337,7 +_,17 @@
                  }
  
                  mutableComponent.append(Component.translatable("command.context.here").withStyle(ChatFormatting.RED, ChatFormatting.ITALIC));
@@ -180,7 +172,7 @@ index fe4da263cd7c62805239fff40fd2b51655f829d5..9dd86cf63dd93620adb539a7a80a8d01
              }
  
              return null;
-@@ -359,26 +456,120 @@ public class Commands {
+@@ -365,26 +_,120 @@
      }
  
      public void sendCommands(ServerPlayer player) {
@@ -262,9 +254,6 @@ index fe4da263cd7c62805239fff40fd2b51655f829d5..9dd86cf63dd93620adb539a7a80a8d01
 +            if (!org.spigotmc.SpigotConfig.sendNamespaced && commandNode.getName().contains(":")) continue; // Spigot
              if (commandNode.canUse(source)) {
                  ArgumentBuilder<SharedSuggestionProvider, ?> argumentBuilder = (ArgumentBuilder) commandNode.createBuilder();
--                argumentBuilder.requires(suggestions -> true);
--                if (argumentBuilder.getCommand() != null) {
--                    argumentBuilder.executes(commandContext -> 0);
 +                // Paper start
 +                /*
 +                Because of how commands can be yeeted right left and center due to bad bukkit practices
@@ -298,16 +287,19 @@ index fe4da263cd7c62805239fff40fd2b51655f829d5..9dd86cf63dd93620adb539a7a80a8d01
 +                    }
 +
 +                    argumentBuilder = builder;
-                 }
++                }
 +                // Paper end
-+                argumentBuilder.requires(suggestions -> true);
+                 argumentBuilder.requires(suggestions -> true);
+-                if (argumentBuilder.getCommand() != null) {
+-                    argumentBuilder.executes(commandContext -> 0);
+-                }
 +                // Paper - don't replace Command instance on suggestion node
 +                // we want the exact command instance to be used for equality checks
 +                // when assigning serialization ids to each command node
  
                  if (argumentBuilder instanceof RequiredArgumentBuilder requiredArgumentBuilder
                      && requiredArgumentBuilder.getSuggestionsProvider() != null) {
-@@ -393,7 +584,7 @@ public class Commands {
+@@ -399,7 +_,7 @@
                  commandNodeToSuggestionNode.put(commandNode, commandNode1);
                  rootSuggestion.addChild(commandNode1);
                  if (!commandNode.getChildren().isEmpty()) {
