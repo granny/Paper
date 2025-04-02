@@ -1,14 +1,6 @@
-From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
-From: File <noreply+automated@papermc.io>
-Date: Sun, 20 Apr 1997 06:37:42 -0700
-Subject: [PATCH] paper File Patches
-
-
-diff --git a/net/minecraft/nbt/SnbtGrammar.java b/net/minecraft/nbt/SnbtGrammar.java
-index 1bfa3947474e2478a8dd73671707aec315b7bd29..3eadbeef587f50772043b2b667484510156949c1 100644
 --- a/net/minecraft/nbt/SnbtGrammar.java
 +++ b/net/minecraft/nbt/SnbtGrammar.java
-@@ -591,7 +591,7 @@ public class SnbtGrammar {
+@@ -591,7 +_,7 @@
          Atom<List<Entry<String, T>>> atom30 = Atom.of("map_entries");
          dictionary.put(atom30, Term.repeatedWithTrailingSeparator(namedRule3, atom30, StringReaderTerms.character(',')), scope -> scope.getOrThrow(atom30));
          Atom<T> atom31 = Atom.of("map_literal");
@@ -17,7 +9,7 @@ index 1bfa3947474e2478a8dd73671707aec315b7bd29..3eadbeef587f50772043b2b667484510
              List<Entry<String, T>> list = scope.getOrThrow(atom30);
              if (list.isEmpty()) {
                  return object2;
-@@ -626,7 +626,9 @@ public class SnbtGrammar {
+@@ -626,7 +_,9 @@
              atom35,
              Term.sequence(
                  StringReaderTerms.character('['),
