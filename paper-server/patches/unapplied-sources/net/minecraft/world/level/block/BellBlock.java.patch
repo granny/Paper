@@ -1,0 +1,22 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/BellBlock.java b/net/minecraft/world/level/block/BellBlock.java
+index 6ceb6d4b3b8c3cdf13b5888eaaffb647184d94b0..074428735d3bd8e581b3e0dc26c8e5f56c4bd315 100644
+--- a/net/minecraft/world/level/block/BellBlock.java
++++ b/net/minecraft/world/level/block/BellBlock.java
+@@ -137,6 +137,11 @@ public class BellBlock extends BaseEntityBlock {
+                 direction = level.getBlockState(pos).getValue(FACING);
+             }
+ 
++            // CraftBukkit start
++            if (!org.bukkit.craftbukkit.event.CraftEventFactory.handleBellRingEvent(level, pos, direction, entity)) {
++                return false;
++            }
++            // CraftBukkit end
+             ((BellBlockEntity)blockEntity).onHit(direction);
+             level.playSound(null, pos, SoundEvents.BELL_BLOCK, SoundSource.BLOCKS, 2.0F, 1.0F);
+             level.gameEvent(entity, GameEvent.BLOCK_CHANGE, pos);

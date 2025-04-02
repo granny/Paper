@@ -39,12 +39,12 @@
 +    }
 +    // CraftBukkit end
  
-     public StonecutterMenu(int containerId, Inventory playerInventory) {
+     public StonecutterMenu(int containerId, Inventory playerInventory, List<Integer> list) {
          this(containerId, playerInventory, ContainerLevelAccess.NULL);
 @@ -51,6 +_,23 @@
          super(MenuType.STONECUTTER, containerId);
          this.access = access;
-         this.level = playerInventory.player.level();
+         this.level = playerInventory.getPlayer().level();
 +        // Paper start
 +        this.container = new SimpleContainer(this.createBlockHolder(access), 1) { // Paper - Add missing InventoryHolders
 +            @Override

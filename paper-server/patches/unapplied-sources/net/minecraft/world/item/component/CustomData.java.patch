@@ -1,0 +1,29 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/item/component/CustomData.java b/net/minecraft/world/item/component/CustomData.java
+index 6970f20e476886e2eedb754f49a240a317af508d..45e2b1f89fbdb9775556163916213beb1317b60c 100644
+--- a/net/minecraft/world/item/component/CustomData.java
++++ b/net/minecraft/world/item/component/CustomData.java
+@@ -33,7 +33,17 @@ public final class CustomData {
+     private static final Logger LOGGER = LogUtils.getLogger();
+     public static final CustomData EMPTY = new CustomData(new CompoundTag());
+     private static final String TYPE_TAG = "id";
+-    public static final Codec<CustomData> CODEC = Codec.withAlternative(CompoundTag.CODEC, TagParser.FLATTENED_CODEC)
++    // Paper start - Item serialization as json
++    public static ThreadLocal<Boolean> SERIALIZE_CUSTOM_AS_SNBT = ThreadLocal.withInitial(() -> false);
++    public static final Codec<CustomData> CODEC = Codec.either(CompoundTag.CODEC, TagParser.FLATTENED_CODEC)
++        .xmap(com.mojang.datafixers.util.Either::unwrap, data -> { // Both will be used for deserialization, but we decide which one to use for serialization
++            if (!SERIALIZE_CUSTOM_AS_SNBT.get()) {
++                return com.mojang.datafixers.util.Either.left(data); // First codec
++            } else {
++                return com.mojang.datafixers.util.Either.right(data); // Second codec
++            }
++        })
++    // Paper end - Item serialization as json
+         .xmap(CustomData::new, customData -> customData.tag);
+     public static final Codec<CustomData> CODEC_WITH_ID = CODEC.validate(
+         data -> data.getUnsafe().getString("id").isPresent() ? DataResult.success(data) : DataResult.error(() -> "Missing id for entity in: " + data)

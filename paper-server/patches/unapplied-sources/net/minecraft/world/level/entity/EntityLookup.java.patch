@@ -1,0 +1,25 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/entity/EntityLookup.java b/net/minecraft/world/level/entity/EntityLookup.java
+index 10320216c9da8b037c194fe0521b703967614a82..6b1bec0329cdc95eff00850c67d7f33bd9037285 100644
+--- a/net/minecraft/world/level/entity/EntityLookup.java
++++ b/net/minecraft/world/level/entity/EntityLookup.java
+@@ -33,6 +33,14 @@ public class EntityLookup<T extends EntityAccess> {
+         UUID uuid = entity.getUUID();
+         if (this.byUuid.containsKey(uuid)) {
+             LOGGER.warn("Duplicate entity UUID {}: {}", uuid, entity);
++            // Paper start - extra debug info
++            if (entity instanceof net.minecraft.world.entity.Entity) {
++                final T old = this.byUuid.get(entity.getUUID());
++                if (old instanceof net.minecraft.world.entity.Entity oldCast && oldCast.getId() != entity.getId() && oldCast.valid) {
++                    LOGGER.error("Overwrote an existing entity {} with {}", oldCast, entity);
++                }
++            }
++            // Paper end - extra debug info
+         } else {
+             this.byUuid.put(uuid, entity);
+             this.byId.put(entity.getId(), entity);

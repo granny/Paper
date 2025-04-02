@@ -1,0 +1,19 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/levelgen/placement/PlacementContext.java b/net/minecraft/world/level/levelgen/placement/PlacementContext.java
+index 7a900815461729a673fdca2af6851c9d65836d83..29c583cdc09487035b51a4fbc39fcdbe7a890a6d 100644
+--- a/net/minecraft/world/level/levelgen/placement/PlacementContext.java
++++ b/net/minecraft/world/level/levelgen/placement/PlacementContext.java
+@@ -17,7 +17,7 @@ public class PlacementContext extends WorldGenerationContext {
+     private final Optional<PlacedFeature> topFeature;
+ 
+     public PlacementContext(WorldGenLevel level, ChunkGenerator generator, Optional<PlacedFeature> topFeature) {
+-        super(generator, level);
++        super(generator, level, level.getLevel()); // Paper - Flat bedrock generator settings
+         this.level = level;
+         this.generator = generator;
+         this.topFeature = topFeature;

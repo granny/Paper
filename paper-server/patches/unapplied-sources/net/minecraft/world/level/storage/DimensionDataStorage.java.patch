@@ -1,0 +1,28 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/storage/DimensionDataStorage.java b/net/minecraft/world/level/storage/DimensionDataStorage.java
+index 29f899745a070c9d3e82c4f2c2210009574b2f6d..05361803a929cbcf651a37cf43009e57acb25f3e 100644
+--- a/net/minecraft/world/level/storage/DimensionDataStorage.java
++++ b/net/minecraft/world/level/storage/DimensionDataStorage.java
+@@ -150,7 +150,7 @@ public class DimensionDataStorage implements AutoCloseable {
+         } else {
+             int i = Util.maxAllowedExecutorThreads();
+             int size = map.size();
+-            if (size > i) {
++            if (false && size > i) { // Paper - Separate dimension data IO pool; just throw them into the fixed pool queue
+                 this.pendingWriteFuture = this.pendingWriteFuture.thenCompose(object -> {
+                     List<CompletableFuture<?>> list = new ArrayList<>(i);
+                     int i1 = Mth.positiveCeilDiv(size, i);
+@@ -171,7 +171,7 @@ public class DimensionDataStorage implements AutoCloseable {
+                         object -> CompletableFuture.allOf(
+                             map.entrySet()
+                                 .stream()
+-                                .map(entry -> CompletableFuture.runAsync(() -> this.tryWrite(entry.getKey(), entry.getValue()), Util.ioPool()))
++                                .map(entry -> CompletableFuture.runAsync(() -> this.tryWrite(entry.getKey(), entry.getValue()), Util.DIMENSION_DATA_IO_POOL)) // Paper - Separate dimension data IO pool
+                                 .toArray(CompletableFuture[]::new)
+                         )
+                     );

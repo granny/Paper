@@ -1,0 +1,30 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/item/SplashPotionItem.java b/net/minecraft/world/item/SplashPotionItem.java
+index 04e87e04b7849dadfd8adb3963f7828cc290145d..41bae24a76fe5499a571dad1eb3bb9ac513a071e 100644
+--- a/net/minecraft/world/item/SplashPotionItem.java
++++ b/net/minecraft/world/item/SplashPotionItem.java
+@@ -19,6 +19,10 @@ public class SplashPotionItem extends ThrowablePotionItem {
+ 
+     @Override
+     public InteractionResult use(Level level, Player player, InteractionHand hand) {
++        // Paper start - PlayerLaunchProjectileEvent
++        final InteractionResult wrapper = super.use(level, player, hand);
++        if (wrapper instanceof InteractionResult.Fail) return wrapper;
++        // Paper end - PlayerLaunchProjectileEvent
+         level.playSound(
+             null,
+             player.getX(),
+@@ -29,7 +33,7 @@ public class SplashPotionItem extends ThrowablePotionItem {
+             0.5F,
+             0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F)
+         );
+-        return super.use(level, player, hand);
++        return wrapper; // Paper - PlayerLaunchProjectileEvent
+     }
+ 
+     @Override

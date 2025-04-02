@@ -1,0 +1,27 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/DragonEggBlock.java b/net/minecraft/world/level/block/DragonEggBlock.java
+index 80708c142f6af970b15f5afb54875247fb102a7c..5c2f10486e3aed090c6545a86276e6927e424cb2 100644
+--- a/net/minecraft/world/level/block/DragonEggBlock.java
++++ b/net/minecraft/world/level/block/DragonEggBlock.java
+@@ -55,6 +55,16 @@ public class DragonEggBlock extends FallingBlock {
+                 level.random.nextInt(16) - level.random.nextInt(16)
+             );
+             if (level.getBlockState(blockPos).isAir() && worldBorder.isWithinBounds(blockPos)) {
++                // CraftBukkit start
++                org.bukkit.block.Block from = org.bukkit.craftbukkit.block.CraftBlock.at(level, pos);
++                org.bukkit.block.Block to = org.bukkit.craftbukkit.block.CraftBlock.at(level, blockPos);
++                org.bukkit.event.block.BlockFromToEvent event = new org.bukkit.event.block.BlockFromToEvent(from, to);
++                if (!event.callEvent()) {
++                    return;
++                }
++
++                blockPos = new BlockPos(event.getToBlock().getX(), event.getToBlock().getY(), event.getToBlock().getZ());
++                // CraftBukkit end
+                 if (level.isClientSide) {
+                     for (int i1 = 0; i1 < 128; i1++) {
+                         double randomDouble = level.random.nextDouble();

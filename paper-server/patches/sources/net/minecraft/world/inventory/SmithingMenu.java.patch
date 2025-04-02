@@ -8,7 +8,7 @@
 +    private org.bukkit.craftbukkit.inventory.CraftInventoryView bukkitEntity;
 +    // CraftBukkit end
  
-     public SmithingMenu(int containerId, Inventory playerInventory) {
+     public SmithingMenu(int containerId, Inventory playerInventory, List<Integer> list) {
          this(containerId, playerInventory, ContainerLevelAccess.NULL);
 @@ -99,6 +_,7 @@
          if (this.level instanceof ServerLevel) {

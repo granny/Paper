@@ -1,0 +1,33 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/boss/enderdragon/phases/DragonSittingFlamingPhase.java b/net/minecraft/world/entity/boss/enderdragon/phases/DragonSittingFlamingPhase.java
+index 9f00ba8e07f9f48c4d57981591365e88a63c8f46..ced1a8dd233a380f7244ca20c314df43e293372b 100644
+--- a/net/minecraft/world/entity/boss/enderdragon/phases/DragonSittingFlamingPhase.java
++++ b/net/minecraft/world/entity/boss/enderdragon/phases/DragonSittingFlamingPhase.java
+@@ -83,7 +83,13 @@ public class DragonSittingFlamingPhase extends AbstractDragonSittingPhase {
+             this.flame.setParticle(ParticleTypes.DRAGON_BREATH);
+             this.flame.setPotionDurationScale(0.25F);
+             this.flame.addEffect(new MobEffectInstance(MobEffects.INSTANT_DAMAGE));
++            if (new com.destroystokyo.paper.event.entity.EnderDragonFlameEvent((org.bukkit.entity.EnderDragon) this.dragon.getBukkitEntity(), (org.bukkit.entity.AreaEffectCloud) this.flame.getBukkitEntity()).callEvent()) { // Paper - EnderDragon Events
+             level.addFreshEntity(this.flame);
++            // Paper start - EnderDragon Events
++            } else {
++                this.end();
++            }
++            // Paper end - EnderDragon Events
+         }
+     }
+ 
+@@ -96,7 +102,7 @@ public class DragonSittingFlamingPhase extends AbstractDragonSittingPhase {
+     @Override
+     public void end() {
+         if (this.flame != null) {
+-            this.flame.discard();
++            this.flame.discard(org.bukkit.event.entity.EntityRemoveEvent.Cause.DESPAWN); // CraftBukkit - add Bukkit remove cause
+             this.flame = null;
+         }
+     }

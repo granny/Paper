@@ -1,0 +1,55 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/chunk/UpgradeData.java b/net/minecraft/world/level/chunk/UpgradeData.java
+index 771e68fe6833d68c2c14d1636ca6243a9bca283a..2059e8780b6b9742c9f9ad5968b28ccc6b9437af 100644
+--- a/net/minecraft/world/level/chunk/UpgradeData.java
++++ b/net/minecraft/world/level/chunk/UpgradeData.java
+@@ -87,6 +87,25 @@ public class UpgradeData {
+         }
+     }
+ 
++    // Paper start - filter out relocated neighbour ticks
++    // The lists are only supposed to contain ticks for the 1 radius neighbours of the chunk
++    private static <T> void filterTickList(int chunkX, int chunkZ, List<SavedTick<T>> ticks) {
++        for (java.util.Iterator<SavedTick<T>> iterator = ticks.iterator(); iterator.hasNext();) {
++            SavedTick<T> tick = iterator.next();
++            BlockPos tickPos = tick.pos();
++            int tickCX = tickPos.getX() >> 4;
++            int tickCZ = tickPos.getZ() >> 4;
++
++            int dist = Math.max(Math.abs(chunkX - tickCX), Math.abs(chunkZ - tickCZ));
++
++            if (dist != 1) {
++                LOGGER.warn("Neighbour tick '" + tick + "' serialized in chunk (" + chunkX + "," + chunkZ + ") is too far (" + tickCX + "," + tickCZ + ")");
++                iterator.remove();
++            }
++        }
++    }
++    // Paper end - filter out relocated neighbour ticks
++
+     public void upgrade(LevelChunk chunk) {
+         this.upgradeInside(chunk);
+ 
+@@ -94,6 +113,10 @@ public class UpgradeData {
+             upgradeSides(chunk, direction8);
+         }
+ 
++        // Paper start - filter out relocated neighbour ticks
++        filterTickList(chunk.locX, chunk.locZ, this.neighborBlockTicks);
++        filterTickList(chunk.locX, chunk.locZ, this.neighborFluidTicks);
++        // Paper end - filter out relocated neighbour ticks
+         Level level = chunk.getLevel();
+         this.neighborBlockTicks.forEach(savedTick -> {
+             Block block = savedTick.type() == Blocks.AIR ? level.getBlockState(savedTick.pos()).getBlock() : savedTick.type();
+@@ -103,6 +126,7 @@ public class UpgradeData {
+             Fluid fluid = savedTick.type() == Fluids.EMPTY ? level.getFluidState(savedTick.pos()).getType() : savedTick.type();
+             level.scheduleTick(savedTick.pos(), fluid, savedTick.delay(), savedTick.priority());
+         });
++        UpgradeData.BlockFixers.values(); // Paper - force the class init so that we don't access CHUNKY_FIXERS before all BlockFixers are initialised
+         CHUNKY_FIXERS.forEach(blockFixer -> blockFixer.processChunk(level));
+     }
+ 

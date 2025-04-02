@@ -1,0 +1,24 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/PoweredRailBlock.java b/net/minecraft/world/level/block/PoweredRailBlock.java
+index dcb53af97755565b21fdf8c7363bf33ef5921300..5ec12356e9f044d99762bf64a6d3bf74856d97a6 100644
+--- a/net/minecraft/world/level/block/PoweredRailBlock.java
++++ b/net/minecraft/world/level/block/PoweredRailBlock.java
+@@ -127,6 +127,13 @@ public class PoweredRailBlock extends BaseRailBlock {
+             || this.findPoweredRailSignal(level, pos, state, true, 0)
+             || this.findPoweredRailSignal(level, pos, state, false, 0);
+         if (flag != poweredValue) {
++            // CraftBukkit start
++            int power = flag ? 15 : 0;
++            int newPower = org.bukkit.craftbukkit.event.CraftEventFactory.callRedstoneChange(level, pos, power, 15 - power).getNewCurrent();
++            if (newPower == power) {
++                return;
++            }
++            // CraftBukkit end
+             level.setBlock(pos, state.setValue(POWERED, flag), 3);
+             level.updateNeighborsAt(pos.below(), this);
+             if (state.getValue(SHAPE).isSlope()) {

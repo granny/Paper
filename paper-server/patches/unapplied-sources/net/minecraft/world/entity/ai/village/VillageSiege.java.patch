@@ -1,0 +1,24 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/ai/village/VillageSiege.java b/net/minecraft/world/entity/ai/village/VillageSiege.java
+index f09c734b9248ee7eb017e5205d810d9976676513..69825fc6941047723919a6079ce4a0b9d1a06006 100644
+--- a/net/minecraft/world/entity/ai/village/VillageSiege.java
++++ b/net/minecraft/world/entity/ai/village/VillageSiege.java
+@@ -95,11 +95,12 @@ public class VillageSiege implements CustomSpawner {
+                 zombie.finalizeSpawn(level, level.getCurrentDifficultyAt(zombie.blockPosition()), EntitySpawnReason.EVENT, null);
+             } catch (Exception var5) {
+                 LOGGER.warn("Failed to create zombie for village siege at {}", vec3, var5);
++                com.destroystokyo.paper.exception.ServerInternalException.reportInternalException(var5); // Paper - ServerExceptionEvent
+                 return;
+             }
+ 
+             zombie.snapTo(vec3.x, vec3.y, vec3.z, level.random.nextFloat() * 360.0F, 0.0F);
+-            level.addFreshEntityWithPassengers(zombie);
++            level.addFreshEntityWithPassengers(zombie, org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason.VILLAGE_INVASION); // CraftBukkit
+         }
+     }
+ 

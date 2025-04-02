@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/inventory/ChestMenu.java
 +++ b/net/minecraft/world/inventory/ChestMenu.java
-@@ -9,6 +_,34 @@
+@@ -10,6 +_,34 @@
  public class ChestMenu extends AbstractContainerMenu {
      private final Container container;
      private final int containerRows;
@@ -23,31 +23,31 @@
 +            inventory = new org.bukkit.craftbukkit.inventory.CraftInventory(this.container);
 +        }
 +
-+        this.view = new org.bukkit.craftbukkit.inventory.CraftInventoryView(this.inventory.player.getBukkitEntity(), inventory, this);
++        this.view = new org.bukkit.craftbukkit.inventory.CraftInventoryView(this.inventory.getPlayer().getBukkitEntity(), inventory, this);
 +        return this.view;
 +    }
 +
 +    @Override
 +    public void startOpen() {
-+        this.container.startOpen(this.inventory.player);
++        this.container.startOpen(this.inventory.getPlayer());
 +    }
 +    // CraftBukkit end
  
      private ChestMenu(MenuType<?> type, int containerId, Inventory playerInventory, int rows) {
          this(type, containerId, playerInventory, new SimpleContainer(9 * rows), rows);
-@@ -51,7 +_,10 @@
+@@ -52,7 +_,10 @@
          checkContainerSize(container, rows * 9);
          this.container = container;
          this.containerRows = rows;
--        container.startOpen(playerInventory.player);
-+        // container.startOpen(playerInventory.player); // Paper - don't startOpen until menu actually opens
+-        container.startOpen(playerInventory.getPlayer());
++        // container.startOpen(playerInventory.getPlayer()); // Paper - don't startOpen until menu actually opens
 +        // CraftBukkit start - Save player
 +        this.inventory = playerInventory;
 +        // CraftBukkit end
          int i = 18;
          this.addChestGrid(container, 8, 18);
          int i1 = 18 + this.containerRows * 18 + 13;
-@@ -68,6 +_,7 @@
+@@ -69,6 +_,7 @@
  
      @Override
      public boolean stillValid(Player player) {

@@ -1,0 +1,35 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/CaveVines.java b/net/minecraft/world/level/block/CaveVines.java
+index 149fe01b3791fba7d02e7e819e029b3a517ce13f..77e318d3ab655e6cd82b7a559cbd980ae7b82c64 100644
+--- a/net/minecraft/world/level/block/CaveVines.java
++++ b/net/minecraft/world/level/block/CaveVines.java
+@@ -23,7 +23,23 @@ public interface CaveVines {
+ 
+     static InteractionResult use(@Nullable Entity entity, BlockState state, Level level, BlockPos pos) {
+         if (state.getValue(BERRIES)) {
+-            Block.popResource(level, pos, new ItemStack(Items.GLOW_BERRIES, 1));
++            // CraftBukkit start
++            if (!org.bukkit.craftbukkit.event.CraftEventFactory.callEntityChangeBlockEvent(entity, pos, (BlockState) state.setValue(CaveVines.BERRIES, false))) {
++                return InteractionResult.SUCCESS;
++            }
++
++            if (entity instanceof net.minecraft.world.entity.player.Player player) {
++                org.bukkit.event.player.PlayerHarvestBlockEvent event = org.bukkit.craftbukkit.event.CraftEventFactory.callPlayerHarvestBlockEvent(level, pos, player, net.minecraft.world.InteractionHand.MAIN_HAND, java.util.Collections.singletonList(new ItemStack(Items.GLOW_BERRIES, 1)));
++                if (event.isCancelled()) {
++                    return InteractionResult.SUCCESS; // We need to return a success either way, because making it PASS or FAIL will result in a bug where cancelling while harvesting w/ block in hand places block
++                }
++                for (org.bukkit.inventory.ItemStack itemStack : event.getItemsHarvested()) {
++                    Block.popResource(level, pos, org.bukkit.craftbukkit.inventory.CraftItemStack.asNMSCopy(itemStack));
++                }
++            } else {
++                Block.popResource(level, pos, new ItemStack(Items.GLOW_BERRIES, 1));
++            }
++            // CraftBukkit end
+             float f = Mth.randomBetween(level.random, 0.8F, 1.2F);
+             level.playSound(null, pos, SoundEvents.CAVE_VINES_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, f);
+             BlockState blockState = state.setValue(BERRIES, false);

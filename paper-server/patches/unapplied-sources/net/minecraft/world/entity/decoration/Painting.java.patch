@@ -1,0 +1,49 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/decoration/Painting.java b/net/minecraft/world/entity/decoration/Painting.java
+index 56afa40c33d3c7c9fe991b5bb1fdd97d0d77732a..3f13bb1ad260d250efe2622297e432dc300e73a0 100644
+--- a/net/minecraft/world/entity/decoration/Painting.java
++++ b/net/minecraft/world/entity/decoration/Painting.java
+@@ -146,21 +146,31 @@ public class Painting extends HangingEntity {
+ 
+     @Override
+     protected AABB calculateBoundingBox(BlockPos pos, Direction direction) {
++        // CraftBukkit start
++        PaintingVariant variant = (PaintingVariant) this.getVariant().value();
++        return Painting.calculateBoundingBoxStatic(pos, direction, variant.width(), variant.height());
++    }
++
++    public static AABB calculateBoundingBoxStatic(BlockPos pos, Direction direction, int width, int height) {
++        // CraftBukkit end
+         float f = 0.46875F;
+         Vec3 vec3 = Vec3.atCenterOf(pos).relative(direction, -0.46875);
+-        PaintingVariant paintingVariant = this.getVariant().value();
+-        double d = this.offsetForPaintingSize(paintingVariant.width());
+-        double d1 = this.offsetForPaintingSize(paintingVariant.height());
++        // CraftBukkit start
++        double d = Painting.offsetForPaintingSize(width);
++        double d1 = Painting.offsetForPaintingSize(height);
++        // CraftBukkit end
+         Direction counterClockWise = direction.getCounterClockWise();
+         Vec3 vec31 = vec3.relative(counterClockWise, d).relative(Direction.UP, d1);
+         Direction.Axis axis = direction.getAxis();
+-        double d2 = axis == Direction.Axis.X ? 0.0625 : paintingVariant.width();
+-        double d3 = paintingVariant.height();
+-        double d4 = axis == Direction.Axis.Z ? 0.0625 : paintingVariant.width();
++        // CraftBukkit start
++        double d2 = axis == Direction.Axis.X ? 0.0625 : width;
++        double d3 = height;
++        double d4 = axis == Direction.Axis.Z ? 0.0625 : width;
++        // CraftBukkit end
+         return AABB.ofSize(vec31, d2, d3, d4);
+     }
+ 
+-    private double offsetForPaintingSize(int size) {
++    private static double offsetForPaintingSize(int size) { // CraftBukkit - static
+         return size % 2 == 0 ? 0.5 : 0.0;
+     }
+ 

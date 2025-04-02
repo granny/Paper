@@ -1,0 +1,25 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/LeavesBlock.java b/net/minecraft/world/level/block/LeavesBlock.java
+index 8082f0cdd9b40d106bcc8d9b8b082f9acacd59c6..010e9814490ffaa153df5b7865da17e2a84c7e82 100644
+--- a/net/minecraft/world/level/block/LeavesBlock.java
++++ b/net/minecraft/world/level/block/LeavesBlock.java
+@@ -56,6 +56,14 @@ public abstract class LeavesBlock extends Block implements SimpleWaterloggedBloc
+     @Override
+     protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+         if (this.decaying(state)) {
++            // CraftBukkit start
++            org.bukkit.event.block.LeavesDecayEvent event = new org.bukkit.event.block.LeavesDecayEvent(org.bukkit.craftbukkit.block.CraftBlock.at(level, pos));
++            level.getCraftServer().getPluginManager().callEvent(event);
++
++            if (event.isCancelled() || !level.getBlockState(pos).is(this)) {
++                return;
++            }
++            // CraftBukkit end
+             dropResources(state, level, pos);
+             level.removeBlock(pos, false);
+         }

@@ -1,0 +1,21 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/animal/AgeableWaterCreature.java b/net/minecraft/world/entity/animal/AgeableWaterCreature.java
+index 43b4acccd9c52f4fa79634bc5fad4be4c376b465..1c244aaca4c29b79db7e8d6cda184e3b3cdcfced 100644
+--- a/net/minecraft/world/entity/animal/AgeableWaterCreature.java
++++ b/net/minecraft/world/entity/animal/AgeableWaterCreature.java
+@@ -68,6 +68,10 @@ public abstract class AgeableWaterCreature extends AgeableMob {
+     ) {
+         int seaLevel = level.getSeaLevel();
+         int i = seaLevel - 13;
++        // Paper start - Make water animal spawn height configurable
++        seaLevel = level.getMinecraftWorld().paperConfig().entities.spawning.wateranimalSpawnHeight.maximum.or(seaLevel);
++        i = level.getMinecraftWorld().paperConfig().entities.spawning.wateranimalSpawnHeight.minimum.or(i);
++        // Paper end - Make water animal spawn height configurable
+         return pos.getY() >= i
+             && pos.getY() <= seaLevel
+             && level.getFluidState(pos.below()).is(FluidTags.WATER)

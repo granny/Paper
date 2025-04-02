@@ -1,0 +1,27 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/item/consume_effects/ConsumeEffect.java b/net/minecraft/world/item/consume_effects/ConsumeEffect.java
+index ee45fa8777ef416fda96d68bd783df9f0b5d7506..cfb551d2e7af46c2feef98cb335c32ea3b04efff 100644
+--- a/net/minecraft/world/item/consume_effects/ConsumeEffect.java
++++ b/net/minecraft/world/item/consume_effects/ConsumeEffect.java
+@@ -19,7 +19,15 @@ public interface ConsumeEffect {
+ 
+     ConsumeEffect.Type<? extends ConsumeEffect> getType();
+ 
+-    boolean apply(Level level, ItemStack stack, LivingEntity entity);
++    // CraftBukkit start
++    default boolean apply(Level level, ItemStack stack, LivingEntity entity) {
++        return this.apply(level, stack, entity, org.bukkit.event.entity.EntityPotionEffectEvent.Cause.UNKNOWN);
++    }
++
++    default boolean apply(Level level, ItemStack stack, LivingEntity entity, org.bukkit.event.entity.EntityPotionEffectEvent.Cause cause) {
++        return this.apply(level, stack, entity);
++    }
++    // CraftBukkit end
+ 
+     public record Type<T extends ConsumeEffect>(MapCodec<T> codec, StreamCodec<RegistryFriendlyByteBuf, T> streamCodec) {
+         public static final ConsumeEffect.Type<ApplyStatusEffectsConsumeEffect> APPLY_EFFECTS = register(

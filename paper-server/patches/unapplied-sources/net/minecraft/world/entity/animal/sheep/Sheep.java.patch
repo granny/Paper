@@ -1,0 +1,75 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/animal/sheep/Sheep.java b/net/minecraft/world/entity/animal/sheep/Sheep.java
+index 40c7aa079e2792b64251d2080a062934cac47f72..bb51adb44cbff3e7feaa80421f5f1a01c119aa00 100644
+--- a/net/minecraft/world/entity/animal/sheep/Sheep.java
++++ b/net/minecraft/world/entity/animal/sheep/Sheep.java
+@@ -161,7 +161,19 @@ public class Sheep extends Animal implements Shearable {
+         ItemStack itemInHand = player.getItemInHand(hand);
+         if (itemInHand.is(Items.SHEARS)) {
+             if (this.level() instanceof ServerLevel serverLevel && this.readyForShearing()) {
+-                this.shear(serverLevel, SoundSource.PLAYERS, itemInHand);
++                // CraftBukkit start
++                // Paper start - custom shear drops
++                java.util.List<ItemStack> drops = this.generateDefaultDrops(serverLevel, itemInHand);
++                org.bukkit.event.player.PlayerShearEntityEvent event = org.bukkit.craftbukkit.event.CraftEventFactory.handlePlayerShearEntityEvent(player, this, itemInHand, hand, drops);
++                if (event != null) {
++                    if (event.isCancelled()) {
++                        return InteractionResult.PASS;
++                    }
++                    drops = org.bukkit.craftbukkit.inventory.CraftItemStack.asNMSCopy(event.getDrops());
++                    // Paper end - custom shear drops
++                }
++                // CraftBukkit end
++                this.shear(serverLevel, SoundSource.PLAYERS, itemInHand, drops); // Paper - custom shear drops
+                 this.gameEvent(GameEvent.SHEAR, player);
+                 itemInHand.hurtAndBreak(1, player, getSlotForHand(hand));
+                 return InteractionResult.SUCCESS_SERVER;
+@@ -175,14 +187,28 @@ public class Sheep extends Animal implements Shearable {
+ 
+     @Override
+     public void shear(ServerLevel level, SoundSource soundSource, ItemStack shears) {
++        // Paper start - custom shear drops
++        this.shear(level, soundSource, shears, this.generateDefaultDrops(level, shears));
++    }
++
++    @Override
++    public java.util.List<ItemStack> generateDefaultDrops(final ServerLevel serverLevel, final ItemStack shears) {
++        final java.util.List<ItemStack> drops = new it.unimi.dsi.fastutil.objects.ObjectArrayList<>();
++        this.dropFromShearingLootTable(serverLevel, BuiltInLootTables.SHEAR_SHEEP, shears, (ignored, stack) -> {
++            for (int i = 0; i < stack.getCount(); ++i) drops.add(stack.copyWithCount(1));
++        });
++        return drops;
++    }
++
++    @Override
++    public void shear(ServerLevel level, SoundSource soundSource, ItemStack shears, java.util.List<ItemStack> drops) {
++        // Paper end - custom shear drops
+         level.playSound(null, this, SoundEvents.SHEEP_SHEAR, soundSource, 1.0F, 1.0F);
+-        this.dropFromShearingLootTable(
+-            level,
+-            BuiltInLootTables.SHEAR_SHEEP,
+-            shears,
+-            (serverLevel, itemStack) -> {
+-                for (int i = 0; i < itemStack.getCount(); i++) {
+-                    ItemEntity itemEntity = this.spawnAtLocation(serverLevel, itemStack.copyWithCount(1), 1.0F);
++        drops.forEach(itemStack -> { // Paper - custom drops - loop in generated default drops
++            if (true) { // Paper - custom drops - loop in generated default drops
++                this.forceDrops = true; // CraftBukkit
++                ItemEntity itemEntity = this.spawnAtLocation(level, itemStack, 1.0F); // Paper - custom drops - copy already done above
++                this.forceDrops = false; // CraftBukkit
+                     if (itemEntity != null) {
+                         itemEntity.setDeltaMovement(
+                             itemEntity.getDeltaMovement()
+@@ -302,6 +328,7 @@ public class Sheep extends Animal implements Shearable {
+ 
+     @Override
+     public void ate() {
++        if (!new org.bukkit.event.entity.SheepRegrowWoolEvent((org.bukkit.entity.Sheep) this.getBukkitEntity()).callEvent()) return; // CraftBukkit
+         super.ate();
+         this.setSheared(false);
+         if (this.isBaby()) {

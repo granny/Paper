@@ -1,0 +1,29 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/DoublePlantBlock.java b/net/minecraft/world/level/block/DoublePlantBlock.java
+index aeecfe8f7da49d286571d6555a3a734c814692d3..c60f2f1fe80d6c7ffd25c90da4e757065a3bd138 100644
+--- a/net/minecraft/world/level/block/DoublePlantBlock.java
++++ b/net/minecraft/world/level/block/DoublePlantBlock.java
+@@ -110,11 +110,16 @@ public class DoublePlantBlock extends VegetationBlock {
+     }
+ 
+     @Override
+-    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity te, ItemStack stack) {
+-        super.playerDestroy(level, player, pos, Blocks.AIR.defaultBlockState(), te, stack);
++    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity te, ItemStack stack, boolean includeDrops, boolean dropExp) { // Paper - fix drops not preventing stats/food exhaustion
++        super.playerDestroy(level, player, pos, Blocks.AIR.defaultBlockState(), te, stack, includeDrops, dropExp); // Paper - fix drops not preventing stats/food exhaustion;
+     }
+ 
+     protected static void preventDropFromBottomPart(Level level, BlockPos pos, BlockState state, Player player) {
++        // CraftBukkit start
++        if (((net.minecraft.server.level.ServerLevel)level).hasPhysicsEvent && org.bukkit.craftbukkit.event.CraftEventFactory.callBlockPhysicsEvent(level, pos).isCancelled()) { // Paper
++            return;
++        }
++        // CraftBukkit end
+         DoubleBlockHalf doubleBlockHalf = state.getValue(HALF);
+         if (doubleBlockHalf == DoubleBlockHalf.UPPER) {
+             BlockPos blockPos = pos.below();

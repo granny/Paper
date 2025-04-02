@@ -1,0 +1,62 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/raid/Raider.java b/net/minecraft/world/entity/raid/Raider.java
+index bfb8b01f4f743b6baa84645a8504ef9e684408da..e81ae747fe95c22321fc69791a6509d601826fd6 100644
+--- a/net/minecraft/world/entity/raid/Raider.java
++++ b/net/minecraft/world/entity/raid/Raider.java
+@@ -213,17 +213,24 @@ public abstract class Raider extends PatrollingMonster {
+         if (this.hasActiveRaid()
+             && !flag
+             && ItemStack.matches(item, Raid.getOminousBannerInstance(this.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN)))) {
++            // Paper start - EntityPickupItemEvent fixes
++            if (org.bukkit.craftbukkit.event.CraftEventFactory.callEntityPickupItemEvent(this, entity, 0, false).isCancelled()) {
++                return;
++            }
++            // Paper end - EntityPickupItemEvent fixes
+             EquipmentSlot equipmentSlot = EquipmentSlot.HEAD;
+             ItemStack itemBySlot = this.getItemBySlot(equipmentSlot);
+             double d = this.getDropChances().byEquipment(equipmentSlot);
+             if (!itemBySlot.isEmpty() && Math.max(this.random.nextFloat() - 0.1F, 0.0F) < d) {
++                this.forceDrops = true; // Paper - Add missing forceDrop toggles
+                 this.spawnAtLocation(level, itemBySlot);
++                this.forceDrops = false; // Paper - Add missing forceDrop toggles
+             }
+ 
+             this.onItemPickup(entity);
+             this.setItemSlot(equipmentSlot, item);
+             this.take(entity, item.getCount());
+-            entity.discard();
++            entity.discard(org.bukkit.event.entity.EntityRemoveEvent.Cause.PICKUP); // CraftBukkit - add Bukkit remove cause
+             this.getCurrentRaid().setLeader(this.getWave(), this);
+             this.setPatrolLeader(true);
+         } else {
+@@ -297,7 +304,7 @@ public abstract class Raider extends PatrollingMonster {
+ 
+             for (Raider raider : getServerLevel(this.mob)
+                 .getNearbyEntities(Raider.class, this.shoutTargeting, this.mob, this.mob.getBoundingBox().inflate(8.0, 8.0, 8.0))) {
+-                raider.setTarget(this.mob.getTarget());
++                raider.setTarget(this.mob.getTarget(), org.bukkit.event.entity.EntityTargetEvent.TargetReason.FOLLOW_LEADER); // CraftBukkit
+             }
+         }
+ 
+@@ -308,7 +315,7 @@ public abstract class Raider extends PatrollingMonster {
+             if (target != null) {
+                 for (Raider raider : getServerLevel(this.mob)
+                     .getNearbyEntities(Raider.class, this.shoutTargeting, this.mob, this.mob.getBoundingBox().inflate(8.0, 8.0, 8.0))) {
+-                    raider.setTarget(target);
++                    raider.setTarget(target, org.bukkit.event.entity.EntityTargetEvent.TargetReason.FOLLOW_LEADER); // CraftBukkit
+                     raider.setAggressive(true);
+                 }
+ 
+@@ -393,6 +400,7 @@ public abstract class Raider extends PatrollingMonster {
+         }
+ 
+         private boolean cannotPickUpBanner() {
++            if (!getServerLevel(this.mob).getGameRules().getBoolean(net.minecraft.world.level.GameRules.RULE_MOBGRIEFING) || !this.mob.canPickUpLoot()) return false; // Paper - respect game and entity rules for picking up items
+             if (!this.mob.hasActiveRaid()) {
+                 return true;
+             } else if (this.mob.getCurrentRaid().isOver()) {

@@ -1,0 +1,20 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/server/network/ServerStatusPacketListenerImpl.java b/net/minecraft/server/network/ServerStatusPacketListenerImpl.java
+index 9249f02aacd7c781c49780bf9cccc0be99050438..465559113071a47e706f77a5b0996597ee986b3d 100644
+--- a/net/minecraft/server/network/ServerStatusPacketListenerImpl.java
++++ b/net/minecraft/server/network/ServerStatusPacketListenerImpl.java
+@@ -36,7 +36,8 @@ public class ServerStatusPacketListenerImpl implements ServerStatusPacketListene
+             this.connection.disconnect(DISCONNECT_REASON);
+         } else {
+             this.hasRequestedStatus = true;
+-            this.connection.send(new ClientboundStatusResponsePacket(this.status));
++            // this.connection.send(new ClientboundStatusResponsePacket(this.status)); // Paper
++            com.destroystokyo.paper.network.StandardPaperServerListPingEventImpl.processRequest(net.minecraft.server.MinecraftServer.getServer(), this.connection); // Paper - handle status request
+         }
+     }
+ 

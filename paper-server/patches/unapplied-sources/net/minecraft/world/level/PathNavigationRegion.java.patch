@@ -1,0 +1,54 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/PathNavigationRegion.java b/net/minecraft/world/level/PathNavigationRegion.java
+index e98c19610268c4eef42364a790d34728405fc599..21dee87c792dcba52d9dff637e4729a2ec377ac0 100644
+--- a/net/minecraft/world/level/PathNavigationRegion.java
++++ b/net/minecraft/world/level/PathNavigationRegion.java
+@@ -66,7 +66,7 @@ public class PathNavigationRegion implements CollisionGetter {
+     private ChunkAccess getChunk(int x, int z) {
+         int i = x - this.centerX;
+         int i1 = z - this.centerZ;
+-        if (i >= 0 && i < this.chunks.length && i1 >= 0 && i1 < this.chunks[i].length) {
++        if (i >= 0 && i < this.chunks.length && i1 >= 0 && i1 < this.chunks[i].length) { // Paper - if this changes, update getChunkIfLoaded below
+             ChunkAccess chunkAccess = this.chunks[i][i1];
+             return (ChunkAccess)(chunkAccess != null ? chunkAccess : new EmptyLevelChunk(this.level, new ChunkPos(x, z), this.plains.get()));
+         } else {
+@@ -74,6 +74,34 @@ public class PathNavigationRegion implements CollisionGetter {
+         }
+     }
+ 
++    // Paper start - if loaded util
++    @Nullable
++    private ChunkAccess getChunkIfLoaded(int x, int z) {
++        // Based on getChunk(int, int)
++        int xx = x - this.centerX;
++        int zz = z - this.centerZ;
++
++        if (xx >= 0 && xx < this.chunks.length && zz >= 0 && zz < this.chunks[xx].length) {
++            return this.chunks[xx][zz];
++        }
++        return null;
++    }
++
++    @Nullable
++    @Override
++    public final FluidState getFluidIfLoaded(BlockPos pos) {
++        ChunkAccess chunk = getChunkIfLoaded(pos.getX() >> 4, pos.getZ() >> 4);
++        return chunk == null ? null : chunk.getFluidState(pos);
++    }
++
++    @Nullable
++    @Override
++    public final BlockState getBlockStateIfLoaded(BlockPos pos) {
++        ChunkAccess chunk = getChunkIfLoaded(pos.getX() >> 4, pos.getZ() >> 4);
++        return chunk == null ? null : chunk.getBlockState(pos);
++    }
++    // Paper end
++
+     @Override
+     public WorldBorder getWorldBorder() {
+         return this.level.getWorldBorder();

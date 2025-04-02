@@ -1,0 +1,27 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/item/SpawnEggItem.java b/net/minecraft/world/item/SpawnEggItem.java
+index bbf2396833711b65461a211772bc8447798cf761..7a961e5ebbdac061f6e73e4ed07fe957ba759066 100644
+--- a/net/minecraft/world/item/SpawnEggItem.java
++++ b/net/minecraft/world/item/SpawnEggItem.java
+@@ -55,6 +55,7 @@ public class SpawnEggItem extends Item {
+             Direction clickedFace = context.getClickedFace();
+             BlockState blockState = level.getBlockState(clickedPos);
+             if (level.getBlockEntity(clickedPos) instanceof Spawner spawner) {
++                if (level.paperConfig().entities.spawning.disableMobSpawnerSpawnEggTransformation) return InteractionResult.FAIL; // Paper - Allow disabling mob spawner spawn egg transformation
+                 EntityType<?> type = this.getType(level.registryAccess(), itemInHand);
+                 spawner.setEntityId(type, level.getRandom());
+                 level.sendBlockUpdated(clickedPos, blockState, blockState, 3);
+@@ -170,7 +171,7 @@ public class SpawnEggItem extends Item {
+                 } else {
+                     breedOffspring.snapTo(pos.x(), pos.y(), pos.z(), 0.0F, 0.0F);
+                     breedOffspring.applyComponentsFromItemStack(stack);
+-                    serverLevel.addFreshEntityWithPassengers(breedOffspring);
++                    serverLevel.addFreshEntityWithPassengers(breedOffspring, org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason.SPAWNER_EGG); // CraftBukkit
+                     stack.consume(1, player);
+                     return Optional.of(breedOffspring);
+                 }

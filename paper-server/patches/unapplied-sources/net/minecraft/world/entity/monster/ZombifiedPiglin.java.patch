@@ -1,0 +1,67 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/monster/ZombifiedPiglin.java b/net/minecraft/world/entity/monster/ZombifiedPiglin.java
+index 3c4cdcf020c6ac69087ccf18ea2eba90c5209344..05de183ce7b0be9b41f005b2ca36807a109fc634 100644
+--- a/net/minecraft/world/entity/monster/ZombifiedPiglin.java
++++ b/net/minecraft/world/entity/monster/ZombifiedPiglin.java
+@@ -56,6 +56,7 @@ public class ZombifiedPiglin extends Zombie implements NeutralMob {
+     private static final int ALERT_RANGE_Y = 10;
+     private static final UniformInt ALERT_INTERVAL = TimeUtil.rangeOfSeconds(4, 6);
+     private int ticksUntilNextAlert;
++    private HurtByTargetGoal hurtByTargetGoal; // Paper - fix PigZombieAngerEvent cancellation
+ 
+     public ZombifiedPiglin(EntityType<? extends ZombifiedPiglin> entityType, Level level) {
+         super(entityType, level);
+@@ -71,7 +72,7 @@ public class ZombifiedPiglin extends Zombie implements NeutralMob {
+     protected void addBehaviourGoals() {
+         this.goalSelector.addGoal(2, new ZombieAttackGoal(this, 1.0, false));
+         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0));
+-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
++        this.targetSelector.addGoal(1, this.hurtByTargetGoal = (new HurtByTargetGoal(this)).setAlertOthers()); // Paper - fix PigZombieAngerEvent cancellation
+         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
+         this.targetSelector.addGoal(3, new ResetUniversalAngerTargetGoal<>(this, true));
+     }
+@@ -144,7 +145,7 @@ public class ZombifiedPiglin extends Zombie implements NeutralMob {
+             .filter(zombifiedPiglin -> zombifiedPiglin != this)
+             .filter(zombifiedPiglin -> zombifiedPiglin.getTarget() == null)
+             .filter(zombifiedPiglin -> !zombifiedPiglin.isAlliedTo(this.getTarget()))
+-            .forEach(zombifiedPiglin -> zombifiedPiglin.setTarget(this.getTarget()));
++            .forEach(zombifiedPiglin -> zombifiedPiglin.setTarget(this.getTarget(), org.bukkit.event.entity.EntityTargetEvent.TargetReason.TARGET_ATTACKED_NEARBY_ENTITY)); // CraftBukkit
+     }
+ 
+     private void playAngerSound() {
+@@ -152,18 +153,27 @@ public class ZombifiedPiglin extends Zombie implements NeutralMob {
+     }
+ 
+     @Override
+-    public void setTarget(@Nullable LivingEntity livingEntity) {
++    public boolean setTarget(@Nullable LivingEntity livingEntity, @Nullable org.bukkit.event.entity.EntityTargetEvent.TargetReason reason) { // CraftBukkit - signature
+         if (this.getTarget() == null && livingEntity != null) {
+             this.playFirstAngerSoundIn = FIRST_ANGER_SOUND_DELAY.sample(this.random);
+             this.ticksUntilNextAlert = ALERT_INTERVAL.sample(this.random);
+         }
+ 
+-        super.setTarget(livingEntity);
++        return super.setTarget(livingEntity, reason); // CraftBukkit
+     }
+ 
+     @Override
+     public void startPersistentAngerTimer() {
+-        this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
++        // CraftBukkit start
++        net.minecraft.world.entity.Entity entity = this.level().getEntity(this.getPersistentAngerTarget());
++        org.bukkit.event.entity.PigZombieAngerEvent event = new org.bukkit.event.entity.PigZombieAngerEvent((org.bukkit.entity.PigZombie) this.getBukkitEntity(), (entity == null) ? null : entity.getBukkitEntity(), PERSISTENT_ANGER_TIME.sample(this.random));
++        if (!event.callEvent()) {
++            this.setPersistentAngerTarget(null);
++            this.hurtByTargetGoal.stop();
++            return;
++        }
++        this.setRemainingPersistentAngerTime(event.getNewAnger());
++        // CraftBukkit end
+     }
+ 
+     public static boolean checkZombifiedPiglinSpawnRules(

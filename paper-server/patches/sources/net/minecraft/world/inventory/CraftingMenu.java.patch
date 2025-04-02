@@ -6,7 +6,7 @@
      private boolean placingRecipe;
 +    private @Nullable org.bukkit.craftbukkit.inventory.CraftInventoryView view = null; // CraftBukkit
  
-     public CraftingMenu(int containerId, Inventory playerInventory) {
+     public CraftingMenu(int containerId, Inventory playerInventory, List<Integer> list) {
          this(containerId, playerInventory, ContainerLevelAccess.NULL);
      }
  
@@ -14,7 +14,7 @@
 -        super(MenuType.CRAFTING, containerId, 3, 3);
 +        super(MenuType.CRAFTING, containerId, 3, 3, playerInventory); // CraftBukkit - pass player
          this.access = access;
-         this.player = playerInventory.player;
+         this.player = playerInventory.getPlayer();
          this.addResultSlot(this.player, 124, 35);
 @@ -55,7 +_,32 @@
          CraftingInput craftInput = craftSlots.asCraftInput();
@@ -44,7 +44,7 @@
 +            recipe = craftSlots.getCurrentRecipe();
 +        }
 +        // Paper end - Perf: Improve mass crafting; check last recipe used first
-         Optional<RecipeHolder<CraftingRecipe>> recipeFor = level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, craftInput, level, recipe);
+         Optional<RecipeHolder<CraftingRecipe>> recipeFor = level.theGame().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, craftInput, level, recipe);
 +        craftSlots.setCurrentRecipe(recipeFor.orElse(null)); // CraftBukkit
          if (recipeFor.isPresent()) {
              RecipeHolder<CraftingRecipe> recipeHolder = recipeFor.get();

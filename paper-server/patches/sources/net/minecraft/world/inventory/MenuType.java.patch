@@ -1,11 +1,11 @@
 --- a/net/minecraft/world/inventory/MenuType.java
 +++ b/net/minecraft/world/inventory/MenuType.java
-@@ -26,7 +_,7 @@
-     public static final MenuType<FurnaceMenu> FURNACE = register("furnace", FurnaceMenu::new);
+@@ -28,7 +_,7 @@
      public static final MenuType<GrindstoneMenu> GRINDSTONE = register("grindstone", GrindstoneMenu::new);
+     public static final MenuType<DimensionControlMenu> DIMENSION_CONTROL = register("dimension_control", DimensionControlMenu::new);
      public static final MenuType<HopperMenu> HOPPER = register("hopper", HopperMenu::new);
--    public static final MenuType<LecternMenu> LECTERN = register("lectern", (containerId, playerInventory) -> new LecternMenu(containerId));
-+    public static final MenuType<LecternMenu> LECTERN = register("lectern", LecternMenu::new); // CraftBukkit
+-    public static final MenuType<LecternMenu> LECTERN = register("lectern", (i, inventory, list) -> new LecternMenu(i));
++    public static final MenuType<LecternMenu> LECTERN = register("lectern", (i, inventory, list) -> new LecternMenu(i, inventory)); // CraftBukkit
      public static final MenuType<LoomMenu> LOOM = register("loom", LoomMenu::new);
+     public static final MenuType<MineCraftingMenu> MAP_MAKING = register("map_making", MineCraftingMenu::new);
      public static final MenuType<MerchantMenu> MERCHANT = register("merchant", MerchantMenu::new);
-     public static final MenuType<ShulkerBoxMenu> SHULKER_BOX = register("shulker_box", ShulkerBoxMenu::new);

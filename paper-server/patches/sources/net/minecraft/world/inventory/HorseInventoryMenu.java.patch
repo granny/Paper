@@ -23,4 +23,4 @@
 +        this.inventory = inventory; // CraftBukkit
          this.horseContainer = horseContainer;
          this.horse = horse;
-         horseContainer.startOpen(inventory.player);
+         horseContainer.startOpen(inventory.getPlayer());

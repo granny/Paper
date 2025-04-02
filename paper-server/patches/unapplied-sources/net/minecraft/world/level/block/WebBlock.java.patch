@@ -1,0 +1,18 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/WebBlock.java b/net/minecraft/world/level/block/WebBlock.java
+index 53c99bfd64bc099bbe3754d7c8f2377e937b8db1..e73f4fe7f58c1e04b902a3cf37509dd66452bade 100644
+--- a/net/minecraft/world/level/block/WebBlock.java
++++ b/net/minecraft/world/level/block/WebBlock.java
+@@ -25,6 +25,7 @@ public class WebBlock extends Block {
+ 
+     @Override
+     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier) {
++        if (!new io.papermc.paper.event.entity.EntityInsideBlockEvent(entity.getBukkitEntity(), org.bukkit.craftbukkit.block.CraftBlock.at(level, pos)).callEvent()) { return; } // Paper - Add EntityInsideBlockEvent
+         Vec3 vec3 = new Vec3(0.25, 0.05F, 0.25);
+         if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(MobEffects.WEAVING)) {
+             vec3 = new Vec3(0.5, 0.25, 0.5);

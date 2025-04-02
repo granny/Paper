@@ -1,0 +1,20 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/LevelReader.java b/net/minecraft/world/level/LevelReader.java
+index 27df9fa32b63775b535be50113e7f5f9d738dba8..c59f2c0634e3ebb11b8f6bc09020f951cb602f9b 100644
+--- a/net/minecraft/world/level/LevelReader.java
++++ b/net/minecraft/world/level/LevelReader.java
+@@ -26,6 +26,9 @@ public interface LevelReader extends BlockAndTintGetter, CollisionGetter, Signal
+     @Nullable
+     ChunkAccess getChunk(int x, int z, ChunkStatus chunkStatus, boolean requireChunk);
+ 
++    @Nullable ChunkAccess getChunkIfLoadedImmediately(int x, int z); // Paper - ifLoaded api (we need this since current impl blocks if the chunk is loading)
++    @Nullable default ChunkAccess getChunkIfLoadedImmediately(BlockPos pos) { return this.getChunkIfLoadedImmediately(pos.getX() >> 4, pos.getZ() >> 4);}
++
+     @Deprecated
+     boolean hasChunk(int chunkX, int chunkZ);
+ 

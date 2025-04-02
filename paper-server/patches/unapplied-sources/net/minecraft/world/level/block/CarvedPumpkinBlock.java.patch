@@ -1,0 +1,27 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/CarvedPumpkinBlock.java b/net/minecraft/world/level/block/CarvedPumpkinBlock.java
+index 2284af36af3671012b0b6f99cdcf0765bcba6a35..7cdf16c7216878350537b5331081cb30f44d6dbb 100644
+--- a/net/minecraft/world/level/block/CarvedPumpkinBlock.java
++++ b/net/minecraft/world/level/block/CarvedPumpkinBlock.java
+@@ -79,9 +79,14 @@ public class CarvedPumpkinBlock extends HorizontalDirectionalBlock {
+     }
+ 
+     private static void spawnGolemInWorld(Level level, BlockPattern.BlockPatternMatch patternMatch, Entity golem, BlockPos pos) {
+-        clearPatternBlocks(level, patternMatch);
++        // clearPatternBlocks(level, patternMatch); // Paper - moved down
+         golem.snapTo(pos.getX() + 0.5, pos.getY() + 0.05, pos.getZ() + 0.5, 0.0F, 0.0F);
+-        level.addFreshEntity(golem);
++        // Paper start
++        if (!level.addFreshEntity(golem, (golem.getType() == EntityType.SNOW_GOLEM) ? org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason.BUILD_SNOWMAN : org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason.BUILD_IRONGOLEM)) {
++            return;
++        }
++        // Paper end
++        clearPatternBlocks(level, patternMatch); // Paper - from above
+ 
+         for (ServerPlayer serverPlayer : level.getEntitiesOfClass(ServerPlayer.class, golem.getBoundingBox().inflate(5.0))) {
+             CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayer, golem);

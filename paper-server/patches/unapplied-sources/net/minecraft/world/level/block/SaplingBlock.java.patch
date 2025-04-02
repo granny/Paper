@@ -1,0 +1,63 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/SaplingBlock.java b/net/minecraft/world/level/block/SaplingBlock.java
+index bfd69215f51ef4a514449dee09add3c7d1b1db4e..f47e4b2bf5a4f8b0a10d618826e872a6a530e61a 100644
+--- a/net/minecraft/world/level/block/SaplingBlock.java
++++ b/net/minecraft/world/level/block/SaplingBlock.java
+@@ -25,6 +25,7 @@ public class SaplingBlock extends VegetationBlock implements BonemealableBlock {
+     public static final IntegerProperty STAGE = BlockStateProperties.STAGE;
+     private static final VoxelShape SHAPE = Block.column(12.0, 0.0, 12.0);
+     protected final TreeGrower treeGrower;
++    public static @javax.annotation.Nullable org.bukkit.TreeType treeType; // CraftBukkit
+ 
+     @Override
+     public MapCodec<? extends SaplingBlock> codec() {
+@@ -44,7 +45,7 @@ public class SaplingBlock extends VegetationBlock implements BonemealableBlock {
+ 
+     @Override
+     protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+-        if (level.getMaxLocalRawBrightness(pos.above()) >= 9 && random.nextInt(7) == 0) {
++        if (level.getMaxLocalRawBrightness(pos.above()) >= 9 && random.nextFloat() < (level.spigotConfig.saplingModifier / (100.0F * 7))) { // Spigot - SPIGOT-7159: Better modifier resolution
+             this.advanceTree(level, pos, state, random);
+         }
+     }
+@@ -53,7 +54,34 @@ public class SaplingBlock extends VegetationBlock implements BonemealableBlock {
+         if (state.getValue(STAGE) == 0) {
+             level.setBlock(pos, state.cycle(STAGE), 260);
+         } else {
+-            this.treeGrower.growTree(level, level.getChunkSource().getGenerator(), pos, state, random);
++            // CraftBukkit start
++            if (level.captureTreeGeneration) {
++                this.treeGrower.growTree(level, level.getChunkSource().getGenerator(), pos, state, random);
++            } else {
++                level.captureTreeGeneration = true;
++                this.treeGrower.growTree(level, level.getChunkSource().getGenerator(), pos, state, random);
++                level.captureTreeGeneration = false;
++                if (!level.capturedBlockStates.isEmpty()) {
++                    org.bukkit.TreeType treeType = SaplingBlock.treeType;
++                    SaplingBlock.treeType = null;
++                    org.bukkit.Location location = org.bukkit.craftbukkit.util.CraftLocation.toBukkit(pos, level.getWorld());
++                    java.util.List<org.bukkit.block.BlockState> blocks = new java.util.ArrayList<>(level.capturedBlockStates.values());
++                    level.capturedBlockStates.clear();
++                    org.bukkit.event.world.StructureGrowEvent event = null;
++                    if (treeType != null) {
++                        event = new org.bukkit.event.world.StructureGrowEvent(location, treeType, false, null, blocks);
++                        org.bukkit.Bukkit.getPluginManager().callEvent(event);
++                    }
++                    if (event == null || !event.isCancelled()) {
++                        for (org.bukkit.block.BlockState blockstate : blocks) {
++                            org.bukkit.craftbukkit.block.state.CraftBlockState craftBlockState = (org.bukkit.craftbukkit.block.state.CraftBlockState) blockstate;
++                            craftBlockState.place(craftBlockState.getFlags());
++                            level.checkCapturedTreeStateForObserverNotify(pos, craftBlockState); // Paper - notify observers even if grow failed
++                        }
++                    }
++                }
++            }
++            // CraftBukkit end
+         }
+     }
+ 

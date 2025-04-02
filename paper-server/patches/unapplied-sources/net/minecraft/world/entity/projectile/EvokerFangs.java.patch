@@ -1,0 +1,28 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/projectile/EvokerFangs.java b/net/minecraft/world/entity/projectile/EvokerFangs.java
+index 76d2d591f83eac51e84edd6393a782f7e5f00507..e882707a77191dc1b24994f949f0546a37369cfa 100644
+--- a/net/minecraft/world/entity/projectile/EvokerFangs.java
++++ b/net/minecraft/world/entity/projectile/EvokerFangs.java
+@@ -107,7 +107,7 @@ public class EvokerFangs extends Entity implements TraceableEntity {
+             }
+ 
+             if (--this.lifeTicks < 0) {
+-                this.discard();
++                this.discard(org.bukkit.event.entity.EntityRemoveEvent.Cause.DESPAWN); // CraftBukkit - add Bukkit remove cause
+             }
+         }
+     }
+@@ -116,7 +116,7 @@ public class EvokerFangs extends Entity implements TraceableEntity {
+         LivingEntity owner = this.getOwner();
+         if (target.isAlive() && !target.isInvulnerable() && target != owner) {
+             if (owner == null) {
+-                target.hurt(this.damageSources().magic(), 6.0F);
++                target.hurt(this.damageSources().magic().eventEntityDamager(this), 6.0F); // CraftBukkit
+             } else {
+                 if (owner.isAlliedTo(target)) {
+                     return;

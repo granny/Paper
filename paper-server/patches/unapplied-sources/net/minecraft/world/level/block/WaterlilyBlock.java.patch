@@ -1,0 +1,25 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/WaterlilyBlock.java b/net/minecraft/world/level/block/WaterlilyBlock.java
+index d617a5597803c80b5cce17c4b70e441b79278547..3b3047aa1198754e64913634f76fdc015c1fe07d 100644
+--- a/net/minecraft/world/level/block/WaterlilyBlock.java
++++ b/net/minecraft/world/level/block/WaterlilyBlock.java
+@@ -30,8 +30,14 @@ public class WaterlilyBlock extends VegetationBlock {
+ 
+     @Override
+     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier) {
++        if (!new io.papermc.paper.event.entity.EntityInsideBlockEvent(entity.getBukkitEntity(), org.bukkit.craftbukkit.block.CraftBlock.at(level, pos)).callEvent()) { return; } // Paper - Add EntityInsideBlockEvent
+         super.entityInside(state, level, pos, entity, effectApplier);
+         if (level instanceof ServerLevel && entity instanceof AbstractBoat) {
++            // CraftBukkit start
++            if (!org.bukkit.craftbukkit.event.CraftEventFactory.callEntityChangeBlockEvent(entity, pos, state.getFluidState().createLegacyBlock())) { // Paper - fix wrong block state
++                return;
++            }
++            // CraftBukkit end
+             level.destroyBlock(new BlockPos(pos), true, entity);
+         }
+     }

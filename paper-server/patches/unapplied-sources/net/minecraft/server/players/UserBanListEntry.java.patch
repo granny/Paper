@@ -1,0 +1,42 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/server/players/UserBanListEntry.java b/net/minecraft/server/players/UserBanListEntry.java
+index d048300f895499770739bae7f0c881a1fa6cb5cd..960a078a10ce738e36e56fa887b40f087563c297 100644
+--- a/net/minecraft/server/players/UserBanListEntry.java
++++ b/net/minecraft/server/players/UserBanListEntry.java
+@@ -37,19 +37,27 @@ public class UserBanListEntry extends BanListEntry<GameProfile> {
+ 
+     @Nullable
+     private static GameProfile createGameProfile(JsonObject json) {
+-        if (json.has("uuid") && json.has("name")) {
++        // Spigot start
++        // this whole method has to be reworked to account for the fact Bukkit only accepts UUID bans and gives no way for usernames to be stored!
++        UUID uuid = null;
++        String name = null;
++        if (json.has("uuid")) {
+             String asString = json.get("uuid").getAsString();
+ 
+-            UUID uuid;
+             try {
+                 uuid = UUID.fromString(asString);
+             } catch (Throwable var4) {
+-                return null;
+             }
+ 
+-            return new GameProfile(uuid, json.get("name").getAsString());
++        }
++        if (json.has("name")) {
++            name = json.get("name").getAsString();
++        }
++        if (uuid != null || name != null) {
++            return new GameProfile(uuid, name);
+         } else {
+             return null;
+         }
++        // Spigot end
+     }
+ }

@@ -1,0 +1,24 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/item/ItemCooldowns.java b/net/minecraft/world/item/ItemCooldowns.java
+index cf7f67eda9d0259f411c7a71e0baf6bae4318375..5afe88eef6359501687a1173443b04c5b5270bab 100644
+--- a/net/minecraft/world/item/ItemCooldowns.java
++++ b/net/minecraft/world/item/ItemCooldowns.java
+@@ -56,6 +56,13 @@ public class ItemCooldowns {
+     }
+ 
+     public void addCooldown(ResourceLocation group, int cooldown) {
++        // Paper start - Item cooldown events
++        this.addCooldown(group, cooldown, true);
++    }
++
++    public void addCooldown(ResourceLocation group, int cooldown, boolean callEvent) {
++        // Event called in server override
++        // Paper end - Item cooldown events
+         this.cooldowns.put(group, new ItemCooldowns.CooldownInstance(this.tickCount, this.tickCount + cooldown));
+         this.onCooldownStarted(group, cooldown);
+     }

@@ -1,0 +1,28 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/levelgen/structure/structures/IglooPieces.java b/net/minecraft/world/level/levelgen/structure/structures/IglooPieces.java
+index 6959d492b6a5e224c34beea4a1262b9f7597a64b..fe84b34f6f8d5b842176ac6a0010b9906599bb7c 100644
+--- a/net/minecraft/world/level/levelgen/structure/structures/IglooPieces.java
++++ b/net/minecraft/world/level/levelgen/structure/structures/IglooPieces.java
+@@ -102,10 +102,13 @@ public class IglooPieces {
+         protected void handleDataMarker(String name, BlockPos pos, ServerLevelAccessor level, RandomSource random, BoundingBox box) {
+             if ("chest".equals(name)) {
+                 level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+-                BlockEntity blockEntity = level.getBlockEntity(pos.below());
+-                if (blockEntity instanceof ChestBlockEntity) {
+-                    ((ChestBlockEntity)blockEntity).setLootTable(BuiltInLootTables.IGLOO_CHEST, random.nextLong());
+-                }
++                // CraftBukkit start - ensure block transformation
++                // BlockEntity blockEntity = level.getBlockEntity(pos.below());
++                // if (blockEntity instanceof ChestBlockEntity) {
++                //     ((ChestBlockEntity)blockEntity).setLootTable(BuiltInLootTables.IGLOO_CHEST, random.nextLong());
++                // }
++                this.setCraftLootTable(level, pos.below(), random, BuiltInLootTables.IGLOO_CHEST);
++                // CraftBukkit end
+             }
+         }
+ 

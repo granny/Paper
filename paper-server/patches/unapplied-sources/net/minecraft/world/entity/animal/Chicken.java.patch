@@ -1,0 +1,23 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/animal/Chicken.java b/net/minecraft/world/entity/animal/Chicken.java
+index c8f0d896ddd5e68b9bc4ae9ab075e6d05399bccb..351c29ffe842cc1406c36361520057ab046ca649 100644
+--- a/net/minecraft/world/entity/animal/Chicken.java
++++ b/net/minecraft/world/entity/animal/Chicken.java
+@@ -111,10 +111,12 @@ public class Chicken extends Animal {
+ 
+         this.flap = this.flap + this.flapping * 2.0F;
+         if (this.level() instanceof ServerLevel serverLevel && this.isAlive() && !this.isBaby() && !this.isChickenJockey() && --this.eggTime <= 0) {
++            this.forceDrops = true; // CraftBukkit
+             if (this.dropFromGiftLootTable(serverLevel, BuiltInLootTables.CHICKEN_LAY, this::spawnAtLocation)) {
+                 this.playSound(SoundEvents.CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+                 this.gameEvent(GameEvent.ENTITY_PLACE);
+             }
++            this.forceDrops = false; // CraftBukkit
+ 
+             this.eggTime = this.random.nextInt(6000) + 6000;
+         }

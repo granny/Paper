@@ -1,0 +1,32 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/levelgen/structure/LegacyStructureDataHandler.java b/net/minecraft/world/level/levelgen/structure/LegacyStructureDataHandler.java
+index 3e117cd7b9130d9ed322054c3791fc6386736638..e30a4b6578bf047bf860346c2da6b513c69bb1e5 100644
+--- a/net/minecraft/world/level/levelgen/structure/LegacyStructureDataHandler.java
++++ b/net/minecraft/world/level/levelgen/structure/LegacyStructureDataHandler.java
+@@ -221,17 +221,17 @@ public class LegacyStructureDataHandler {
+         }
+     }
+ 
+-    public static LegacyStructureDataHandler getLegacyStructureHandler(ResourceKey<Level> level, @Nullable DimensionDataStorage storage) {
+-        if (level == Level.OVERWORLD) {
++    public static LegacyStructureDataHandler getLegacyStructureHandler(ResourceKey<net.minecraft.world.level.dimension.LevelStem> level, @Nullable DimensionDataStorage storage) { // CraftBukkit
++        if (level == net.minecraft.world.level.dimension.LevelStem.OVERWORLD) { // CraftBukkit
+             return new LegacyStructureDataHandler(
+                 storage,
+                 ImmutableList.of("Monument", "Stronghold", "Village", "Mineshaft", "Temple", "Mansion"),
+                 ImmutableList.of("Village", "Mineshaft", "Mansion", "Igloo", "Desert_Pyramid", "Jungle_Pyramid", "Swamp_Hut", "Stronghold", "Monument")
+             );
+-        } else if (level == Level.NETHER) {
++        } else if (level == net.minecraft.world.level.dimension.LevelStem.NETHER) { // CraftBukkit
+             List<String> list = ImmutableList.of("Fortress");
+             return new LegacyStructureDataHandler(storage, list, list);
+-        } else if (level == Level.END) {
++        } else if (level == net.minecraft.world.level.dimension.LevelStem.END) { // CraftBukkit
+             List<String> list = ImmutableList.of("EndCity");
+             return new LegacyStructureDataHandler(storage, list, list);
+         } else {

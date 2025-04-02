@@ -1,0 +1,37 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/WeightedPressurePlateBlock.java b/net/minecraft/world/level/block/WeightedPressurePlateBlock.java
+index 0ec4a53aa27d95ee6b8cd6850fc938cd285b196c..5e095919828e89d12f2676b3c544842a81e047a1 100644
+--- a/net/minecraft/world/level/block/WeightedPressurePlateBlock.java
++++ b/net/minecraft/world/level/block/WeightedPressurePlateBlock.java
+@@ -39,7 +39,25 @@ public class WeightedPressurePlateBlock extends BasePressurePlateBlock {
+ 
+     @Override
+     protected int getSignalStrength(Level level, BlockPos pos) {
+-        int min = Math.min(getEntityCount(level, TOUCH_AABB.move(pos), Entity.class), this.maxWeight);
++        // CraftBukkit start
++        // int min = Math.min(getEntityCount(level, TOUCH_AABB.move(pos), Entity.class), this.maxWeight);
++        int min = 0;
++        for (Entity entity : getEntities(level, TOUCH_AABB.move(pos), Entity.class)) {
++            org.bukkit.event.Cancellable cancellable;
++
++            if (entity instanceof net.minecraft.world.entity.player.Player player) {
++                cancellable = org.bukkit.craftbukkit.event.CraftEventFactory.callPlayerInteractEvent(player, org.bukkit.event.block.Action.PHYSICAL, pos, null, null, null);
++            } else {
++                cancellable = new org.bukkit.event.entity.EntityInteractEvent(entity.getBukkitEntity(), org.bukkit.craftbukkit.block.CraftBlock.at(level, pos));
++                level.getCraftServer().getPluginManager().callEvent((org.bukkit.event.entity.EntityInteractEvent) cancellable);
++            }
++
++            // We only want to block turning the plate on if all events are cancelled
++            if (!cancellable.isCancelled()) {
++                min++;
++            }
++        }
++        // CraftBukkit end
+         if (min > 0) {
+             float f = (float)Math.min(this.maxWeight, min) / this.maxWeight;
+             return Mth.ceil(f * 15.0F);

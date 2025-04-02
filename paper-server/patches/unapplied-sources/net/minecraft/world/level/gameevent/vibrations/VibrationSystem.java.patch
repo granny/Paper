@@ -1,0 +1,35 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/gameevent/vibrations/VibrationSystem.java b/net/minecraft/world/level/gameevent/vibrations/VibrationSystem.java
+index ade9e1b877a52bfc6c813e9a1efeb1e4388949ba..c0940bea065d109a29dd4218881c117d517dcf67 100644
+--- a/net/minecraft/world/level/gameevent/vibrations/VibrationSystem.java
++++ b/net/minecraft/world/level/gameevent/vibrations/VibrationSystem.java
+@@ -123,7 +123,7 @@ public interface VibrationSystem {
+         public static Codec<VibrationSystem.Data> CODEC = RecordCodecBuilder.create(
+             instance -> instance.group(
+                     VibrationInfo.CODEC.lenientOptionalFieldOf("event").forGetter(data -> Optional.ofNullable(data.currentVibration)),
+-                    VibrationSelector.CODEC.fieldOf("selector").forGetter(VibrationSystem.Data::getSelectionStrategy),
++                    VibrationSelector.CODEC.optionalFieldOf("selector").xmap(o -> o.orElseGet(VibrationSelector::new), Optional::of).forGetter(VibrationSystem.Data::getSelectionStrategy), // Paper - fix MapLike spam for missing "selector" in 1.19.2
+                     ExtraCodecs.NON_NEGATIVE_INT.fieldOf("event_delay").orElse(0).forGetter(VibrationSystem.Data::getTravelTimeInTicks)
+                 )
+                 .apply(
+@@ -214,7 +214,14 @@ public interface VibrationSystem {
+                     return false;
+                 } else {
+                     Vec3 vec3 = position.get();
+-                    if (!vibrationUser.canReceiveVibration(level, BlockPos.containing(pos), gameEvent, context)) {
++                    // CraftBukkit start
++                    boolean defaultCancel = !vibrationUser.canReceiveVibration(level, BlockPos.containing(pos), gameEvent, context);
++                    Entity entity = context.sourceEntity();
++                    org.bukkit.event.block.BlockReceiveGameEvent event1 = new org.bukkit.event.block.BlockReceiveGameEvent(org.bukkit.craftbukkit.CraftGameEvent.minecraftToBukkit(gameEvent.value()), org.bukkit.craftbukkit.block.CraftBlock.at(level, BlockPos.containing(vec3)), (entity == null) ? null : entity.getBukkitEntity());
++                    event1.setCancelled(defaultCancel);
++                    level.getCraftServer().getPluginManager().callEvent(event1);
++                    if (event1.isCancelled()) {
++                        // CraftBukkit end
+                         return false;
+                     } else if (isOccluded(level, pos, vec3)) {
+                         return false;

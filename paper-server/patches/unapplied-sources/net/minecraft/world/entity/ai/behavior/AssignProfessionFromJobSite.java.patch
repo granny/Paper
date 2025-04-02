@@ -1,0 +1,26 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/ai/behavior/AssignProfessionFromJobSite.java b/net/minecraft/world/entity/ai/behavior/AssignProfessionFromJobSite.java
+index 8202cc1c7bb3dacbb546130da126a1907ea2d4f4..cf4a5e52f9d59bfad47454a68b0a74c2e49cd20a 100644
+--- a/net/minecraft/world/entity/ai/behavior/AssignProfessionFromJobSite.java
++++ b/net/minecraft/world/entity/ai/behavior/AssignProfessionFromJobSite.java
+@@ -38,7 +38,14 @@ public class AssignProfessionFromJobSite {
+                                             .findFirst()
+                                     )
+                                     .ifPresent(reference -> {
+-                                        villager.setVillagerData(villager.getVillagerData().withProfession(reference));
++                                        // CraftBukkit start - Fire VillagerCareerChangeEvent where Villager gets employed
++                                        org.bukkit.event.entity.VillagerCareerChangeEvent event = org.bukkit.craftbukkit.event.CraftEventFactory.callVillagerCareerChangeEvent(villager, org.bukkit.craftbukkit.entity.CraftVillager.CraftProfession.minecraftHolderToBukkit(reference), org.bukkit.event.entity.VillagerCareerChangeEvent.ChangeReason.EMPLOYED);
++                                        if (event.isCancelled()) {
++                                            return;
++                                        }
++
++                                        villager.setVillagerData(villager.getVillagerData().withProfession(org.bukkit.craftbukkit.entity.CraftVillager.CraftProfession.bukkitToMinecraftHolder(event.getProfession())));
++                                        // CraftBukkit end
+                                         villager.refreshBrain(level);
+                                     });
+                                 return true;

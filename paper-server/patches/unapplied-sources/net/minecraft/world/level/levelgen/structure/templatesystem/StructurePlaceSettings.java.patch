@@ -1,0 +1,33 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/levelgen/structure/templatesystem/StructurePlaceSettings.java b/net/minecraft/world/level/levelgen/structure/templatesystem/StructurePlaceSettings.java
+index b2ab78af6adba9c1b7babe54f916260e36c95434..05027cc20d174d78bef118cd2ba545ac56e1559c 100644
+--- a/net/minecraft/world/level/levelgen/structure/templatesystem/StructurePlaceSettings.java
++++ b/net/minecraft/world/level/levelgen/structure/templatesystem/StructurePlaceSettings.java
+@@ -21,7 +21,7 @@ public class StructurePlaceSettings {
+     private LiquidSettings liquidSettings = LiquidSettings.APPLY_WATERLOGGING;
+     @Nullable
+     private RandomSource random;
+-    private int palette;
++    public int palette = -1; // CraftBukkit - Set initial value so we know if the palette has been set forcefully
+     private final List<StructureProcessor> processors = Lists.newArrayList();
+     private boolean knownShape;
+     private boolean finalizeEntities;
+@@ -142,6 +142,13 @@ public class StructurePlaceSettings {
+         int size = palettes.size();
+         if (size == 0) {
+             throw new IllegalStateException("No palettes");
++        // CraftBukkit start
++        } else if (this.palette >= 0) {
++            if (this.palette >= size) {
++                throw new IllegalArgumentException("Palette index out of bounds. Got " + this.palette + " where there are only " + size + " palettes available.");
++            }
++            return palettes.get(this.palette);
++        // CraftBukkit end
+         } else {
+             return palettes.get(this.getRandom(pos).nextInt(size));
+         }

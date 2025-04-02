@@ -1,0 +1,18 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/EyeblossomBlock.java b/net/minecraft/world/level/block/EyeblossomBlock.java
+index 0b55c6583c0db3f81b1ab71ad38003af0991bcfc..d976c1cdb384283e1744d248321b6527aafae2db 100644
+--- a/net/minecraft/world/level/block/EyeblossomBlock.java
++++ b/net/minecraft/world/level/block/EyeblossomBlock.java
+@@ -100,6 +100,7 @@ public class EyeblossomBlock extends FlowerBlock {
+ 
+     @Override
+     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier) {
++        if (!new io.papermc.paper.event.entity.EntityInsideBlockEvent(entity.getBukkitEntity(), org.bukkit.craftbukkit.block.CraftBlock.at(level, pos)).callEvent()) { return; } // Paper - Add EntityInsideBlockEvent
+         if (!level.isClientSide()
+             && level.getDifficulty() != Difficulty.PEACEFUL
+             && entity instanceof Bee bee

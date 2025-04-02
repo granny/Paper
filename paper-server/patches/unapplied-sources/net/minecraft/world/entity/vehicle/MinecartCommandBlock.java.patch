@@ -1,0 +1,32 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/vehicle/MinecartCommandBlock.java b/net/minecraft/world/entity/vehicle/MinecartCommandBlock.java
+index ab40f73e8dba0c4d169a8e5bf23b01f7cc338ffd..ae0120f2cc55966d0c5a8235cab25d1e7d4dd013 100644
+--- a/net/minecraft/world/entity/vehicle/MinecartCommandBlock.java
++++ b/net/minecraft/world/entity/vehicle/MinecartCommandBlock.java
+@@ -126,7 +126,7 @@ public class MinecartCommandBlock extends AbstractMinecart {
+                 MinecartCommandBlock.this.position(),
+                 MinecartCommandBlock.this.getRotationVector(),
+                 this.getLevel(),
+-                2,
++                this.getLevel().paperConfig().commandBlocks.permissionsLevel, // Paper - configurable command block perm level
+                 this.getName().getString(),
+                 MinecartCommandBlock.this.getDisplayName(),
+                 this.getLevel().getServer(),
+@@ -138,5 +138,12 @@ public class MinecartCommandBlock extends AbstractMinecart {
+         public boolean isValid() {
+             return !MinecartCommandBlock.this.isRemoved();
+         }
++
++        // CraftBukkit start
++        @Override
++        public org.bukkit.command.CommandSender getBukkitSender(CommandSourceStack wrapper) {
++            return net.minecraft.world.entity.vehicle.MinecartCommandBlock.this.getBukkitEntity();
++        }
++        // CraftBukkit end
+     }
+ }

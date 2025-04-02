@@ -1,0 +1,19 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/item/MobBucketItem.java b/net/minecraft/world/item/MobBucketItem.java
+index 11d3a2d383b68d081fb583193d8cd984d94f460b..ceac56aafcb91d926bee5992e2080fc155eb85b4 100644
+--- a/net/minecraft/world/item/MobBucketItem.java
++++ b/net/minecraft/world/item/MobBucketItem.java
+@@ -50,7 +50,7 @@ public class MobBucketItem extends BucketItem {
+         }
+ 
+         if (mob != null) {
+-            serverLevel.addFreshEntityWithPassengers(mob);
++            serverLevel.addFreshEntityWithPassengers(mob, org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason.BUCKET); // Paper - Add SpawnReason
+             mob.playAmbientSound();
+         }
+     }

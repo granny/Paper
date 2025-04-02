@@ -23,7 +23,7 @@
 +    private final org.bukkit.entity.Player player;
 +    // CraftBukkit end
  
-     public EnchantmentMenu(int containerId, Inventory playerInventory) {
+     public EnchantmentMenu(int containerId, Inventory playerInventory, List<Integer> list) {
          this(containerId, playerInventory, ContainerLevelAccess.NULL);
 @@ -51,6 +_,22 @@
  

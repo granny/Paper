@@ -1,0 +1,17 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/LevelAccessor.java b/net/minecraft/world/level/LevelAccessor.java
+index dc78943e3f0ff6c1779d1b06da65d4c7049f04f4..5f28df24876f93866312c3c7d19cb6bcaf5e2f8b 100644
+--- a/net/minecraft/world/level/LevelAccessor.java
++++ b/net/minecraft/world/level/LevelAccessor.java
+@@ -100,4 +100,6 @@ public interface LevelAccessor extends CommonLevelAccessor, LevelTimeAccess, Sch
+     default void gameEvent(ResourceKey<GameEvent> gameEvent, BlockPos pos, GameEvent.Context context) {
+         this.gameEvent(this.registryAccess().lookupOrThrow(Registries.GAME_EVENT).getOrThrow(gameEvent), pos, context);
+     }
++
++    net.minecraft.server.level.ServerLevel getMinecraftWorld(); // CraftBukkit
+ }

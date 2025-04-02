@@ -1,0 +1,28 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/item/crafting/SmeltingRecipe.java b/net/minecraft/world/item/crafting/SmeltingRecipe.java
+index b47fc90425fe4d06d1979e92bdee2a465c987f08..e2f5d20adfe5632e7e1fb47ca8a1d0f4943a244f 100644
+--- a/net/minecraft/world/item/crafting/SmeltingRecipe.java
++++ b/net/minecraft/world/item/crafting/SmeltingRecipe.java
+@@ -32,4 +32,17 @@ public class SmeltingRecipe extends AbstractCookingRecipe {
+             case MISC -> RecipeBookCategories.FURNACE_MISC;
+         };
+     }
++
++    // CraftBukkit start
++    @Override
++    public org.bukkit.inventory.Recipe toBukkitRecipe(org.bukkit.NamespacedKey id) {
++        org.bukkit.craftbukkit.inventory.CraftItemStack result = org.bukkit.craftbukkit.inventory.CraftItemStack.asCraftMirror(this.result());
++
++        org.bukkit.craftbukkit.inventory.CraftFurnaceRecipe recipe = new org.bukkit.craftbukkit.inventory.CraftFurnaceRecipe(id, result, org.bukkit.craftbukkit.inventory.CraftRecipe.toBukkit(this.input()), this.experience(), this.cookingTime());
++        recipe.setGroup(this.group());
++        recipe.setCategory(org.bukkit.craftbukkit.inventory.CraftRecipe.getCategory(this.category()));
++
++        return recipe;
++    }
++    // CraftBukkit end
+ }

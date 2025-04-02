@@ -1,0 +1,24 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/WitherRoseBlock.java b/net/minecraft/world/level/block/WitherRoseBlock.java
+index b7020a96d4da543d21edf695667a8517459ea066..c43f294170725d5b0e695e51cd90617bd30f0bae 100644
+--- a/net/minecraft/world/level/block/WitherRoseBlock.java
++++ b/net/minecraft/world/level/block/WitherRoseBlock.java
+@@ -64,11 +64,12 @@ public class WitherRoseBlock extends FlowerBlock {
+ 
+     @Override
+     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier) {
++        if (!new io.papermc.paper.event.entity.EntityInsideBlockEvent(entity.getBukkitEntity(), org.bukkit.craftbukkit.block.CraftBlock.at(level, pos)).callEvent()) { return; } // Paper - Add EntityInsideBlockEvent
+         if (level instanceof ServerLevel serverLevel
+             && level.getDifficulty() != Difficulty.PEACEFUL
+             && entity instanceof LivingEntity livingEntity
+             && !livingEntity.isInvulnerableTo(serverLevel, level.damageSources().wither())) {
+-            livingEntity.addEffect(this.getBeeInteractionEffect());
++            livingEntity.addEffect(this.getBeeInteractionEffect(), org.bukkit.event.entity.EntityPotionEffectEvent.Cause.WITHER_ROSE); // CraftBukkit
+         }
+     }
+ 

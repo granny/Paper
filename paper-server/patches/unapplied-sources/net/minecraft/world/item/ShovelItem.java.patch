@@ -1,0 +1,41 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/item/ShovelItem.java b/net/minecraft/world/item/ShovelItem.java
+index 422e75715495e1c4df2e93df989deb48ae0b0d36..887ac9f547ceaf76fd533ae47239a64c29a64b18 100644
+--- a/net/minecraft/world/item/ShovelItem.java
++++ b/net/minecraft/world/item/ShovelItem.java
+@@ -45,20 +45,29 @@ public class ShovelItem extends Item {
+             Player player = context.getPlayer();
+             BlockState blockState1 = FLATTENABLES.get(blockState.getBlock());
+             BlockState blockState2 = null;
++            Runnable afterAction = null; // Paper
+             if (blockState1 != null && level.getBlockState(clickedPos.above()).isAir()) {
+-                level.playSound(player, clickedPos, SoundEvents.SHOVEL_FLATTEN, SoundSource.BLOCKS, 1.0F, 1.0F);
++                afterAction = () -> level.playSound(player, clickedPos, SoundEvents.SHOVEL_FLATTEN, SoundSource.BLOCKS, 1.0F, 1.0F); // Paper
+                 blockState2 = blockState1;
+             } else if (blockState.getBlock() instanceof CampfireBlock && blockState.getValue(CampfireBlock.LIT)) {
++                afterAction = () -> { // Paper
+                 if (!level.isClientSide()) {
+                     level.levelEvent(null, 1009, clickedPos, 0);
+                 }
+ 
+                 CampfireBlock.dowse(context.getPlayer(), level, clickedPos, blockState);
++                }; // Paper
+                 blockState2 = blockState.setValue(CampfireBlock.LIT, false);
+             }
+ 
+             if (blockState2 != null) {
+                 if (!level.isClientSide) {
++                    // Paper start
++                    if (!org.bukkit.craftbukkit.event.CraftEventFactory.callEntityChangeBlockEvent(context.getPlayer(), clickedPos, blockState2)) {
++                        return InteractionResult.PASS;
++                    }
++                    afterAction.run();
++                    // Paper end
+                     level.setBlock(clickedPos, blockState2, 11);
+                     level.gameEvent(GameEvent.BLOCK_CHANGE, clickedPos, GameEvent.Context.of(player, blockState2));
+                     if (player != null) {

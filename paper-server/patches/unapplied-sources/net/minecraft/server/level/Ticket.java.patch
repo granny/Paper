@@ -1,0 +1,49 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/server/level/Ticket.java b/net/minecraft/server/level/Ticket.java
+index 2b46278c5719842028b099e734cf663e77f9515a..a663c84c756bc59aaddbceda939f552e8a422e60 100644
+--- a/net/minecraft/server/level/Ticket.java
++++ b/net/minecraft/server/level/Ticket.java
+@@ -14,17 +14,36 @@ public class Ticket {
+                 ExtraCodecs.NON_NEGATIVE_INT.fieldOf("level").forGetter(Ticket::getTicketLevel),
+                 Codec.LONG.optionalFieldOf("ticks_left", 0L).forGetter(ticket -> ticket.ticksLeft)
+             )
+-            .apply(instance, Ticket::new)
++            .apply(instance, (type, level, ticks) -> new Ticket(type, level.intValue(), ticks.longValue())) // Paper - add identifier
+     );
+     private final TicketType type;
+     private final int ticketLevel;
+     private long ticksLeft;
++    // Paper start - add identifier
++    private Object identifier;
++
++    public Object getIdentifier() {
++        return this.identifier;
++    }
++    // Paper end - add identifier
++
+ 
+     public Ticket(TicketType type, int ticketLevel) {
+-        this(type, ticketLevel, type.timeout());
++        // Paper start - add identifier
++        this(type, ticketLevel, null);
++    }
++    public Ticket(TicketType type, int ticketLevel, Object identifier) {
++        this(type, ticketLevel, type.timeout(), identifier);
++        // Paper end - add identifier
+     }
+ 
+     private Ticket(TicketType type, int ticketLevel, long ticksLeft) {
++        // Paper start - add identifier
++        this(type, ticketLevel, ticksLeft, null);
++    }
++    private Ticket(TicketType type, int ticketLevel, long ticksLeft, Object identifier) {
++        this.identifier = identifier;
++        // Paper end - add identifier
+         this.type = type;
+         this.ticketLevel = ticketLevel;
+         this.ticksLeft = ticksLeft;

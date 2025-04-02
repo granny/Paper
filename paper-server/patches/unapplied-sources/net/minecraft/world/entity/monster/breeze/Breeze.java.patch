@@ -1,0 +1,18 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/monster/breeze/Breeze.java b/net/minecraft/world/entity/monster/breeze/Breeze.java
+index 0a0512985278ac00dfad7be7a2abf63bf10eb0c1..c12653070d62c44b97a07676f24caf7ab570cd2a 100644
+--- a/net/minecraft/world/entity/monster/breeze/Breeze.java
++++ b/net/minecraft/world/entity/monster/breeze/Breeze.java
+@@ -250,6 +250,7 @@ public class Breeze extends Monster {
+ 
+     @Override
+     public boolean canAttackType(EntityType<?> type) {
++        if (this.getTarget() != null) return this.getTarget().getType() == type; // SPIGOT-7957: Allow attack if target from brain was set
+         return type == EntityType.PLAYER || type == EntityType.IRON_GOLEM;
+     }
+ 

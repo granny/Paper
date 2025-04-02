@@ -1,0 +1,38 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/EndGatewayBlock.java b/net/minecraft/world/level/block/EndGatewayBlock.java
+index 8fe6f643721fda5f08d27c6c0c1b5a3e53be199f..68914268ca9350a6c1d794e011e1f9a8aecd609c 100644
+--- a/net/minecraft/world/level/block/EndGatewayBlock.java
++++ b/net/minecraft/world/level/block/EndGatewayBlock.java
+@@ -90,10 +90,15 @@ public class EndGatewayBlock extends BaseEntityBlock implements Portal {
+ 
+     @Override
+     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier) {
++        if (!new io.papermc.paper.event.entity.EntityInsideBlockEvent(entity.getBukkitEntity(), org.bukkit.craftbukkit.block.CraftBlock.at(level, pos)).callEvent()) { return; } // Paper - Add EntityInsideBlockEvent
+         if (entity.canUsePortal(false)
+             && !level.isClientSide
+             && level.getBlockEntity(pos) instanceof TheEndGatewayBlockEntity theEndGatewayBlockEntity
+             && !theEndGatewayBlockEntity.isCoolingDown()) {
++            // Paper start - call EntityPortalEnterEvent
++            org.bukkit.event.entity.EntityPortalEnterEvent event = new org.bukkit.event.entity.EntityPortalEnterEvent(entity.getBukkitEntity(), org.bukkit.craftbukkit.util.CraftLocation.toBukkit(pos, level), org.bukkit.PortalType.END_GATEWAY); // Paper - add portal type
++            if (!event.callEvent()) return;
++            // Paper end - call EntityPortalEnterEvent
+             entity.setAsInsidePortal(this, pos);
+             TheEndGatewayBlockEntity.triggerCooldown(level, pos, state, theEndGatewayBlockEntity);
+         }
+@@ -108,9 +113,9 @@ public class EndGatewayBlock extends BaseEntityBlock implements Portal {
+                 return null;
+             } else {
+                 return entity instanceof ThrownEnderpearl
+-                    ? new TeleportTransition(level, portalPosition, Vec3.ZERO, 0.0F, 0.0F, Set.of(), TeleportTransition.PLACE_PORTAL_TICKET)
++                    ? new TeleportTransition(level, portalPosition, Vec3.ZERO, 0.0F, 0.0F, Set.of(), TeleportTransition.PLACE_PORTAL_TICKET, org.bukkit.event.player.PlayerTeleportEvent.TeleportCause.END_GATEWAY) // CraftBukkit
+                     : new TeleportTransition(
+-                        level, portalPosition, Vec3.ZERO, 0.0F, 0.0F, Relative.union(Relative.DELTA, Relative.ROTATION), TeleportTransition.PLACE_PORTAL_TICKET
++                        level, portalPosition, Vec3.ZERO, 0.0F, 0.0F, Relative.union(Relative.DELTA, Relative.ROTATION), TeleportTransition.PLACE_PORTAL_TICKET, org.bukkit.event.player.PlayerTeleportEvent.TeleportCause.END_GATEWAY // CraftBukkit
+                     );
+             }
+         } else {

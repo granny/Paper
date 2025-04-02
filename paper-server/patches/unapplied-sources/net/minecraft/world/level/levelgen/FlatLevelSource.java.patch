@@ -1,0 +1,36 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/levelgen/FlatLevelSource.java b/net/minecraft/world/level/levelgen/FlatLevelSource.java
+index 46c88770b56b2a909357fa73c0a726cb6ae45a46..6fbbb7b0bf2c13f287d284e58b0ebf8ca6b66476 100644
+--- a/net/minecraft/world/level/levelgen/FlatLevelSource.java
++++ b/net/minecraft/world/level/levelgen/FlatLevelSource.java
+@@ -33,17 +33,22 @@ public class FlatLevelSource extends ChunkGenerator {
+     private final FlatLevelGeneratorSettings settings;
+ 
+     public FlatLevelSource(FlatLevelGeneratorSettings settings) {
+-        super(new FixedBiomeSource(settings.getBiome()), Util.memoize(settings::adjustGenerationSettings));
++        // CraftBukkit start
++        this(settings, new FixedBiomeSource(settings.getBiome()));
++    }
++    public FlatLevelSource(FlatLevelGeneratorSettings settings, net.minecraft.world.level.biome.BiomeSource biomeSource) {
++        super(biomeSource, Util.memoize(settings::adjustGenerationSettings));
++        // CraftBukkit end
+         this.settings = settings;
+     }
+ 
+     @Override
+-    public ChunkGeneratorStructureState createState(HolderLookup<StructureSet> structureSetLookup, RandomState randomState, long seed) {
++    public ChunkGeneratorStructureState createState(HolderLookup<StructureSet> structureSetLookup, RandomState randomState, long seed, org.spigotmc.SpigotWorldConfig conf) { // Spigot
+         Stream<Holder<StructureSet>> stream = this.settings
+             .structureOverrides()
+             .map(HolderSet::stream)
+             .orElseGet(() -> structureSetLookup.listElements().map(reference -> (Holder<StructureSet>)reference));
+-        return ChunkGeneratorStructureState.createForFlat(randomState, seed, this.biomeSource, stream);
++        return ChunkGeneratorStructureState.createForFlat(randomState, seed, this.biomeSource, stream, conf); // Spigot
+     }
+ 
+     @Override

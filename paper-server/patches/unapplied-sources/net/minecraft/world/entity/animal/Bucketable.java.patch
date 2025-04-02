@@ -1,0 +1,40 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/animal/Bucketable.java b/net/minecraft/world/entity/animal/Bucketable.java
+index 042cf5ad1c6701ca2417f9c1d3bcf02127c0a9a3..3d11fe7607bdab5ee6409a660b74ff9fea9e969e 100644
+--- a/net/minecraft/world/entity/animal/Bucketable.java
++++ b/net/minecraft/world/entity/animal/Bucketable.java
+@@ -71,9 +71,19 @@ public interface Bucketable {
+     static <T extends LivingEntity & Bucketable> Optional<InteractionResult> bucketMobPickup(Player player, InteractionHand hand, T entity) {
+         ItemStack itemInHand = player.getItemInHand(hand);
+         if (itemInHand.getItem() == Items.WATER_BUCKET && entity.isAlive()) {
+-            entity.playSound(entity.getPickupSound(), 1.0F, 1.0F);
++            // CraftBukkit start
++            // entity.playSound(entity.getPickupSound(), 1.0F, 1.0F); // CraftBukkit - moved down
+             ItemStack bucketItemStack = entity.getBucketItemStack();
+             entity.saveToBucketTag(bucketItemStack);
++            org.bukkit.event.player.PlayerBucketEntityEvent playerBucketFishEvent = org.bukkit.craftbukkit.event.CraftEventFactory.callPlayerFishBucketEvent(entity, player, itemInHand, bucketItemStack, hand);
++            bucketItemStack = org.bukkit.craftbukkit.inventory.CraftItemStack.asNMSCopy(playerBucketFishEvent.getEntityBucket());
++            if (playerBucketFishEvent.isCancelled()) {
++                player.containerMenu.sendAllDataToRemote(); // We need to update inventory to resync client's bucket
++                entity.resendPossiblyDesyncedEntityData((ServerPlayer) player); // Paper
++                return Optional.of(InteractionResult.FAIL);
++            }
++            entity.playSound(entity.getPickupSound(), 1.0F, 1.0F);
++            // CraftBukkit end
+             ItemStack itemStack = ItemUtils.createFilledResult(itemInHand, player, bucketItemStack, false);
+             player.setItemInHand(hand, itemStack);
+             Level level = entity.level();
+@@ -81,7 +91,7 @@ public interface Bucketable {
+                 CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer)player, bucketItemStack);
+             }
+ 
+-            entity.discard();
++            entity.discard(org.bukkit.event.entity.EntityRemoveEvent.Cause.PICKUP); // CraftBukkit - add Bukkit remove cause
+             return Optional.of(InteractionResult.SUCCESS);
+         } else {
+             return Optional.empty();

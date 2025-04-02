@@ -1,0 +1,39 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/server/ServerAdvancementManager.java b/net/minecraft/server/ServerAdvancementManager.java
+index f6c02b09e92d1c8b22c2a08cf5fd7b827144c9a6..920eb7141df0105618b604567246cd4a20f21d44 100644
+--- a/net/minecraft/server/ServerAdvancementManager.java
++++ b/net/minecraft/server/ServerAdvancementManager.java
+@@ -22,7 +22,7 @@ import org.slf4j.Logger;
+ 
+ public class ServerAdvancementManager extends SimpleJsonResourceReloadListener<Advancement> {
+     private static final Logger LOGGER = LogUtils.getLogger();
+-    public Map<ResourceLocation, AdvancementHolder> advancements = Map.of();
++    public Map<ResourceLocation, AdvancementHolder> advancements = new java.util.HashMap<>(); // CraftBukkit - SPIGOT-7734: mutable
+     private AdvancementTree tree = new AdvancementTree();
+     private final HolderLookup.Provider registries;
+ 
+@@ -35,12 +35,18 @@ public class ServerAdvancementManager extends SimpleJsonResourceReloadListener<A
+     protected void apply(Map<ResourceLocation, Advancement> object, ResourceManager resourceManager, ProfilerFiller profiler) {
+         Builder<ResourceLocation, AdvancementHolder> builder = ImmutableMap.builder();
+         object.forEach((resourceLocation, advancement) -> {
++            // Spigot start
++            if (org.spigotmc.SpigotConfig.disabledAdvancements != null && (org.spigotmc.SpigotConfig.disabledAdvancements.contains("*") || org.spigotmc.SpigotConfig.disabledAdvancements.contains(resourceLocation.toString()) || org.spigotmc.SpigotConfig.disabledAdvancements.contains(resourceLocation.getNamespace()))) {
++                return;
++            }
++            // Spigot end
+             this.validate(resourceLocation, advancement);
+             builder.put(resourceLocation, new AdvancementHolder(resourceLocation, advancement));
+         });
+-        this.advancements = builder.buildOrThrow();
++        this.advancements = new java.util.HashMap<>(builder.buildOrThrow()); // CraftBukkit - SPIGOT-7734: mutable
+         AdvancementTree advancementTree = new AdvancementTree();
+         advancementTree.addAll(this.advancements.values());
++        LOGGER.info("Loaded {} advancements", advancementTree.nodes().size()); // Paper - Improve logging and errors; moved from AdvancementTree#addAll
+ 
+         for (AdvancementNode advancementNode : advancementTree.roots()) {
+             if (advancementNode.holder().value().display().isPresent()) {

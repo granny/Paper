@@ -1,0 +1,25 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/item/HoneycombItem.java b/net/minecraft/world/item/HoneycombItem.java
+index acbe091b3563d6950ebb595f5f197f4d8d138a17..e94943f61c2e06309d6a11ba62bca7e76363287c 100644
+--- a/net/minecraft/world/item/HoneycombItem.java
++++ b/net/minecraft/world/item/HoneycombItem.java
+@@ -74,6 +74,14 @@ public class HoneycombItem extends Item implements SignApplicator {
+         return getWaxed(blockState).<InteractionResult>map(blockState1 -> {
+             Player player = context.getPlayer();
+             ItemStack itemInHand = context.getItemInHand();
++            // Paper start - EntityChangeBlockEvent
++            if (!org.bukkit.craftbukkit.event.CraftEventFactory.callEntityChangeBlockEvent(player, clickedPos, blockState1)) {
++                if (!player.isCreative()) {
++                    player.containerMenu.sendAllDataToRemote();
++                }
++                return InteractionResult.PASS;
++            }
++            // Paper end
+             if (player instanceof ServerPlayer serverPlayer) {
+                 CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, clickedPos, itemInHand);
+             }

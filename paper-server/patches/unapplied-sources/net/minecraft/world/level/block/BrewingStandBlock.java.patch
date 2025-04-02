@@ -1,0 +1,20 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/BrewingStandBlock.java b/net/minecraft/world/level/block/BrewingStandBlock.java
+index a71468eb5887e2260ce82dcce5d693c58501d820..f563f8ea63e67f808802baa4c6a700e803c045a0 100644
+--- a/net/minecraft/world/level/block/BrewingStandBlock.java
++++ b/net/minecraft/world/level/block/BrewingStandBlock.java
+@@ -63,8 +63,7 @@ public class BrewingStandBlock extends BaseEntityBlock {
+ 
+     @Override
+     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+-        if (!level.isClientSide && level.getBlockEntity(pos) instanceof BrewingStandBlockEntity brewingStandBlockEntity) {
+-            player.openMenu(brewingStandBlockEntity);
++        if (!level.isClientSide && level.getBlockEntity(pos) instanceof BrewingStandBlockEntity brewingStandBlockEntity && player.openMenu(brewingStandBlockEntity).isPresent()) { // Paper - Fix InventoryOpenEvent cancellation
+             player.awardStat(Stats.INTERACT_WITH_BREWINGSTAND);
+         }
+ 

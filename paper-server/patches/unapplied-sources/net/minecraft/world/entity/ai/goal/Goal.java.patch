@@ -1,0 +1,48 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/ai/goal/Goal.java b/net/minecraft/world/entity/ai/goal/Goal.java
+index 5b1f15442585a2fd6830e018d5f6f35dc79aca38..a66c86066ca2eda10f0ef62e5197a765a994f250 100644
+--- a/net/minecraft/world/entity/ai/goal/Goal.java
++++ b/net/minecraft/world/entity/ai/goal/Goal.java
+@@ -46,6 +46,17 @@ public abstract class Goal {
+         return this.flags;
+     }
+ 
++
++    // Paper start - Mob Goal API
++    public boolean hasFlag(final Goal.Flag flag) {
++        return this.flags.contains(flag);
++    }
++
++    public void addFlag(final Goal.Flag flag) {
++        this.flags.add(flag);
++    }
++    // Paper end - Mob Goal API
++
+     protected int adjustedTickDelay(int adjustment) {
+         return this.requiresUpdateEveryTick() ? adjustment : reducedTickDelay(adjustment);
+     }
+@@ -62,7 +73,19 @@ public abstract class Goal {
+         return (ServerLevel)level;
+     }
+ 
++    // Paper start - Mob goal api
++    private com.destroystokyo.paper.entity.ai.PaperGoal<?> paperGoal;
++    public <T extends org.bukkit.entity.Mob> com.destroystokyo.paper.entity.ai.Goal<T> asPaperGoal() {
++        if (this.paperGoal == null) {
++            this.paperGoal = new com.destroystokyo.paper.entity.ai.PaperGoal<>(this);
++        }
++        //noinspection unchecked
++        return (com.destroystokyo.paper.entity.ai.Goal<T>) this.paperGoal;
++    }
++    // Paper end - Mob goal api
++
+     public static enum Flag {
++        UNKNOWN_BEHAVIOR, // Paper - add UNKNOWN_BEHAVIOR
+         MOVE,
+         LOOK,
+         JUMP,

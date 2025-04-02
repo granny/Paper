@@ -1,0 +1,48 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/monster/Illusioner.java b/net/minecraft/world/entity/monster/Illusioner.java
+index b19485d5d29c0004ee99bf784da4a146dbb6b8aa..264ec7acfc03eca4a8f5758ad8d3e11714e934b4 100644
+--- a/net/minecraft/world/entity/monster/Illusioner.java
++++ b/net/minecraft/world/entity/monster/Illusioner.java
+@@ -180,9 +180,19 @@ public class Illusioner extends SpellcasterIllager implements RangedAttackMob {
+         double d2 = target.getZ() - this.getZ();
+         double squareRoot = Math.sqrt(d * d + d2 * d2);
+         if (this.level() instanceof ServerLevel serverLevel) {
++            // Paper start - EntityShootBowEvent
++            org.bukkit.event.entity.EntityShootBowEvent event = org.bukkit.craftbukkit.event.CraftEventFactory.callEntityShootBowEvent(this, this.getMainHandItem(), mobArrow.getPickupItem(), mobArrow, target.getUsedItemHand(), 0.8F, true);
++            if (event.isCancelled()) {
++                event.getProjectile().remove();
++                return;
++            }
++
++            if (event.getProjectile() == mobArrow.getBukkitEntity()) {
+             Projectile.spawnProjectileUsingShoot(
+                 mobArrow, serverLevel, projectile, d, d1 + squareRoot * 0.2F, d2, 1.6F, 14 - serverLevel.getDifficulty().getId() * 4
+             );
++            }
++            // Paper end - EntityShootBowEvent
+         }
+ 
+         this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+@@ -229,7 +239,7 @@ public class Illusioner extends SpellcasterIllager implements RangedAttackMob {
+ 
+         @Override
+         protected void performSpellCasting() {
+-            Illusioner.this.getTarget().addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 400), Illusioner.this);
++            Illusioner.this.getTarget().addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 400), Illusioner.this, org.bukkit.event.entity.EntityPotionEffectEvent.Cause.ATTACK); // CraftBukkit
+         }
+ 
+         @Override
+@@ -261,7 +271,7 @@ public class Illusioner extends SpellcasterIllager implements RangedAttackMob {
+ 
+         @Override
+         protected void performSpellCasting() {
+-            Illusioner.this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 1200));
++            Illusioner.this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 1200), org.bukkit.event.entity.EntityPotionEffectEvent.Cause.ILLUSION); // CraftBukkit
+         }
+ 
+         @Nullable

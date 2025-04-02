@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/inventory/AbstractCraftingMenu.java
 +++ b/net/minecraft/world/inventory/AbstractCraftingMenu.java
-@@ -12,14 +_,17 @@
+@@ -14,14 +_,17 @@
  public abstract class AbstractCraftingMenu extends RecipeBookMenu {
      private final int width;
      private final int height;
@@ -20,4 +20,4 @@
 +        // CraftBukkit end
      }
  
-     protected Slot addResultSlot(Player player, int x, int y) {
+     protected Slot addResultSlot(final Player player, int x, int y) {

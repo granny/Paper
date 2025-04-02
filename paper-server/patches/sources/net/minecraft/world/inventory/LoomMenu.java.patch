@@ -37,7 +37,7 @@
 +    }
 +    // CraftBukkit end
  
-     public LoomMenu(int containerId, Inventory playerInventory) {
+     public LoomMenu(int containerId, Inventory playerInventory, List<Integer> list) {
          this(containerId, playerInventory, ContainerLevelAccess.NULL);
 @@ -61,6 +_,28 @@
      public LoomMenu(int containerId, Inventory playerInventory, final ContainerLevelAccess access) {
@@ -71,8 +71,8 @@
 @@ -106,18 +_,44 @@
          this.addStandardInventorySlots(playerInventory, 8, 84);
          this.addDataSlot(this.selectedBannerPatternIndex);
-         this.patternGetter = playerInventory.player.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN);
-+        this.player = (org.bukkit.entity.Player) playerInventory.player.getBukkitEntity(); // CraftBukkit
+         this.patternGetter = playerInventory.getPlayer().registryAccess().lookupOrThrow(Registries.BANNER_PATTERN);
++        this.player = (org.bukkit.entity.Player) playerInventory.getPlayer().getBukkitEntity(); // CraftBukkit
      }
  
      @Override

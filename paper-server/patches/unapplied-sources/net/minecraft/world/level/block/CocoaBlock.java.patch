@@ -1,0 +1,32 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/CocoaBlock.java b/net/minecraft/world/level/block/CocoaBlock.java
+index 202f38893a5d61fe1fb83fa81e8fb53eee97170e..b9284dcec878e922618eed6c523cb8cba3143e0c 100644
+--- a/net/minecraft/world/level/block/CocoaBlock.java
++++ b/net/minecraft/world/level/block/CocoaBlock.java
+@@ -50,10 +50,10 @@ public class CocoaBlock extends HorizontalDirectionalBlock implements Bonemealab
+ 
+     @Override
+     protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+-        if (level.random.nextInt(5) == 0) {
++        if (level.random.nextFloat() < (level.spigotConfig.cocoaModifier / (100.0F * 5))) { // Spigot - SPIGOT-7159: Better modifier resolution
+             int ageValue = state.getValue(AGE);
+             if (ageValue < 2) {
+-                level.setBlock(pos, state.setValue(AGE, ageValue + 1), 2);
++                org.bukkit.craftbukkit.event.CraftEventFactory.handleBlockGrowEvent(level, pos, state.setValue(AGE, ageValue + 1), 2); // CraftBukkit
+             }
+         }
+     }
+@@ -116,7 +116,7 @@ public class CocoaBlock extends HorizontalDirectionalBlock implements Bonemealab
+ 
+     @Override
+     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+-        level.setBlock(pos, state.setValue(AGE, state.getValue(AGE) + 1), 2);
++        org.bukkit.craftbukkit.event.CraftEventFactory.handleBlockGrowEvent(level, pos, state.setValue(AGE, state.getValue(AGE) + 1), 2); // CraftBukkit
+     }
+ 
+     @Override

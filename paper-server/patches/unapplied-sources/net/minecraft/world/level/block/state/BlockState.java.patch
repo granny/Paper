@@ -1,0 +1,28 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/state/BlockState.java b/net/minecraft/world/level/block/state/BlockState.java
+index 595c1e50afda097c5ddfa3635b654460869af45d..d0d2bdc29348f10850e6c1a589c5a11c347c921c 100644
+--- a/net/minecraft/world/level/block/state/BlockState.java
++++ b/net/minecraft/world/level/block/state/BlockState.java
+@@ -10,6 +10,17 @@ import net.minecraft.world.level.block.state.properties.Property;
+ public class BlockState extends BlockBehaviour.BlockStateBase {
+     public static final Codec<BlockState> CODEC = codec(BuiltInRegistries.BLOCK.byNameCodec(), Block::defaultBlockState).stable();
+ 
++    // Paper start - optimise getType calls
++    org.bukkit.@org.jspecify.annotations.Nullable Material cachedMaterial;
++
++    public final org.bukkit.Material getBukkitMaterial() {
++        if (this.cachedMaterial == null) {
++            this.cachedMaterial = org.bukkit.craftbukkit.block.CraftBlockType.minecraftToBukkit(this.getBlock());
++        }
++        return this.cachedMaterial;
++    }
++    // Paper end - optimise getType calls
++
+     public BlockState(Block owner, Reference2ObjectArrayMap<Property<?>, Comparable<?>> values, MapCodec<BlockState> propertiesCodec) {
+         super(owner, values, propertiesCodec);
+     }

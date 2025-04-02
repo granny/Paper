@@ -1,0 +1,27 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/chunk/storage/RegionFileVersion.java b/net/minecraft/world/level/chunk/storage/RegionFileVersion.java
+index 785ed376be5ff59240a7ef9964edefd90c1626a8..1649119f45d970a9bf1683d676c47ecfc18ad047 100644
+--- a/net/minecraft/world/level/chunk/storage/RegionFileVersion.java
++++ b/net/minecraft/world/level/chunk/storage/RegionFileVersion.java
+@@ -61,6 +61,16 @@ public class RegionFileVersion {
+     private final RegionFileVersion.StreamWrapper<InputStream> inputWrapper;
+     private final RegionFileVersion.StreamWrapper<OutputStream> outputWrapper;
+ 
++    // Paper start - Configurable region compression format
++    public static RegionFileVersion getCompressionFormat() {
++        return switch (io.papermc.paper.configuration.GlobalConfiguration.get().unsupportedSettings.compressionFormat) {
++            case GZIP -> VERSION_GZIP;
++            case ZLIB -> VERSION_DEFLATE;
++            case LZ4 -> VERSION_LZ4;
++            case NONE -> VERSION_NONE;
++        };
++    }
++    // Paper end - Configurable region compression format
+     private RegionFileVersion(
+         int id,
+         @Nullable String optionName,

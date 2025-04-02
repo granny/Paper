@@ -1,0 +1,32 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/FrostedIceBlock.java b/net/minecraft/world/level/block/FrostedIceBlock.java
+index 22c72009bf58b87fbd6eba16d0e32e2c58203f42..7001d7d488a5f2e8a39e30866b1b93a38807ddee 100644
+--- a/net/minecraft/world/level/block/FrostedIceBlock.java
++++ b/net/minecraft/world/level/block/FrostedIceBlock.java
+@@ -42,6 +42,7 @@ public class FrostedIceBlock extends IceBlock {
+ 
+     @Override
+     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
++        if (!level.paperConfig().environment.frostedIce.enabled) return; // Paper - Frosted ice options
+         if ((random.nextInt(3) == 0 || this.fewerNeigboursThan(level, pos, 4))
+             && level.getMaxLocalRawBrightness(pos) > 11 - state.getValue(AGE) - state.getLightBlock()
+             && this.slightlyMelt(state, level, pos)) {
+@@ -51,11 +52,11 @@ public class FrostedIceBlock extends IceBlock {
+                 mutableBlockPos.setWithOffset(pos, direction);
+                 BlockState blockState = level.getBlockState(mutableBlockPos);
+                 if (blockState.is(this) && !this.slightlyMelt(blockState, level, mutableBlockPos)) {
+-                    level.scheduleTick(mutableBlockPos, this, Mth.nextInt(random, 20, 40));
++                    level.scheduleTick(mutableBlockPos, this, Mth.nextInt(random, level.paperConfig().environment.frostedIce.delay.min, level.paperConfig().environment.frostedIce.delay.max)); // Paper - Frosted ice options
+                 }
+             }
+         } else {
+-            level.scheduleTick(pos, this, Mth.nextInt(random, 20, 40));
++            level.scheduleTick(pos, this, Mth.nextInt(random, level.paperConfig().environment.frostedIce.delay.min, level.paperConfig().environment.frostedIce.delay.max)); // Paper - Frosted ice options
+         }
+     }
+ 

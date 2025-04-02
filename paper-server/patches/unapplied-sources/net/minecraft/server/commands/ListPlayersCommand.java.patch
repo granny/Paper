@@ -1,0 +1,26 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/server/commands/ListPlayersCommand.java b/net/minecraft/server/commands/ListPlayersCommand.java
+index 004d91cd4c8b107ac3dd618e80e07bf5b88507aa..c6ae34f91b3629990294fc5e69237a1e600ef038 100644
+--- a/net/minecraft/server/commands/ListPlayersCommand.java
++++ b/net/minecraft/server/commands/ListPlayersCommand.java
+@@ -32,7 +32,14 @@ public class ListPlayersCommand {
+ 
+     private static int format(CommandSourceStack source, Function<ServerPlayer, Component> nameExtractor) {
+         PlayerList playerList = source.getServer().getPlayerList();
+-        List<ServerPlayer> players = playerList.getPlayers();
++        // CraftBukkit start
++        List<ServerPlayer> playersTemp = playerList.getPlayers();
++        if (source.getBukkitSender() instanceof org.bukkit.entity.Player) {
++            org.bukkit.entity.Player sender = (org.bukkit.entity.Player) source.getBukkitSender();
++            playersTemp = playersTemp.stream().filter((ep) -> sender.canSee(ep.getBukkitEntity())).collect(java.util.stream.Collectors.toList());
++        }
++        final List<ServerPlayer> players = playersTemp;
++        // CraftBukkit end
+         Component component = ComponentUtils.formatList(players, nameExtractor);
+         source.sendSuccess(() -> Component.translatable("commands.list.players", players.size(), playerList.getMaxPlayers(), component), false);
+         return players.size();

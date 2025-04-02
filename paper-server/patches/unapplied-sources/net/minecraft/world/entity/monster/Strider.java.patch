@@ -1,0 +1,26 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/monster/Strider.java b/net/minecraft/world/entity/monster/Strider.java
+index 899fa02fd3853caee950b30582732b2f26545453..afa584e2aba6bebfb2dd343215b043c983281853 100644
+--- a/net/minecraft/world/entity/monster/Strider.java
++++ b/net/minecraft/world/entity/monster/Strider.java
+@@ -295,7 +295,14 @@ public class Strider extends Animal implements ItemSteerable {
+                 || blockStateOnLegacy.is(BlockTags.STRIDER_WARM_BLOCKS)
+                 || this.getFluidHeight(FluidTags.LAVA) > 0.0;
+             boolean flag1 = this.getVehicle() instanceof Strider strider && strider.isSuffocating();
+-            this.setSuffocating(!flag || flag1);
++            // CraftBukkit start
++            boolean suffocating = !flag || flag1;
++            if (suffocating ^ this.isSuffocating()) {
++                if (org.bukkit.craftbukkit.event.CraftEventFactory.callStriderTemperatureChangeEvent(this, suffocating)) {
++                    this.setSuffocating(suffocating);
++                }
++            }
++            // CraftBukkit end
+         }
+ 
+         super.tick();

@@ -1,0 +1,18 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/HoneyBlock.java b/net/minecraft/world/level/block/HoneyBlock.java
+index f3c235b8f1df993c87f36da37dacd382309a0edd..a98c308c5febd458d6489174b94898cd4b9bae69 100644
+--- a/net/minecraft/world/level/block/HoneyBlock.java
++++ b/net/minecraft/world/level/block/HoneyBlock.java
+@@ -61,6 +61,7 @@ public class HoneyBlock extends HalfTransparentBlock {
+ 
+     @Override
+     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier) {
++        if (!new io.papermc.paper.event.entity.EntityInsideBlockEvent(entity.getBukkitEntity(), org.bukkit.craftbukkit.block.CraftBlock.at(level, pos)).callEvent()) { return; } // Paper - Add EntityInsideBlockEvent
+         if (this.isSlidingDown(pos, entity)) {
+             this.maybeDoSlideAchievement(entity, pos);
+             this.doSlideMovement(entity);

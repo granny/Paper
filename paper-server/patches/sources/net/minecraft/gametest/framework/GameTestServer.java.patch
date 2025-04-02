@@ -1,33 +1,15 @@
 --- a/net/minecraft/gametest/framework/GameTestServer.java
 +++ b/net/minecraft/gametest/framework/GameTestServer.java
-@@ -133,6 +_,8 @@
-         boolean verify
-     ) {
-         super(
-+            null, // Paper
-+            null, // Paper
-             serverThread,
-             storageSource,
-             packRepository,
-@@ -148,8 +_,15 @@
+@@ -124,7 +_,7 @@
+     }
  
-     @Override
-     public boolean initServer() {
--        this.setPlayerList(new PlayerList(this, this.registries(), this.playerDataStorage, 1) {});
--        this.loadLevel();
-+        // Paper start
-+        this.setPlayerList(new PlayerList(this, this.registries(), this.playerDataStorage, 1) {
-+            @Override
-+            public void loadAndSaveFiles() {
-+                throw new UnsupportedOperationException("Should not be called in a GameTestServer");
-+            }
-+        });
-+        this.loadLevel("blah");
-+        // Paper end
-         ServerLevel serverLevel = this.overworld();
-         this.testBatches = this.evaluateTestsToRun(serverLevel);
-         LOGGER.info("Started game test server");
-@@ -338,6 +_,13 @@
+     private GameTestServer(Thread thread, LevelStorageSource.LevelStorageAccess levelStorageAccess, Optional<String> optional, boolean flag) {
+-        super(thread, levelStorageAccess, Proxy.NO_PROXY, DataFixers.getDataFixer(), NO_SERVICES);
++        super(null, null, Proxy.NO_PROXY, DataFixers.getDataFixer(), NO_SERVICES); // Paper
+         this.testSelection = optional;
+         this.verify = flag;
+     }
+@@ -327,6 +_,13 @@
      public boolean shouldInformAdmins() {
          return false;
      }

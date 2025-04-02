@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/inventory/MerchantMenu.java
 +++ b/net/minecraft/world/inventory/MerchantMenu.java
-@@ -30,6 +_,18 @@
+@@ -31,6 +_,18 @@
      private int merchantLevel;
      private boolean showProgressBar;
      private boolean canRestock;
@@ -17,17 +17,17 @@
 +    }
 +    // CraftBukkit end
  
-     public MerchantMenu(int containerId, Inventory playerInventory) {
-         this(containerId, playerInventory, new ClientSideMerchant(playerInventory.player));
-@@ -42,6 +_,7 @@
+     public MerchantMenu(int containerId, Inventory playerInventory, List<Integer> list) {
+         this(containerId, playerInventory, new ClientSideMerchant(playerInventory.getPlayer()));
+@@ -43,6 +_,7 @@
          this.addSlot(new Slot(this.tradeContainer, 0, 136, 37));
          this.addSlot(new Slot(this.tradeContainer, 1, 162, 37));
-         this.addSlot(new MerchantResultSlot(playerInventory.player, trader, this.tradeContainer, 2, 220, 37));
+         this.addSlot(new MerchantResultSlot(playerInventory.getPlayer(), trader, this.tradeContainer, 2, 220, 37));
 +        this.inventory = playerInventory; // CraftBukkit
          this.addStandardInventorySlots(playerInventory, 108, 84);
      }
  
-@@ -61,6 +_,7 @@
+@@ -62,6 +_,7 @@
  
      @Override
      public boolean stillValid(Player player) {
@@ -35,7 +35,7 @@
          return this.trader.stillValid(player);
      }
  
-@@ -105,12 +_,12 @@
+@@ -106,12 +_,12 @@
              ItemStack item = slot.getItem();
              itemStack = item.copy();
              if (index == 2) {
@@ -51,7 +51,7 @@
              } else if (index != 0 && index != 1) {
                  if (index >= 3 && index < 30) {
                      if (!this.moveItemStackTo(item, 30, 39, false)) {
-@@ -123,6 +_,7 @@
+@@ -124,6 +_,7 @@
                  return ItemStack.EMPTY;
              }
  
@@ -59,7 +59,7 @@
              if (item.isEmpty()) {
                  slot.setByPlayer(ItemStack.EMPTY);
              } else {
-@@ -134,13 +_,28 @@
+@@ -135,13 +_,28 @@
              }
  
              slot.onTake(player, item);

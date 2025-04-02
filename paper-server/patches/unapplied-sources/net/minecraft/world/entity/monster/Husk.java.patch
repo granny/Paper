@@ -1,0 +1,19 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/monster/Husk.java b/net/minecraft/world/entity/monster/Husk.java
+index 465f5a0fd47db1e19d04ea3b15ce961d7d6a9eeb..8d6def85583a111841b28f20f58ddb8b8cbd7bc1 100644
+--- a/net/minecraft/world/entity/monster/Husk.java
++++ b/net/minecraft/world/entity/monster/Husk.java
+@@ -57,7 +57,7 @@ public class Husk extends Zombie {
+         boolean flag = super.doHurtTarget(level, source);
+         if (flag && this.getMainHandItem().isEmpty() && source instanceof LivingEntity) {
+             float effectiveDifficulty = this.level().getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
+-            ((LivingEntity)source).addEffect(new MobEffectInstance(MobEffects.HUNGER, 140 * (int)effectiveDifficulty), this);
++            ((LivingEntity)source).addEffect(new MobEffectInstance(MobEffects.HUNGER, 140 * (int)effectiveDifficulty), this, org.bukkit.event.entity.EntityPotionEffectEvent.Cause.ATTACK); // CraftBukkit
+         }
+ 
+         return flag;

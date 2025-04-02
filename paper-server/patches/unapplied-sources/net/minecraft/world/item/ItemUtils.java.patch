@@ -1,0 +1,27 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/item/ItemUtils.java b/net/minecraft/world/item/ItemUtils.java
+index 327ed87a832eb80d67c80a508b58f54381971f47..9fae6d24d67337bd7f2adc1cc244b75b42ae78ce 100644
+--- a/net/minecraft/world/item/ItemUtils.java
++++ b/net/minecraft/world/item/ItemUtils.java
+@@ -41,7 +41,15 @@ public class ItemUtils {
+     public static void onContainerDestroyed(ItemEntity container, Iterable<ItemStack> contents) {
+         Level level = container.level();
+         if (!level.isClientSide) {
+-            contents.forEach(itemStack -> level.addFreshEntity(new ItemEntity(level, container.getX(), container.getY(), container.getZ(), itemStack)));
++            // Paper start - call EntityDropItemEvent
++            contents.forEach(itemStack -> {
++                ItemEntity droppedItem = new ItemEntity(level, container.getX(), container.getY(), container.getZ(), itemStack);
++                org.bukkit.event.entity.EntityDropItemEvent event = new org.bukkit.event.entity.EntityDropItemEvent(container.getBukkitEntity(), (org.bukkit.entity.Item) droppedItem.getBukkitEntity());
++                if (event.callEvent()) {
++                    level.addFreshEntity(droppedItem);
++                }
++            });
++            // Paper end - call EntityDropItemEvent
+         }
+     }
+ }

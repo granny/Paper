@@ -1,0 +1,32 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/item/StandingAndWallBlockItem.java b/net/minecraft/world/item/StandingAndWallBlockItem.java
+index 4ed3d08bb8eb4371d6ba7bf9eb1f2eb79c44f021..3057712874c4fcf4722c669b9a9665466c20560a 100644
+--- a/net/minecraft/world/item/StandingAndWallBlockItem.java
++++ b/net/minecraft/world/item/StandingAndWallBlockItem.java
+@@ -42,7 +42,20 @@ public class StandingAndWallBlockItem extends BlockItem {
+             }
+         }
+ 
+-        return blockState != null && level.isUnobstructed(blockState, clickedPos, CollisionContext.empty()) ? blockState : null;
++        // return blockState != null && level.isUnobstructed(blockState, clickedPos, CollisionContext.empty()) ? blockState : null;
++        // CraftBukkit start
++        if (blockState != null) {
++            boolean defaultReturn = level.isUnobstructed(blockState, clickedPos, CollisionContext.empty());
++            org.bukkit.entity.Player player = (context.getPlayer() instanceof net.minecraft.server.level.ServerPlayer serverPlayer) ? serverPlayer.getBukkitEntity() : null;
++
++            org.bukkit.event.block.BlockCanBuildEvent event = new org.bukkit.event.block.BlockCanBuildEvent(org.bukkit.craftbukkit.block.CraftBlock.at(context.getLevel(), clickedPos), player, org.bukkit.craftbukkit.block.CraftBlockData.fromData(blockState), defaultReturn, org.bukkit.craftbukkit.CraftEquipmentSlot.getHand(context.getHand())); // Paper - Expose hand in BlockCanBuildEvent
++            context.getLevel().getCraftServer().getPluginManager().callEvent(event);
++
++            return (event.isBuildable()) ? blockState : null;
++        } else {
++            return null;
++        }
++        // CraftBukkit end
+     }
+ 
+     @Override

@@ -1,0 +1,43 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/server/rcon/RconConsoleSource.java b/net/minecraft/server/rcon/RconConsoleSource.java
+index 34693c6468e9795a34742fdff5281ef13f272b08..1fddeb10c5947c52840e55ca66c50dd4ad5425b9 100644
+--- a/net/minecraft/server/rcon/RconConsoleSource.java
++++ b/net/minecraft/server/rcon/RconConsoleSource.java
+@@ -13,8 +13,13 @@ public class RconConsoleSource implements CommandSource {
+     private static final Component RCON_COMPONENT = Component.literal("Rcon");
+     private final StringBuffer buffer = new StringBuffer();
+     private final MinecraftServer server;
++    // CraftBukkit start
++    public final java.net.SocketAddress socketAddress;
++    private final org.bukkit.craftbukkit.command.CraftRemoteConsoleCommandSender remoteConsole = new org.bukkit.craftbukkit.command.CraftRemoteConsoleCommandSender(this);
+ 
+-    public RconConsoleSource(MinecraftServer server) {
++    public RconConsoleSource(MinecraftServer server, java.net.SocketAddress socketAddress) {
++        this.socketAddress = socketAddress;
++        // CraftBukkit end
+         this.server = server;
+     }
+ 
+@@ -33,6 +38,17 @@ public class RconConsoleSource implements CommandSource {
+         );
+     }
+ 
++    // CraftBukkit start - Send a String
++    public void sendMessage(String message) {
++        this.buffer.append(message);
++    }
++
++    @Override
++    public org.bukkit.command.CommandSender getBukkitSender(CommandSourceStack wrapper) {
++        return this.remoteConsole;
++    }
++    // CraftBukkit end
++
+     @Override
+     public void sendSystemMessage(Component component) {
+         this.buffer.append(component.getString());

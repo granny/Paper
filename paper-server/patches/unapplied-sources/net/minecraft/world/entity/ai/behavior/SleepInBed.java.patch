@@ -1,0 +1,20 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/ai/behavior/SleepInBed.java b/net/minecraft/world/entity/ai/behavior/SleepInBed.java
+index 3ffe336eaf13877376e3f98ea115a48eb2c03113..bc6a5cacd67d46e0beb97adf30d98c1034be1a44 100644
+--- a/net/minecraft/world/entity/ai/behavior/SleepInBed.java
++++ b/net/minecraft/world/entity/ai/behavior/SleepInBed.java
+@@ -42,7 +42,8 @@ public class SleepInBed extends Behavior<LivingEntity> {
+                     }
+                 }
+ 
+-                BlockState blockState = level.getBlockState(globalPos.pos());
++                BlockState blockState = level.getBlockStateIfLoaded(globalPos.pos()); // Paper - Prevent sync chunk loads when villagers try to find beds
++                if (blockState == null) { return false; } // Paper - Prevent sync chunk loads when villagers try to find beds
+                 return globalPos.pos().closerToCenterThan(owner.position(), 2.0) && blockState.is(BlockTags.BEDS) && !blockState.getValue(BedBlock.OCCUPIED);
+             }
+         }

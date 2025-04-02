@@ -1,0 +1,25 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/item/enchantment/effects/SpawnParticlesEffect.java b/net/minecraft/world/item/enchantment/effects/SpawnParticlesEffect.java
+index 24567235763432b9ab98d7c076cec6c2b909bb8f..1b4cc3d5a9d6ea66e3ae89248d27aced7f73ef75 100644
+--- a/net/minecraft/world/item/enchantment/effects/SpawnParticlesEffect.java
++++ b/net/minecraft/world/item/enchantment/effects/SpawnParticlesEffect.java
+@@ -58,8 +58,13 @@ public record SpawnParticlesEffect(
+         Vec3 knownMovement = entity.getKnownMovement();
+         float bbWidth = entity.getBbWidth();
+         float bbHeight = entity.getBbHeight();
+-        level.sendParticles(
++        // Paper start - Hide soul speed particles for vanished players
++        level.sendParticlesSource(
++            entity,
+             this.particle,
++            false,
++            false,
++        // Paper end - Hide soul speed particles for vanished players
+             this.horizontalPosition.getCoordinate(origin.x(), origin.x(), bbWidth, random),
+             this.verticalPosition.getCoordinate(origin.y(), origin.y() + bbHeight / 2.0F, bbHeight, random),
+             this.horizontalPosition.getCoordinate(origin.z(), origin.z(), bbWidth, random),

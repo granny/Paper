@@ -1,0 +1,31 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/animal/Rabbit.java b/net/minecraft/world/entity/animal/Rabbit.java
+index 24f7e560020aeb159613f17367861447cccd16e8..cc7d990f271af1371aa62e8a2ee2ee1bfffb621a 100644
+--- a/net/minecraft/world/entity/animal/Rabbit.java
++++ b/net/minecraft/world/entity/animal/Rabbit.java
+@@ -95,7 +95,7 @@ public class Rabbit extends Animal {
+         super(entityType, level);
+         this.jumpControl = new Rabbit.RabbitJumpControl(this);
+         this.moveControl = new Rabbit.RabbitMoveControl(this);
+-        this.setSpeedModifier(0.0);
++        //this.setSpeedModifier(0.0); // CraftBukkit
+     }
+ 
+     @Override
+@@ -588,9 +588,11 @@ public class Rabbit extends Animal {
+                 if (this.canRaid && block instanceof CarrotBlock) {
+                     int ageValue = blockState.getValue(CarrotBlock.AGE);
+                     if (ageValue == 0) {
++                        if (!org.bukkit.craftbukkit.event.CraftEventFactory.callEntityChangeBlockEvent(this.rabbit, blockPos, blockState.getFluidState().createLegacyBlock())) return; // CraftBukkit // Paper - fix wrong block state
+                         level.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 2);
+                         level.destroyBlock(blockPos, true, this.rabbit);
+                     } else {
++                        if (!org.bukkit.craftbukkit.event.CraftEventFactory.callEntityChangeBlockEvent(this.rabbit, blockPos, blockState.setValue(CarrotBlock.AGE, ageValue - 1))) return; // CraftBukkit // Paper - fix wrong block state
+                         level.setBlock(blockPos, blockState.setValue(CarrotBlock.AGE, ageValue - 1), 2);
+                         level.gameEvent(GameEvent.BLOCK_CHANGE, blockPos, GameEvent.Context.of(this.rabbit));
+                         level.levelEvent(2001, blockPos, Block.getId(blockState));

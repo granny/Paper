@@ -1,0 +1,94 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/server/players/OldUsersConverter.java b/net/minecraft/server/players/OldUsersConverter.java
+index 7159bf90c684e66c9f462a5d8ba7adb8ebf1c6be..194082763f41a58dc8ee0241a2eeb6dd39dff88d 100644
+--- a/net/minecraft/server/players/OldUsersConverter.java
++++ b/net/minecraft/server/players/OldUsersConverter.java
+@@ -49,7 +49,8 @@ public class OldUsersConverter {
+ 
+     private static void lookupPlayers(MinecraftServer server, Collection<String> names, ProfileLookupCallback callback) {
+         String[] strings = names.stream().filter(name -> !StringUtil.isNullOrEmpty(name)).toArray(String[]::new);
+-        if (server.usesAuthentication()) {
++        if (server.usesAuthentication() ||
++            (io.papermc.paper.configuration.GlobalConfiguration.get().proxies.isProxyOnlineMode())) { // Spigot: bungee = online mode, for now.  // Paper - Add setting for proxy online mode status
+             server.getProfileRepository().findProfilesByNames(strings, callback);
+         } else {
+             for (String string : strings) {
+@@ -65,7 +66,7 @@ public class OldUsersConverter {
+                 try {
+                     userBanList.load();
+                 } catch (IOException var6) {
+-                    LOGGER.warn("Could not load existing file {}", userBanList.getFile().getName(), var6);
++                    LOGGER.warn("Could not load existing file {}", userBanList.getFile().getName()); // CraftBukkit - don't print stacktrace
+                 }
+             }
+ 
+@@ -120,7 +121,7 @@ public class OldUsersConverter {
+                 try {
+                     ipBanList.load();
+                 } catch (IOException var11) {
+-                    LOGGER.warn("Could not load existing file {}", ipBanList.getFile().getName(), var11);
++                    LOGGER.warn("Could not load existing file {}", ipBanList.getFile().getName()); // CraftBukkit - don't print stacktrace
+                 }
+             }
+ 
+@@ -156,7 +157,7 @@ public class OldUsersConverter {
+                 try {
+                     serverOpList.load();
+                 } catch (IOException var6) {
+-                    LOGGER.warn("Could not load existing file {}", serverOpList.getFile().getName(), var6);
++                    LOGGER.warn("Could not load existing file {}", serverOpList.getFile().getName()); // CraftBukkit - don't print stacktrace
+                 }
+             }
+ 
+@@ -200,7 +201,7 @@ public class OldUsersConverter {
+                 try {
+                     userWhiteList.load();
+                 } catch (IOException var6) {
+-                    LOGGER.warn("Could not load existing file {}", userWhiteList.getFile().getName(), var6);
++                    LOGGER.warn("Could not load existing file {}", userWhiteList.getFile().getName()); // CraftBukkit - don't print stacktrace
+                 }
+             }
+ 
+@@ -313,6 +314,37 @@ public class OldUsersConverter {
+                     private void movePlayerFile(File file3, String oldFileName, String newFileName) {
+                         File file4 = new File(worldPlayersDirectory, oldFileName + ".dat");
+                         File file5 = new File(file3, newFileName + ".dat");
++                        // CraftBukkit start - Use old file name to seed lastKnownName
++                        net.minecraft.nbt.CompoundTag root = null;
++
++                        try {
++                            root = net.minecraft.nbt.NbtIo.readCompressed(new java.io.FileInputStream(file4), net.minecraft.nbt.NbtAccounter.unlimitedHeap());
++                        } catch (Exception exception) {
++                            // Paper start
++                            io.papermc.paper.util.StacktraceDeobfuscator.INSTANCE.deobfuscateThrowable(exception);
++                            exception.printStackTrace();
++                            com.destroystokyo.paper.exception.ServerInternalException.reportInternalException(exception);
++                            // Paper end
++                        }
++
++                        if (root != null) {
++                            if (!root.contains("bukkit")) {
++                                root.put("bukkit", new net.minecraft.nbt.CompoundTag());
++                            }
++                            net.minecraft.nbt.CompoundTag data = root.getCompoundOrEmpty("bukkit");
++                            data.putString("lastKnownName", oldFileName);
++
++                            try {
++                                net.minecraft.nbt.NbtIo.writeCompressed(root, new java.io.FileOutputStream(file1));
++                            } catch (Exception exception) {
++                                // Paper start
++                                io.papermc.paper.util.StacktraceDeobfuscator.INSTANCE.deobfuscateThrowable(exception);
++                                exception.printStackTrace();
++                                com.destroystokyo.paper.exception.ServerInternalException.reportInternalException(exception);
++                                // Paper end
++                            }
++                       }
++                        // CraftBukkit end
+                         OldUsersConverter.ensureDirectoryExists(file3);
+                         if (!file4.renameTo(file5)) {
+                             throw new OldUsersConverter.ConversionError("Could not convert file for " + oldFileName);

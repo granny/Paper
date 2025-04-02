@@ -1,0 +1,52 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/entity/BarrelBlockEntity.java b/net/minecraft/world/level/block/entity/BarrelBlockEntity.java
+index 1b6b4acc44a7c8cd140dbd27b3377055e73532f0..027502d0af5512c31878978c4d05c52fa3029cca 100644
+--- a/net/minecraft/world/level/block/entity/BarrelBlockEntity.java
++++ b/net/minecraft/world/level/block/entity/BarrelBlockEntity.java
+@@ -21,6 +21,41 @@ import net.minecraft.world.level.block.BarrelBlock;
+ import net.minecraft.world.level.block.state.BlockState;
+ 
+ public class BarrelBlockEntity extends RandomizableContainerBlockEntity {
++    // CraftBukkit start - add fields and methods
++    public java.util.List<org.bukkit.entity.HumanEntity> transaction = new java.util.ArrayList<>();
++    private int maxStack = MAX_STACK;
++
++    @Override
++    public java.util.List<ItemStack> getContents() {
++        return this.items;
++    }
++
++    @Override
++    public void onOpen(org.bukkit.craftbukkit.entity.CraftHumanEntity player) {
++        this.transaction.add(player);
++    }
++
++    @Override
++    public void onClose(org.bukkit.craftbukkit.entity.CraftHumanEntity player) {
++        this.transaction.remove(player);
++    }
++
++    @Override
++    public java.util.List<org.bukkit.entity.HumanEntity> getViewers() {
++        return this.transaction;
++    }
++
++    @Override
++    public int getMaxStackSize() {
++        return this.maxStack;
++    }
++
++    @Override
++    public void setMaxStackSize(int size) {
++        this.maxStack = size;
++    }
++    // CraftBukkit end
++
+     private NonNullList<ItemStack> items = NonNullList.withSize(27, ItemStack.EMPTY);
+     public final ContainerOpenersCounter openersCounter = new ContainerOpenersCounter() {
+         @Override

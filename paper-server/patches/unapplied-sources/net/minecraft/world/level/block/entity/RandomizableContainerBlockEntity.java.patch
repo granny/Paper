@@ -1,0 +1,24 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity.java b/net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity.java
+index 6fa93c92868b271153fd3fc337200d609068166d..1c98d003907feb16de8f26377fceedf728afe7fb 100644
+--- a/net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity.java
++++ b/net/minecraft/world/level/block/entity/RandomizableContainerBlockEntity.java
+@@ -116,4 +116,13 @@ public abstract class RandomizableContainerBlockEntity extends BaseContainerBloc
+         tag.remove("LootTable");
+         tag.remove("LootTableSeed");
+     }
++
++    // Paper start - LootTable API
++    final com.destroystokyo.paper.loottable.PaperLootableInventoryData lootableData = new com.destroystokyo.paper.loottable.PaperLootableInventoryData(); // Paper
++
++    @Override
++    public com.destroystokyo.paper.loottable.PaperLootableInventoryData lootableData() {
++        return this.lootableData;
++    }
++    // Paper end - LootTable API
+ }

@@ -1,0 +1,22 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/levelgen/structure/structures/ShipwreckPieces.java b/net/minecraft/world/level/levelgen/structure/structures/ShipwreckPieces.java
+index 0f67933a40453ce1cd46160e3bfcd1da26e94bdf..83c7e341cb5fd4eee94d52ef4576e64fd8d1c32d 100644
+--- a/net/minecraft/world/level/levelgen/structure/structures/ShipwreckPieces.java
++++ b/net/minecraft/world/level/levelgen/structure/structures/ShipwreckPieces.java
+@@ -126,7 +126,10 @@ public class ShipwreckPieces {
+         protected void handleDataMarker(String name, BlockPos pos, ServerLevelAccessor level, RandomSource random, BoundingBox box) {
+             ResourceKey<LootTable> resourceKey = ShipwreckPieces.MARKERS_TO_LOOT.get(name);
+             if (resourceKey != null) {
+-                RandomizableContainer.setBlockEntityLootTable(level, random, pos.below(), resourceKey);
++                // CraftBukkit start
++                // RandomizableContainer.setBlockEntityLootTable(level, random, pos.below(), resourceKey);
++                this.setCraftLootTable(level, pos.below(), random, resourceKey);
++                // CraftBukkit end
+             }
+         }
+ 

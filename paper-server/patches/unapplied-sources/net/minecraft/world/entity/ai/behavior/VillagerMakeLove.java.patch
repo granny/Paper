@@ -1,0 +1,31 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/ai/behavior/VillagerMakeLove.java b/net/minecraft/world/entity/ai/behavior/VillagerMakeLove.java
+index ac7b7f15134c082ae9760b3e5c58649aafe85143..2591e4bbd234e51ff2c6b00db888d3b158f5a07d 100644
+--- a/net/minecraft/world/entity/ai/behavior/VillagerMakeLove.java
++++ b/net/minecraft/world/entity/ai/behavior/VillagerMakeLove.java
+@@ -111,11 +111,17 @@ public class VillagerMakeLove extends Behavior<Villager> {
+         if (breedOffspring == null) {
+             return Optional.empty();
+         } else {
+-            parent.setAge(6000);
+-            partner.setAge(6000);
+             breedOffspring.setAge(-24000);
++            // Paper - Move age setting down
+             breedOffspring.snapTo(parent.getX(), parent.getY(), parent.getZ(), 0.0F, 0.0F);
+-            level.addFreshEntityWithPassengers(breedOffspring);
++            // CraftBukkit start - call EntityBreedEvent
++            if (org.bukkit.craftbukkit.event.CraftEventFactory.callEntityBreedEvent(breedOffspring, parent, partner, null, null, 0).isCancelled()) {
++                return Optional.empty();
++            }
++            parent.setAge(6000);
++            partner.setAge(6000);
++            level.addFreshEntityWithPassengers(breedOffspring, org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason.BREEDING);
++            // CraftBukkit end - call EntityBreedEvent
+             level.broadcastEntityEvent(breedOffspring, (byte)12);
+             return Optional.of(breedOffspring);
+         }

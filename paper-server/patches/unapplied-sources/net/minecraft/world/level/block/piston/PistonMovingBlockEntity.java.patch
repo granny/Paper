@@ -1,0 +1,28 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/piston/PistonMovingBlockEntity.java b/net/minecraft/world/level/block/piston/PistonMovingBlockEntity.java
+index d06a434d1e2b068bdb8c01b94078305cec23a7a0..f8d10be7a0aa7f66f05126e75187025c040e3494 100644
+--- a/net/minecraft/world/level/block/piston/PistonMovingBlockEntity.java
++++ b/net/minecraft/world/level/block/piston/PistonMovingBlockEntity.java
+@@ -39,7 +39,7 @@ public class PistonMovingBlockEntity extends BlockEntity {
+     private static final boolean DEFAULT_EXTENDING = false;
+     private static final boolean DEFAULT_SOURCE = false;
+     private BlockState movedState = DEFAULT_BLOCK_STATE;
+-    private Direction direction;
++    private Direction direction = Direction.DOWN; // Paper - default to first value to avoid NPE
+     private boolean extending = false;
+     private boolean isSourcePiston = false;
+     private static final ThreadLocal<Direction> NOCLIP = ThreadLocal.withInitial(() -> null);
+@@ -310,7 +310,7 @@ public class PistonMovingBlockEntity extends BlockEntity {
+                 if (level.getBlockState(pos).is(Blocks.MOVING_PISTON)) {
+                     BlockState blockState = Block.updateFromNeighbourShapes(blockEntity.movedState, level, pos);
+                     if (blockState.isAir()) {
+-                        level.setBlock(pos, blockEntity.movedState, 340);
++                        level.setBlock(pos, blockEntity.movedState, io.papermc.paper.configuration.GlobalConfiguration.get().unsupportedSettings.allowPistonDuplication ? 340 : (340 | Block.UPDATE_CLIENTS)); // Paper - fix a variety of piston desync dupes; force notify (flag 2), it's possible the set type by the piston block (which doesn't notify) set this block to air
+                         Block.updateOrDestroy(blockEntity.movedState, blockState, level, pos, 3);
+                     } else {
+                         if (blockState.hasProperty(BlockStateProperties.WATERLOGGED) && blockState.getValue(BlockStateProperties.WATERLOGGED)) {

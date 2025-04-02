@@ -1,0 +1,31 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/item/HangingEntityItem.java b/net/minecraft/world/item/HangingEntityItem.java
+index 2c2bad562fa7e05c96a0976bc4255d88b460c875..5f9c166b8ba9e9dcabb7398308e7520a88335eae 100644
+--- a/net/minecraft/world/item/HangingEntityItem.java
++++ b/net/minecraft/world/item/HangingEntityItem.java
+@@ -62,6 +62,20 @@ public class HangingEntityItem extends Item {
+             EntityType.<HangingEntity>createDefaultStackConfig(level, itemInHand, player).accept(hangingEntity);
+             if (hangingEntity.survives()) {
+                 if (!level.isClientSide) {
++                    // CraftBukkit start - fire HangingPlaceEvent
++                    org.bukkit.entity.Player bukkitPlayer = player == null ? null : (org.bukkit.entity.Player) player.getBukkitEntity();
++                    org.bukkit.block.Block blockClicked = org.bukkit.craftbukkit.block.CraftBlock.at(level, blockPos);
++                    org.bukkit.block.BlockFace blockFace = org.bukkit.craftbukkit.block.CraftBlock.notchToBlockFace(clickedFace);
++                    org.bukkit.inventory.EquipmentSlot hand = org.bukkit.craftbukkit.CraftEquipmentSlot.getHand(context.getHand());
++
++                    org.bukkit.event.hanging.HangingPlaceEvent event = new org.bukkit.event.hanging.HangingPlaceEvent((org.bukkit.entity.Hanging) hangingEntity.getBukkitEntity(), bukkitPlayer, blockClicked, blockFace, hand, org.bukkit.craftbukkit.inventory.CraftItemStack.asBukkitCopy(itemInHand));
++                    level.getCraftServer().getPluginManager().callEvent(event);
++
++                    if (event.isCancelled()) {
++                        if (player != null) player.containerMenu.sendAllDataToRemote(); // Paper - Fix inventory desync
++                        return InteractionResult.FAIL;
++                    }
++                    // CraftBukkit end
+                     hangingEntity.playPlacementSound();
+                     level.gameEvent(player, GameEvent.ENTITY_PLACE, hangingEntity.position());
+                     level.addFreshEntity(hangingEntity);

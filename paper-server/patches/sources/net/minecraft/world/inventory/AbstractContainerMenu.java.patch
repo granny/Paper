@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/inventory/AbstractContainerMenu.java
 +++ b/net/minecraft/world/inventory/AbstractContainerMenu.java
-@@ -65,6 +_,36 @@
+@@ -66,6 +_,36 @@
      @Nullable
      private ContainerSynchronizer synchronizer;
      private boolean suppressRemoteUpdates;
@@ -37,7 +37,7 @@
  
      protected AbstractContainerMenu(@Nullable MenuType<?> menuType, int containerId) {
          this.menuType = menuType;
-@@ -176,8 +_,19 @@
+@@ -218,8 +_,19 @@
  
          if (this.synchronizer != null) {
              this.synchronizer.sendInitialData(this, list, carried.copy(), this.remoteDataSlots.toIntArray());
@@ -59,7 +59,7 @@
  
      public void removeSlotListener(ContainerListener listener) {
          this.containerListeners.remove(listener);
-@@ -243,7 +_,7 @@
+@@ -285,7 +_,7 @@
              this.lastSlots.set(slotIndex, itemStack1);
  
              for (ContainerListener containerListener : this.containerListeners) {
@@ -68,7 +68,7 @@
              }
          }
      }
-@@ -351,6 +_,7 @@
+@@ -393,6 +_,7 @@
                      this.resetQuickCraft();
                  }
              } else if (this.quickcraftStatus == 1) {
@@ -76,7 +76,7 @@
                  Slot slot = this.slots.get(slotId);
                  ItemStack carried = this.getCarried();
                  if (canItemQuickReplace(slot, carried, true)
-@@ -375,6 +_,7 @@
+@@ -417,6 +_,7 @@
                      }
  
                      int count = this.getCarried().getCount();
@@ -84,7 +84,7 @@
  
                      for (Slot slot1 : this.quickcraftSlots) {
                          ItemStack carried1 = this.getCarried();
-@@ -387,12 +_,48 @@
+@@ -429,12 +_,48 @@
                              int min = Math.min(itemStack.getMaxStackSize(), slot1.getMaxStackSize(itemStack));
                              int min1 = Math.min(getQuickCraftPlaceCount(this.quickcraftSlots, this.quickcraftType, itemStack) + i2, min);
                              count -= min1 - i2;
@@ -139,7 +139,7 @@
                  }
  
                  this.resetQuickCraft();
-@@ -406,8 +_,11 @@
+@@ -448,8 +_,11 @@
              if (slotId == -999) {
                  if (!this.getCarried().isEmpty()) {
                      if (clickAction == ClickAction.PRIMARY) {
@@ -152,7 +152,7 @@
                      } else {
                          player.drop(this.getCarried().split(1), true);
                      }
-@@ -469,8 +_,18 @@
+@@ -511,8 +_,18 @@
                  }
  
                  slot.setChanged();
@@ -171,7 +171,7 @@
              ItemStack item = inventory.getItem(button);
              Slot slot = this.slots.get(slotId);
              ItemStack carried = slot.getItem();
-@@ -590,8 +_,9 @@
+@@ -632,8 +_,9 @@
          if (player instanceof ServerPlayer) {
              ItemStack carried = this.getCarried();
              if (!carried.isEmpty()) {
@@ -182,7 +182,7 @@
              }
          }
      }
-@@ -637,6 +_,14 @@
+@@ -679,6 +_,14 @@
      public abstract boolean stillValid(Player player);
  
      protected boolean moveItemStackTo(ItemStack stack, int startIndex, int endIndex, boolean reverseDirection) {
@@ -197,7 +197,7 @@
          boolean flag = false;
          int i = startIndex;
          if (reverseDirection) {
-@@ -647,18 +_,27 @@
+@@ -689,18 +_,27 @@
              while (!stack.isEmpty() && (reverseDirection ? i >= startIndex : i < endIndex)) {
                  Slot slot = this.slots.get(i);
                  ItemStack item = slot.getItem();
@@ -225,7 +225,7 @@
                          flag = true;
                      }
                  }
-@@ -681,10 +_,21 @@
+@@ -723,10 +_,21 @@
              while (reverseDirection ? i >= startIndex : i < endIndex) {
                  Slot slotx = this.slots.get(i);
                  ItemStack itemx = slotx.getItem();
@@ -247,7 +247,7 @@
                      flag = true;
                      break;
                  }
-@@ -768,6 +_,11 @@
+@@ -810,6 +_,11 @@
      }
  
      public ItemStack getCarried() {
@@ -259,9 +259,9 @@
          return this.carried;
      }
  
-@@ -820,4 +_,15 @@
-         this.stateId = this.stateId + 1 & 32767;
-         return this.stateId;
+@@ -865,4 +_,15 @@
+ 
+     public void updateData(List<Integer> list) {
      }
 +
 +    // Paper start - Add missing InventoryHolders

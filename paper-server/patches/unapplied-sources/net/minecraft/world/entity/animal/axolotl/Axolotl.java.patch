@@ -1,0 +1,46 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/animal/axolotl/Axolotl.java b/net/minecraft/world/entity/animal/axolotl/Axolotl.java
+index f473bf9df609222d6f49fdff39ca0bdd39ad7512..233025bc1d4ba2590223def9b206140c68ea5f26 100644
+--- a/net/minecraft/world/entity/animal/axolotl/Axolotl.java
++++ b/net/minecraft/world/entity/animal/axolotl/Axolotl.java
+@@ -231,7 +231,7 @@ public class Axolotl extends Animal implements Bucketable {
+ 
+     @Override
+     public int getMaxAirSupply() {
+-        return 6000;
++        return this.maxAirTicks; // CraftBukkit - SPIGOT-6907: re-implement LivingEntity#setMaximumAir()
+     }
+ 
+     public Axolotl.Variant getVariant() {
+@@ -449,10 +449,10 @@ public class Axolotl extends Animal implements Bucketable {
+         if (effect == null || effect.endsWithin(2399)) {
+             int i = effect != null ? effect.getDuration() : 0;
+             int min = Math.min(2400, 100 + i);
+-            player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, min, 0), this);
++            player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, min, 0), this, org.bukkit.event.entity.EntityPotionEffectEvent.Cause.AXOLOTL); // CraftBukkit
+         }
+ 
+-        player.removeEffect(MobEffects.MINING_FATIGUE);
++        player.removeEffect(MobEffects.MINING_FATIGUE, org.bukkit.event.entity.EntityPotionEffectEvent.Cause.AXOLOTL); // Paper - Add missing effect cause
+     }
+ 
+     @Override
+@@ -545,6 +545,13 @@ public class Axolotl extends Animal implements Bucketable {
+         return level.getBlockState(pos.below()).is(BlockTags.AXOLOTLS_SPAWNABLE_ON);
+     }
+ 
++    // CraftBukkit start - SPIGOT-6907: re-implement LivingEntity#setMaximumAir()
++    @Override
++    public int getDefaultMaxAirSupply() {
++        return AXOLOTL_TOTAL_AIR_SUPPLY;
++    }
++    // CraftBukkit end
++
+     public static enum AnimationState {
+         PLAYING_DEAD,
+         IN_WATER,

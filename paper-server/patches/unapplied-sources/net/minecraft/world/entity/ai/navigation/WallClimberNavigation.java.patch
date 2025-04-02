@@ -1,0 +1,22 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/ai/navigation/WallClimberNavigation.java b/net/minecraft/world/entity/ai/navigation/WallClimberNavigation.java
+index 8e1b2beb716fb6708f34658abc590fb90775053b..9e304264b0224df4ccb47ae53b8ba99bffd5c5f8 100644
+--- a/net/minecraft/world/entity/ai/navigation/WallClimberNavigation.java
++++ b/net/minecraft/world/entity/ai/navigation/WallClimberNavigation.java
+@@ -16,9 +16,9 @@ public class WallClimberNavigation extends GroundPathNavigation {
+     }
+ 
+     @Override
+-    public Path createPath(BlockPos pos, int accuracy) {
++    public Path createPath(BlockPos pos, @Nullable Entity entity, int accuracy) {
+         this.pathToPosition = pos;
+-        return super.createPath(pos, accuracy);
++        return super.createPath(pos, entity, accuracy); // Paper - EntityPathfindEvent
+     }
+ 
+     @Override

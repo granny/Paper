@@ -1,0 +1,19 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/dimension/end/DragonRespawnAnimation.java b/net/minecraft/world/level/dimension/end/DragonRespawnAnimation.java
+index ee99d483bcefad19ee34e5a596dee673aa6040a9..ba54696b52bf6dc4fd64f8da5182b24d637af5c7 100644
+--- a/net/minecraft/world/level/dimension/end/DragonRespawnAnimation.java
++++ b/net/minecraft/world/level/dimension/end/DragonRespawnAnimation.java
+@@ -90,7 +90,7 @@ public enum DragonRespawnAnimation {
+                 for (EndCrystal endCrystal : crystals) {
+                     endCrystal.setBeamTarget(null);
+                     level.explode(endCrystal, endCrystal.getX(), endCrystal.getY(), endCrystal.getZ(), 6.0F, Level.ExplosionInteraction.NONE);
+-                    endCrystal.discard();
++                    endCrystal.discard(org.bukkit.event.entity.EntityRemoveEvent.Cause.EXPLODE); // CraftBukkit - add Bukkit remove cause
+                 }
+             } else if (ticks >= 80) {
+                 level.levelEvent(3001, new BlockPos(0, 128, 0), 0);

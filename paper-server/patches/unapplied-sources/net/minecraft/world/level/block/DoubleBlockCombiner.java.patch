@@ -1,0 +1,24 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/DoubleBlockCombiner.java b/net/minecraft/world/level/block/DoubleBlockCombiner.java
+index d330df2618898200b96a4aeb0a56bf6f6a252f2b..be56753e83f2812be57e0d26a32197b0014f6109 100644
+--- a/net/minecraft/world/level/block/DoubleBlockCombiner.java
++++ b/net/minecraft/world/level/block/DoubleBlockCombiner.java
+@@ -34,7 +34,12 @@ public class DoubleBlockCombiner {
+                 return new DoubleBlockCombiner.NeighborCombineResult.Single<>(blockEntity);
+             } else {
+                 BlockPos blockPos = pos.relative(directionGetter.apply(state));
+-                BlockState blockState = level.getBlockState(blockPos);
++                // Paper start - Don't load Chunks from Hoppers and other things
++                BlockState blockState = level.getBlockStateIfLoaded(blockPos);
++                if (blockState == null) {
++                    return new DoubleBlockCombiner.NeighborCombineResult.Single<>(blockEntity);
++                }
++                // Paper end - Don't load Chunks from Hoppers and other things
+                 if (blockState.is(state.getBlock())) {
+                     DoubleBlockCombiner.BlockType blockType1 = doubleBlockTypeGetter.apply(blockState);
+                     if (blockType1 != DoubleBlockCombiner.BlockType.SINGLE

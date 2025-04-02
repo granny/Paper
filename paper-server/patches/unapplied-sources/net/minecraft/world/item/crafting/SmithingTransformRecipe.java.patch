@@ -1,0 +1,53 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/item/crafting/SmithingTransformRecipe.java b/net/minecraft/world/item/crafting/SmithingTransformRecipe.java
+index 3385718a4ebb1d4a183d917d291270901369b4aa..9bc0a9c3577d63a0ad5489bfd4c07d5006245c5f 100644
+--- a/net/minecraft/world/item/crafting/SmithingTransformRecipe.java
++++ b/net/minecraft/world/item/crafting/SmithingTransformRecipe.java
+@@ -21,8 +21,15 @@ public class SmithingTransformRecipe implements SmithingRecipe {
+     final TransmuteResult result;
+     @Nullable
+     private PlacementInfo placementInfo;
++    final boolean copyDataComponents; // Paper - Option to prevent data components copy
+ 
+     public SmithingTransformRecipe(Optional<Ingredient> template, Ingredient base, Optional<Ingredient> addition, TransmuteResult result) {
++    // Paper start - Option to prevent data components copy
++        this(template, base, addition, result, true);
++    }
++    public SmithingTransformRecipe(Optional<Ingredient> template, Ingredient base, Optional<Ingredient> addition, TransmuteResult result, boolean copyDataComponents) {
++        this.copyDataComponents = copyDataComponents;
++    // Paper end - Option to prevent data components copy
+         this.template = template;
+         this.base = base;
+         this.addition = addition;
+@@ -31,7 +38,7 @@ public class SmithingTransformRecipe implements SmithingRecipe {
+ 
+     @Override
+     public ItemStack assemble(SmithingRecipeInput input, HolderLookup.Provider registries) {
+-        return this.result.apply(input.base());
++        return this.result.apply(input.base(), this.copyDataComponents); // Paper - Option to prevent data components copy
+     }
+ 
+     @Override
+@@ -76,6 +83,17 @@ public class SmithingTransformRecipe implements SmithingRecipe {
+         );
+     }
+ 
++    // CraftBukkit start
++    @Override
++    public org.bukkit.inventory.Recipe toBukkitRecipe(org.bukkit.NamespacedKey id) {
++        org.bukkit.craftbukkit.inventory.CraftItemStack result = org.bukkit.craftbukkit.inventory.CraftItemStack.asCraftMirror(new ItemStack(this.result.item(), this.result.count(), this.result.components()));
++
++        org.bukkit.craftbukkit.inventory.CraftSmithingTransformRecipe recipe = new org.bukkit.craftbukkit.inventory.CraftSmithingTransformRecipe(id, result, org.bukkit.craftbukkit.inventory.CraftRecipe.toBukkit(this.template), org.bukkit.craftbukkit.inventory.CraftRecipe.toBukkit(this.base), org.bukkit.craftbukkit.inventory.CraftRecipe.toBukkit(this.addition), this.copyDataComponents); // Paper - Option to prevent data components copy
++
++        return recipe;
++    }
++    // CraftBukkit end
++
+     public static class Serializer implements RecipeSerializer<SmithingTransformRecipe> {
+         private static final MapCodec<SmithingTransformRecipe> CODEC = RecordCodecBuilder.mapCodec(
+             instance -> instance.group(

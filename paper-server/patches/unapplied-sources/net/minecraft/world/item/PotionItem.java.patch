@@ -1,0 +1,23 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/item/PotionItem.java b/net/minecraft/world/item/PotionItem.java
+index db4d2c2a1e24a0623c8e0e418604d0a24be8e8e2..5e892c3ae2ee5fa1914a2c1464abd81e77665c4b 100644
+--- a/net/minecraft/world/item/PotionItem.java
++++ b/net/minecraft/world/item/PotionItem.java
+@@ -41,6 +41,12 @@ public class PotionItem extends Item {
+         PotionContents potionContents = itemInHand.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
+         BlockState blockState = level.getBlockState(clickedPos);
+         if (context.getClickedFace() != Direction.DOWN && blockState.is(BlockTags.CONVERTABLE_TO_MUD) && potionContents.is(Potions.WATER)) {
++            // Paper start
++            if (!org.bukkit.craftbukkit.event.CraftEventFactory.callEntityChangeBlockEvent(player, clickedPos, Blocks.MUD.defaultBlockState())) {
++                player.containerMenu.sendAllDataToRemote();
++                return InteractionResult.PASS;
++            }
++            // Paper end
+             level.playSound(null, clickedPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 1.0F, 1.0F);
+             player.setItemInHand(context.getHand(), ItemUtils.createFilledResult(itemInHand, player, new ItemStack(Items.GLASS_BOTTLE)));
+             player.awardStat(Stats.ITEM_USED.get(itemInHand.getItem()));

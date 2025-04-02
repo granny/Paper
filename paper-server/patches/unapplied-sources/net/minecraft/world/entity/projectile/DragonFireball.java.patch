@@ -1,0 +1,24 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/projectile/DragonFireball.java b/net/minecraft/world/entity/projectile/DragonFireball.java
+index 63f7ffa3b577eeb1d9814d5ec1c9f4eabb24a1ab..7451ba850463e036b04a78628faa5035a43b3bfb 100644
+--- a/net/minecraft/world/entity/projectile/DragonFireball.java
++++ b/net/minecraft/world/entity/projectile/DragonFireball.java
+@@ -53,9 +53,11 @@ public class DragonFireball extends AbstractHurtingProjectile {
+                     }
+                 }
+ 
++                if (new com.destroystokyo.paper.event.entity.EnderDragonFireballHitEvent((org.bukkit.entity.DragonFireball) this.getBukkitEntity(), entitiesOfClass.stream().map(LivingEntity::getBukkitLivingEntity).collect(java.util.stream.Collectors.toList()), (org.bukkit.entity.AreaEffectCloud) areaEffectCloud.getBukkitEntity()).callEvent()) { // Paper - EnderDragon Events
+                 this.level().levelEvent(2006, this.blockPosition(), this.isSilent() ? -1 : 1);
+-                this.level().addFreshEntity(areaEffectCloud);
+-                this.discard();
++                this.level().addFreshEntity(areaEffectCloud, org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason.EXPLOSION); // Paper - use correct spawn reason
++                } else areaEffectCloud.discard(null); // Paper - EnderDragon Events
++                this.discard(org.bukkit.event.entity.EntityRemoveEvent.Cause.HIT); // CraftBukkit - add Bukkit remove cause
+             }
+         }
+     }

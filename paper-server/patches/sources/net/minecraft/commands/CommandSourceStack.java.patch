@@ -1,6 +1,6 @@
 --- a/net/minecraft/commands/CommandSourceStack.java
 +++ b/net/minecraft/commands/CommandSourceStack.java
-@@ -45,7 +_,7 @@
+@@ -47,7 +_,7 @@
  import net.minecraft.world.phys.Vec2;
  import net.minecraft.world.phys.Vec3;
  
@@ -9,7 +9,7 @@
      public static final SimpleCommandExceptionType ERROR_NOT_PLAYER = new SimpleCommandExceptionType(Component.translatable("permissions.requires.player"));
      public static final SimpleCommandExceptionType ERROR_NOT_ENTITY = new SimpleCommandExceptionType(Component.translatable("permissions.requires.entity"));
      public final CommandSource source;
-@@ -63,6 +_,8 @@
+@@ -65,6 +_,8 @@
      private final Vec2 rotation;
      private final CommandSigningContext signingContext;
      private final TaskChainer chatMessageChainer;
@@ -17,8 +17,8 @@
 +    public boolean bypassSelectorPermissions = false; // Paper - add bypass for selector permissions
  
      public CommandSourceStack(
-         CommandSource source,
-@@ -188,6 +_,30 @@
+         CommandSource commandSource,
+@@ -190,6 +_,30 @@
              );
      }
  
@@ -49,7 +49,7 @@
      public CommandSourceStack withRotation(Vec2 rotation) {
          return this.rotation.equals(rotation)
              ? this
-@@ -391,9 +_,44 @@
+@@ -393,9 +_,44 @@
  
      @Override
      public boolean hasPermission(int level) {
@@ -94,20 +94,21 @@
      public Vec3 getPosition() {
          return this.worldPosition;
      }
-@@ -498,20 +_,25 @@
-         Component component = Component.translatable("chat.type.admin", this.getDisplayName(), message).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC);
-         if (this.server.getGameRules().getBoolean(GameRules.RULE_SENDCOMMANDFEEDBACK)) {
-             for (ServerPlayer serverPlayer : this.server.getPlayerList().getPlayers()) {
--                if (serverPlayer.commandSource() != this.source && this.server.getPlayerList().isOp(serverPlayer.getGameProfile())) {
+@@ -506,21 +_,26 @@
+             PlayerList playerList = this.theGame.playerList();
+ 
+             for (ServerPlayer serverPlayer : playerList.getPlayers()) {
+-                if (serverPlayer.commandSource() != this.source && playerList.isOp(serverPlayer.getGameProfile())) {
 +                if (serverPlayer.commandSource() != this.source && serverPlayer.getBukkitEntity().hasPermission("minecraft.admin.command_feedback")) { // CraftBukkit
                      serverPlayer.sendSystemMessage(component);
                  }
              }
          }
  
--        if (this.source != this.server && this.server.getGameRules().getBoolean(GameRules.RULE_LOGADMINCOMMANDS)) {
-+        if (this.source != this.server && this.server.getGameRules().getBoolean(GameRules.RULE_LOGADMINCOMMANDS) && !org.spigotmc.SpigotConfig.silentCommandBlocks) { // Spigot
-             this.server.sendSystemMessage(component);
+         MinecraftServer minecraftServer = this.theGame.server();
+-        if (this.source != minecraftServer && this.theGame().getGameRules().getBoolean(GameRules.RULE_LOGADMINCOMMANDS)) {
++        if (this.source != minecraftServer && this.theGame().getGameRules().getBoolean(GameRules.RULE_LOGADMINCOMMANDS) && !org.spigotmc.SpigotConfig.silentCommandBlocks) { // Spigot
+             minecraftServer.sendSystemMessage(component);
          }
      }
  
@@ -123,16 +124,16 @@
          }
      }
  
-@@ -522,7 +_,7 @@
+@@ -531,7 +_,7 @@
  
      @Override
      public Collection<String> getOnlinePlayerNames() {
--        return Lists.newArrayList(this.server.getPlayerNames());
-+        return this.entity instanceof ServerPlayer sourcePlayer && !sourcePlayer.getBukkitEntity().hasPermission("paper.bypass-visibility.tab-completion") ? this.getServer().getPlayerList().getPlayers().stream().filter(serverPlayer -> sourcePlayer.getBukkitEntity().canSee(serverPlayer.getBukkitEntity())).map(serverPlayer -> serverPlayer.getGameProfile().getName()).toList() : Lists.newArrayList(this.server.getPlayerNames()); // Paper - Make CommandSourceStack respect hidden players
+-        return Lists.newArrayList(this.theGame.playerList().getPlayerNamesArray());
++        return this.entity instanceof ServerPlayer sourcePlayer && !sourcePlayer.getBukkitEntity().hasPermission("paper.bypass-visibility.tab-completion") ? this.getServer().getPlayerList().getPlayers().stream().filter(serverPlayer -> sourcePlayer.getBukkitEntity().canSee(serverPlayer.getBukkitEntity())).map(serverPlayer -> serverPlayer.getGameProfile().getName()).toList() : Lists.newArrayList(this.theGame.playerList().getPlayerNamesArray()); // Paper - Make CommandSourceStack respect hidden players
      }
  
      @Override
-@@ -597,4 +_,16 @@
+@@ -606,4 +_,16 @@
      public boolean isSilent() {
          return this.silent;
      }

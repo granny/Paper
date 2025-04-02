@@ -1,0 +1,29 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/DiodeBlock.java b/net/minecraft/world/level/block/DiodeBlock.java
+index 5c1a38a35568591d82cc49c33643e9bfe0aae0ed..558751ade918a92a1173096ccfeacf238f4260d0 100644
+--- a/net/minecraft/world/level/block/DiodeBlock.java
++++ b/net/minecraft/world/level/block/DiodeBlock.java
+@@ -56,8 +56,18 @@ public abstract class DiodeBlock extends HorizontalDirectionalBlock {
+             boolean poweredValue = state.getValue(POWERED);
+             boolean shouldTurnOn = this.shouldTurnOn(level, pos, state);
+             if (poweredValue && !shouldTurnOn) {
++                // CraftBukkit start
++                if (org.bukkit.craftbukkit.event.CraftEventFactory.callRedstoneChange(level, pos, 15, 0).getNewCurrent() != 0) {
++                    return;
++                }
++                // CraftBukkit end
+                 level.setBlock(pos, state.setValue(POWERED, false), 2);
+             } else if (!poweredValue) {
++                // CraftBukkit start
++                if (org.bukkit.craftbukkit.event.CraftEventFactory.callRedstoneChange(level, pos, 0, 15).getNewCurrent() != 15) {
++                    return;
++                }
++                // CraftBukkit end
+                 level.setBlock(pos, state.setValue(POWERED, true), 2);
+                 if (!shouldTurnOn) {
+                     level.scheduleTick(pos, this, this.getDelay(state), TickPriority.VERY_HIGH);

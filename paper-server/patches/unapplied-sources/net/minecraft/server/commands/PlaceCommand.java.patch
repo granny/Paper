@@ -1,0 +1,18 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/server/commands/PlaceCommand.java b/net/minecraft/server/commands/PlaceCommand.java
+index 6112ad66b1830b70a10c7b8777db0ad448ccc7ae..158f6452c34e49de2830013f655ef2ef2ba6667a 100644
+--- a/net/minecraft/server/commands/PlaceCommand.java
++++ b/net/minecraft/server/commands/PlaceCommand.java
+@@ -301,6 +301,7 @@ public class PlaceCommand {
+         if (!structureStart.isValid()) {
+             throw ERROR_STRUCTURE_FAILED.create();
+         } else {
++            structureStart.generationEventCause = org.bukkit.event.world.AsyncStructureGenerateEvent.Cause.COMMAND; // CraftBukkit - set AsyncStructureGenerateEvent.Cause.COMMAND as generation cause
+             BoundingBox boundingBox = structureStart.getBoundingBox();
+             ChunkPos chunkPos = new ChunkPos(SectionPos.blockToSectionCoord(boundingBox.minX()), SectionPos.blockToSectionCoord(boundingBox.minZ()));
+             ChunkPos chunkPos1 = new ChunkPos(SectionPos.blockToSectionCoord(boundingBox.maxX()), SectionPos.blockToSectionCoord(boundingBox.maxZ()));

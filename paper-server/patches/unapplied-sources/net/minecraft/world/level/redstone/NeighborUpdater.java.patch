@@ -1,0 +1,37 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/redstone/NeighborUpdater.java b/net/minecraft/world/level/redstone/NeighborUpdater.java
+index b6eaf4cbc46004d15eed1bc2f840cc204290db1d..e469204866953a93a17b96740411e10111b60b55 100644
+--- a/net/minecraft/world/level/redstone/NeighborUpdater.java
++++ b/net/minecraft/world/level/redstone/NeighborUpdater.java
+@@ -42,8 +42,26 @@ public interface NeighborUpdater {
+     }
+ 
+     static void executeUpdate(Level level, BlockState state, BlockPos pos, Block neighborBlock, @Nullable Orientation orientation, boolean movedByPiston) {
++        // Paper start - Add source block to BlockPhysicsEvent
++        executeUpdate(level, state, pos, neighborBlock, orientation, movedByPiston, pos);
++    }
++
++    static void executeUpdate(Level level, BlockState state, BlockPos pos, Block neighborBlock, @Nullable Orientation orientation, boolean movedByPiston, BlockPos sourcePos) {
++        // Paper end - Add source block to BlockPhysicsEvent
+         try {
++            // CraftBukkit start
++            org.bukkit.event.block.BlockPhysicsEvent event = new org.bukkit.event.block.BlockPhysicsEvent(org.bukkit.craftbukkit.block.CraftBlock.at(level, pos), org.bukkit.craftbukkit.block.CraftBlockData.fromData(state), org.bukkit.craftbukkit.block.CraftBlock.at(level, sourcePos)); // Paper - Add source block to BlockPhysicsEvent
++            level.getCraftServer().getPluginManager().callEvent(event);
++
++            if (event.isCancelled()) {
++                return;
++            }
++            // CraftBukkit end
+             state.handleNeighborChanged(level, pos, neighborBlock, orientation, movedByPiston);
++            // Spigot start
++        } catch (StackOverflowError ex) {
++            level.lastPhysicsProblem = pos.immutable();
++            // Spigot end
+         } catch (Throwable var9) {
+             CrashReport crashReport = CrashReport.forThrowable(var9, "Exception while updating neighbours");
+             CrashReportCategory crashReportCategory = crashReport.addCategory("Block being updated");

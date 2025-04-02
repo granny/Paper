@@ -1,0 +1,47 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/chunk/ProtoChunk.java b/net/minecraft/world/level/chunk/ProtoChunk.java
+index cf4a61f34c6cd65fe7a0a234148f5b57fca0462a..991263ac68d0fb2eeeda28c283ca6f80d5a10af3 100644
+--- a/net/minecraft/world/level/chunk/ProtoChunk.java
++++ b/net/minecraft/world/level/chunk/ProtoChunk.java
+@@ -85,14 +85,33 @@ public class ProtoChunk extends ChunkAccess {
+         return new ChunkAccess.PackedTicks(this.blockTicks.pack(gametime), this.fluidTicks.pack(gametime));
+     }
+ 
++    // Paper start - If loaded util
++    @Override
++    public final FluidState getFluidIfLoaded(BlockPos pos) {
++        return this.getFluidState(pos);
++    }
++
++    @Override
++    public final BlockState getBlockStateIfLoaded(BlockPos pos) {
++        return this.getBlockState(pos);
++    }
++    // Paper end
++
+     @Override
+     public BlockState getBlockState(BlockPos pos) {
+-        int y = pos.getY();
++        // Paper start
++        return this.getBlockState(pos.getX(), pos.getY(), pos.getZ());
++    }
++
++    public BlockState getBlockState(final int x, final int y, final int z) {
++        // Paper end
+         if (this.isOutsideBuildHeight(y)) {
+             return Blocks.VOID_AIR.defaultBlockState();
+         } else {
+-            LevelChunkSection section = this.getSection(this.getSectionIndex(y));
+-            return section.hasOnlyAir() ? Blocks.AIR.defaultBlockState() : section.getBlockState(pos.getX() & 15, y & 15, pos.getZ() & 15);
++            // Paper start
++            LevelChunkSection section = this.getSections()[this.getSectionIndex(y)];
++            return section.hasOnlyAir() ? Blocks.AIR.defaultBlockState() : section.getBlockState(x & 15, y & 15, z & 15);
++            // Paper end
+         }
+     }
+ 

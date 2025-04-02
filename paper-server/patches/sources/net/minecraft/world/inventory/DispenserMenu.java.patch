@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/inventory/DispenserMenu.java
 +++ b/net/minecraft/world/inventory/DispenserMenu.java
-@@ -13,6 +_,10 @@
+@@ -14,6 +_,10 @@
      private static final int USE_ROW_SLOT_START = 36;
      private static final int USE_ROW_SLOT_END = 45;
      public final Container dispenser;
@@ -9,9 +9,9 @@
 +    private final Inventory inventory;
 +    // CraftBukkit end
  
-     public DispenserMenu(int containerId, Inventory playerInventory) {
+     public DispenserMenu(int containerId, Inventory playerInventory, List<Integer> list) {
          this(containerId, playerInventory, new SimpleContainer(9));
-@@ -20,6 +_,9 @@
+@@ -21,6 +_,9 @@
  
      public DispenserMenu(int containerId, Inventory playerInventory, Container container) {
          super(MenuType.GENERIC_3x3, containerId);
@@ -20,8 +20,8 @@
 +        // CraftBukkit end
          checkContainerSize(container, 9);
          this.dispenser = container;
-         container.startOpen(playerInventory.player);
-@@ -38,6 +_,7 @@
+         container.startOpen(playerInventory.getPlayer());
+@@ -39,6 +_,7 @@
  
      @Override
      public boolean stillValid(Player player) {
@@ -29,7 +29,7 @@
          return this.dispenser.stillValid(player);
      }
  
-@@ -77,4 +_,17 @@
+@@ -78,4 +_,17 @@
          super.removed(player);
          this.dispenser.stopOpen(player);
      }

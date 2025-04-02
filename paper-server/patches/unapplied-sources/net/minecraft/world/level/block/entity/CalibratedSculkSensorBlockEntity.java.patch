@@ -1,0 +1,31 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/entity/CalibratedSculkSensorBlockEntity.java b/net/minecraft/world/level/block/entity/CalibratedSculkSensorBlockEntity.java
+index 9666bedfd3b798a95b30b530f846c11e0a9000d8..9a4912953796a9a20c462f49f60648efe32433e4 100644
+--- a/net/minecraft/world/level/block/entity/CalibratedSculkSensorBlockEntity.java
++++ b/net/minecraft/world/level/block/entity/CalibratedSculkSensorBlockEntity.java
+@@ -20,6 +20,12 @@ public class CalibratedSculkSensorBlockEntity extends SculkSensorBlockEntity {
+     public VibrationSystem.User createVibrationUser() {
+         return new CalibratedSculkSensorBlockEntity.VibrationUser(this.getBlockPos());
+     }
++    // Paper start - Configurable sculk sensor listener range
++    @Override
++    protected void saveRangeOverride(final net.minecraft.nbt.CompoundTag nbt) {
++        if (this.rangeOverride != null && this.rangeOverride != 16) nbt.putInt(PAPER_LISTENER_RANGE_NBT_KEY, this.rangeOverride); // only save if it's different from the default
++    }
++    // Paper end - Configurable sculk sensor listener range
+ 
+     protected class VibrationUser extends SculkSensorBlockEntity.VibrationUser {
+         public VibrationUser(final BlockPos pos1) {
+@@ -28,6 +34,7 @@ public class CalibratedSculkSensorBlockEntity extends SculkSensorBlockEntity {
+ 
+         @Override
+         public int getListenerRadius() {
++            if (CalibratedSculkSensorBlockEntity.this.rangeOverride != null) return CalibratedSculkSensorBlockEntity.this.rangeOverride; // Paper - Configurable sculk sensor listener range
+             return 16;
+         }
+ 

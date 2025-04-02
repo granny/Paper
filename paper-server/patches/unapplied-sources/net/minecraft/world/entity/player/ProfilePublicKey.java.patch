@@ -1,0 +1,38 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/player/ProfilePublicKey.java b/net/minecraft/world/entity/player/ProfilePublicKey.java
+index c86902ff60db5af09e940442c83a3799e55ed9a8..15293ed76018f4790754721bd687cbbf906c71dc 100644
+--- a/net/minecraft/world/entity/player/ProfilePublicKey.java
++++ b/net/minecraft/world/entity/player/ProfilePublicKey.java
+@@ -24,7 +24,7 @@ public record ProfilePublicKey(ProfilePublicKey.Data data) {
+ 
+     public static ProfilePublicKey createValidated(SignatureValidator signatureValidator, UUID profileId, ProfilePublicKey.Data data) throws ProfilePublicKey.ValidationException {
+         if (!data.validateSignature(signatureValidator, profileId)) {
+-            throw new ProfilePublicKey.ValidationException(INVALID_SIGNATURE);
++            throw new ProfilePublicKey.ValidationException(INVALID_SIGNATURE, org.bukkit.event.player.PlayerKickEvent.Cause.INVALID_PUBLIC_KEY_SIGNATURE); // Paper - kick event causes
+         } else {
+             return new ProfilePublicKey(data);
+         }
+@@ -88,8 +88,18 @@ public record ProfilePublicKey(ProfilePublicKey.Data data) {
+     }
+ 
+     public static class ValidationException extends ThrowingComponent {
++        public final org.bukkit.event.player.PlayerKickEvent.Cause kickCause; // Paper
++
++        @Deprecated @io.papermc.paper.annotation.DoNotUse // Paper
+         public ValidationException(Component component) {
++            // Paper start
++            this(component, org.bukkit.event.player.PlayerKickEvent.Cause.UNKNOWN);
++        }
++
++        public ValidationException(Component component, org.bukkit.event.player.PlayerKickEvent.Cause kickCause) {
++            // Paper end
+             super(component);
++            this.kickCause = kickCause; // Paper
+         }
+     }
+ }

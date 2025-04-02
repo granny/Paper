@@ -1,0 +1,23 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/item/crafting/RecipeHolder.java b/net/minecraft/world/item/crafting/RecipeHolder.java
+index 5eebf8cda4c352226d41b71362cb28b07cac2b24..2da23c6e1d4a52c74b6a8e36b2e4cecc07537a00 100644
+--- a/net/minecraft/world/item/crafting/RecipeHolder.java
++++ b/net/minecraft/world/item/crafting/RecipeHolder.java
+@@ -10,6 +10,12 @@ public record RecipeHolder<T extends Recipe<?>>(ResourceKey<Recipe<?>> id, T val
+         ResourceKey.streamCodec(Registries.RECIPE), RecipeHolder::id, Recipe.STREAM_CODEC, RecipeHolder::value, RecipeHolder::new
+     );
+ 
++    // CraftBukkit start
++    public final org.bukkit.inventory.Recipe toBukkitRecipe() {
++        return this.value.toBukkitRecipe(org.bukkit.craftbukkit.util.CraftNamespacedKey.fromMinecraft(this.id.location()));
++    }
++    // CraftBukkit end
++
+     @Override
+     public boolean equals(Object other) {
+         return this == other || other instanceof RecipeHolder<?> recipeHolder && this.id == recipeHolder.id;

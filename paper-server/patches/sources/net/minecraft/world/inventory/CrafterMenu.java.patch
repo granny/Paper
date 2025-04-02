@@ -1,6 +1,6 @@
 --- a/net/minecraft/world/inventory/CrafterMenu.java
 +++ b/net/minecraft/world/inventory/CrafterMenu.java
-@@ -19,6 +_,20 @@
+@@ -20,6 +_,20 @@
      private final ContainerData containerData;
      private final Player player;
      private final CraftingContainer container;
@@ -19,9 +19,9 @@
 +    }
 +    // CraftBukkit end
  
-     public CrafterMenu(int containerId, Inventory playerInventory) {
+     public CrafterMenu(int containerId, Inventory inventory, List<Integer> list) {
          super(MenuType.CRAFTER_3x3, containerId);
-@@ -100,6 +_,7 @@
+@@ -101,6 +_,7 @@
  
      @Override
      public boolean stillValid(Player player) {

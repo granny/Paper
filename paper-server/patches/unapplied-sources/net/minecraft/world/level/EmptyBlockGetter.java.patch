@@ -1,0 +1,29 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/EmptyBlockGetter.java b/net/minecraft/world/level/EmptyBlockGetter.java
+index 8741264b0a9529b40c41a4b9bf25b50d27c830bc..f3a7f0bd9e717b5cde4fc1d586851b41cc25f6c5 100644
+--- a/net/minecraft/world/level/EmptyBlockGetter.java
++++ b/net/minecraft/world/level/EmptyBlockGetter.java
+@@ -17,6 +17,18 @@ public enum EmptyBlockGetter implements BlockGetter {
+         return null;
+     }
+ 
++    // Paper start - If loaded util
++    @Override
++    public final FluidState getFluidIfLoaded(BlockPos pos) {
++        return Fluids.EMPTY.defaultFluidState();
++    }
++
++    @Override
++    public final BlockState getBlockStateIfLoaded(BlockPos pos) {
++        return Blocks.AIR.defaultBlockState();
++    }
++    // Paper end
++
+     @Override
+     public BlockState getBlockState(BlockPos pos) {
+         return Blocks.AIR.defaultBlockState();

@@ -44,9 +44,9 @@
          Level level = this.getLevel();
          BlockPos blockPos = this.getBlockPos();
          ResourceKey<LootTable> lootTable = this.getLootTable();
--        if (lootTable != null && level != null && level.getServer() != null) {
+-        if (lootTable != null && level instanceof ServerLevel serverLevel) {
 +        // Paper start - LootTable API
-+        lootReplenish: if (lootTable != null && level != null && level.getServer() != null) {
++        lootReplenish: if (lootTable != null && level instanceof ServerLevel serverLevel) {
 +            if (this.lootableData() != null && !this.lootableData().shouldReplenish(this, com.destroystokyo.paper.loottable.PaperLootableInventoryData.CONTAINER, player)) {
 +                if (forceClearLootTable) {
 +                    this.setLootTable(null);
@@ -54,7 +54,7 @@
 +                break lootReplenish;
 +            }
 +            // Paper end - LootTable API
-             LootTable lootTable1 = level.getServer().reloadableRegistries().getLootTable(lootTable);
+             LootTable lootTable1 = serverLevel.theGame().reloadableRegistries().getLootTable(lootTable);
              if (player instanceof ServerPlayer) {
                  CriteriaTriggers.GENERATE_LOOT.trigger((ServerPlayer)player, lootTable);
              }

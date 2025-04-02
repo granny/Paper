@@ -1,0 +1,23 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/item/ArmorStandItem.java b/net/minecraft/world/item/ArmorStandItem.java
+index 92975903b0dd15dbd758c3561a6cfb46e6394df6..962483d6f7225f13f121141882262d36dacad8cb 100644
+--- a/net/minecraft/world/item/ArmorStandItem.java
++++ b/net/minecraft/world/item/ArmorStandItem.java
+@@ -45,6 +45,12 @@ public class ArmorStandItem extends Item {
+ 
+                     float f = Mth.floor((Mth.wrapDegrees(context.getRotation() - 180.0F) + 22.5F) / 45.0F) * 45.0F;
+                     armorStand.snapTo(armorStand.getX(), armorStand.getY(), armorStand.getZ(), f, 0.0F);
++                    // CraftBukkit start
++                    if (org.bukkit.craftbukkit.event.CraftEventFactory.callEntityPlaceEvent(context, armorStand).isCancelled()) {
++                        if (context.getPlayer() != null) context.getPlayer().containerMenu.sendAllDataToRemote(); // Paper - Fix inventory desync
++                        return InteractionResult.FAIL;
++                    }
++                    // CraftBukkit end
+                     serverLevel.addFreshEntityWithPassengers(armorStand);
+                     level.playSound(
+                         null, armorStand.getX(), armorStand.getY(), armorStand.getZ(), SoundEvents.ARMOR_STAND_PLACE, SoundSource.BLOCKS, 0.75F, 0.8F

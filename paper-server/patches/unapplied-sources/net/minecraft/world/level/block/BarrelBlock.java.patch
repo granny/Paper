@@ -1,0 +1,20 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/BarrelBlock.java b/net/minecraft/world/level/block/BarrelBlock.java
+index 7b0a17eb6c0bcae9a31fd828a7fc89d88ba1f206..f7820265f10b78674acd13e6204b9212fd27b038 100644
+--- a/net/minecraft/world/level/block/BarrelBlock.java
++++ b/net/minecraft/world/level/block/BarrelBlock.java
+@@ -41,8 +41,7 @@ public class BarrelBlock extends BaseEntityBlock {
+ 
+     @Override
+     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+-        if (level instanceof ServerLevel serverLevel && level.getBlockEntity(pos) instanceof BarrelBlockEntity barrelBlockEntity) {
+-            player.openMenu(barrelBlockEntity);
++        if (level instanceof ServerLevel serverLevel && level.getBlockEntity(pos) instanceof BarrelBlockEntity barrelBlockEntity && player.openMenu(barrelBlockEntity).isPresent()) { // Paper - Fix InventoryOpenEvent cancellation
+             player.awardStat(Stats.OPEN_BARREL);
+             PiglinAi.angerNearbyPiglins(serverLevel, player, true);
+         }

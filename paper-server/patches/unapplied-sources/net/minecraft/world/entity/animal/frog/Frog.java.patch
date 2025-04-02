@@ -1,0 +1,24 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/animal/frog/Frog.java b/net/minecraft/world/entity/animal/frog/Frog.java
+index c757459eddc11fe0ec2548a4165e146fafb74e1b..8ffbe420528cd63f30f9b41d4fb0a6519042eadc 100644
+--- a/net/minecraft/world/entity/animal/frog/Frog.java
++++ b/net/minecraft/world/entity/animal/frog/Frog.java
+@@ -287,7 +287,12 @@ public class Frog extends Animal {
+ 
+     @Override
+     public void spawnChildFromBreeding(ServerLevel level, Animal mate) {
+-        this.finalizeSpawnChildFromBreeding(level, mate, null);
++        // Paper start - Add EntityFertilizeEggEvent event
++        final io.papermc.paper.event.entity.EntityFertilizeEggEvent result = org.bukkit.craftbukkit.event.CraftEventFactory.callEntityFertilizeEggEvent(this, mate);
++        if (result.isCancelled()) return;
++
++        this.finalizeSpawnChildFromBreeding(level, mate, null, result.getExperience()); // Paper - use craftbukkit call that takes experience amount
++        // Paper end - Add EntityFertilizeEggEvent event
+         this.getBrain().setMemory(MemoryModuleType.IS_PREGNANT, Unit.INSTANCE);
+     }
+ 

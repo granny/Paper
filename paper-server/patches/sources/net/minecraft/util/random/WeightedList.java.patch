@@ -21,8 +21,8 @@
      }
  
      public static class Builder<E> {
--        private final ImmutableList.Builder<Weighted<E>> result = ImmutableList.builder();
-+        protected final ImmutableList.Builder<Weighted<E>> result = ImmutableList.builder();
+-        private ImmutableList.Builder<Weighted<E>> result = ImmutableList.builder();
++        protected ImmutableList.Builder<Weighted<E>> result = ImmutableList.builder(); // Paper - protected
  
          public WeightedList.Builder<E> add(E element) {
              return this.add(element, 1);

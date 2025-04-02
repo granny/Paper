@@ -1,0 +1,30 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/level/block/LeverBlock.java b/net/minecraft/world/level/block/LeverBlock.java
+index 127e47607be42dc4686a891e8616bbfd1417180e..76f2a29f37187344324d68941307d58e6343b6ae 100644
+--- a/net/minecraft/world/level/block/LeverBlock.java
++++ b/net/minecraft/world/level/block/LeverBlock.java
+@@ -68,6 +68,19 @@ public class LeverBlock extends FaceAttachedHorizontalDirectionalBlock {
+                 makeParticle(blockState, level, pos, 1.0F);
+             }
+         } else {
++            // CraftBukkit start - Interact Lever
++            boolean powered = state.getValue(LeverBlock.POWERED); // Old powered state
++            org.bukkit.block.Block block = org.bukkit.craftbukkit.block.CraftBlock.at(level, pos);
++            int old = (powered) ? 15 : 0;
++            int current = (!powered) ? 15 : 0;
++
++            org.bukkit.event.block.BlockRedstoneEvent eventRedstone = new org.bukkit.event.block.BlockRedstoneEvent(block, old, current);
++            level.getCraftServer().getPluginManager().callEvent(eventRedstone);
++
++            if ((eventRedstone.getNewCurrent() > 0) != (!powered)) {
++                return InteractionResult.SUCCESS;
++            }
++            // CraftBukkit end
+             this.pull(state, level, pos, null);
+         }
+ 

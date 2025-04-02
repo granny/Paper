@@ -1,0 +1,23 @@
+From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
+From: File <noreply+automated@papermc.io>
+Date: Sun, 20 Apr 1997 06:37:42 -0700
+Subject: [PATCH] paper File Patches
+
+
+diff --git a/net/minecraft/world/entity/ai/behavior/TryLaySpawnOnWaterNearLand.java b/net/minecraft/world/entity/ai/behavior/TryLaySpawnOnWaterNearLand.java
+index e2848467446d04a4b4a6becd2a39e0eba029239e..011d82078041b51eb32b0b9f6ef3b9c0a95092ae 100644
+--- a/net/minecraft/world/entity/ai/behavior/TryLaySpawnOnWaterNearLand.java
++++ b/net/minecraft/world/entity/ai/behavior/TryLaySpawnOnWaterNearLand.java
+@@ -33,6 +33,12 @@ public class TryLaySpawnOnWaterNearLand {
+                                     BlockPos blockPos2 = blockPos1.above();
+                                     if (level.getBlockState(blockPos2).isAir()) {
+                                         BlockState blockState = spawnBlock.defaultBlockState();
++                                        // CraftBukkit start
++                                        if (!org.bukkit.craftbukkit.event.CraftEventFactory.callEntityChangeBlockEvent(entity, blockPos2, blockState)) {
++                                            isPregnant.erase();
++                                            return true;
++                                        }
++                                        // CraftBukkit end
+                                         level.setBlock(blockPos2, blockState, 3);
+                                         level.gameEvent(GameEvent.BLOCK_PLACE, blockPos2, GameEvent.Context.of(entity, blockState));
+                                         level.playSound(null, entity, SoundEvents.FROG_LAY_SPAWN, SoundSource.BLOCKS, 1.0F, 1.0F);
