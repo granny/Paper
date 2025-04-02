@@ -1,14 +1,6 @@
-From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
-From: File <noreply+automated@papermc.io>
-Date: Sun, 20 Apr 1997 06:37:42 -0700
-Subject: [PATCH] paper File Patches
-
-
-diff --git a/net/minecraft/util/parsing/packrat/Scope.java b/net/minecraft/util/parsing/packrat/Scope.java
-index 0bbae6eafea9cbea74bcf36b38936e4a68006e4f..e0113a3be3ef544966de659cba0403f7eb88108c 100644
 --- a/net/minecraft/util/parsing/packrat/Scope.java
 +++ b/net/minecraft/util/parsing/packrat/Scope.java
-@@ -281,4 +281,36 @@ public final class Scope {
+@@ -281,4 +_,36 @@
  
          return true;
      }

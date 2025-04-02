@@ -1,14 +1,6 @@
-From 8970c8040a87bb9da1d22cabfd5dafb79924ed1f Mon Sep 17 00:00:00 2001
-From: File <noreply+automated@papermc.io>
-Date: Sun, 20 Apr 1997 06:37:42 -0700
-Subject: [PATCH] paper File Patches
-
-
-diff --git a/net/minecraft/util/SpawnUtil.java b/net/minecraft/util/SpawnUtil.java
-index 300e9b7cdb23c61be622b6cdfa13058b0b31c1d4..cbee99d782af257d04a7da739f956886146c9542 100644
 --- a/net/minecraft/util/SpawnUtil.java
 +++ b/net/minecraft/util/SpawnUtil.java
-@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.StainedGlassPaneBlock;
+@@ -16,6 +_,7 @@
  import net.minecraft.world.level.block.state.BlockState;
  
  public class SpawnUtil {
@@ -16,7 +8,7 @@ index 300e9b7cdb23c61be622b6cdfa13058b0b31c1d4..cbee99d782af257d04a7da739f956886
      public static <T extends Mob> Optional<T> trySpawnMob(
          EntityType<T> entityType,
          EntitySpawnReason spawnReason,
-@@ -27,6 +28,24 @@ public class SpawnUtil {
+@@ -27,6 +_,24 @@
          SpawnUtil.Strategy strategy,
          boolean checkCollision
      ) {
@@ -41,7 +33,7 @@ index 300e9b7cdb23c61be622b6cdfa13058b0b31c1d4..cbee99d782af257d04a7da739f956886
          BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
  
          for (int i = 0; i < attempts; i++) {
-@@ -39,15 +58,32 @@ public class SpawnUtil {
+@@ -39,15 +_,32 @@
                      !checkCollision
                          || level.noCollision(entityType.getSpawnAABB(mutableBlockPos.getX() + 0.5, mutableBlockPos.getY(), mutableBlockPos.getZ() + 0.5))
                  )) {
